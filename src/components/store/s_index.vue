@@ -14,6 +14,12 @@
 
 
     <Modal  v-model="storeFlag" :title="store" @on-ok="ok">
+      <Input v-model="mdPerName" placeholder="联系人" style="width: 300px"></Input>
+      <br/>
+      <br/>
+      <Input v-model="mdPerPhone" placeholder="联系人电话" style="width: 300px"></Input>
+      <br/>
+      <br/>
       <Input v-model="mdName" placeholder="门店名称" style="width: 300px"></Input>
       <br/>
       <br/>
@@ -21,6 +27,18 @@
       <br/>
       <br/>
       <Input v-model="mdPhone" placeholder="门店电话" style="width: 300px"></Input>
+      <br/>
+      <br/>
+      <Select v-model="mdType" style="width:300px" placeholder="门店类型">
+        <Option value="1">美容院</Option>
+        <Option value="2">皮肤管理</Option>
+      </Select>
+      <br/>
+      <br/>
+      <Select v-model="mdWay" style="width:300px" placeholder="经营方式">
+        <Option value="1">单店</Option>
+        <Option value="2">连锁</Option>
+      </Select>
       <br/>
       <br/>
       <RadioGroup v-model="mdstaus" type="button" v-show="store=='编辑门店'">
@@ -41,8 +59,12 @@
         storeFlag: false,
         store: '新建门店',
         mdName: '',
+        mdPerName: '',
+        mdPerPhone: '',
         mdAddress: '',
         mdPhone: '',
+        mdType: '',
+        mdWay: '',
         serch: '',
         columns1: [
           {
