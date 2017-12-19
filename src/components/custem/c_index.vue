@@ -79,6 +79,33 @@
         </Col>
       </Row>
     </div>
+    <div class="content">
+      <Row>
+        <h3 class="title">问题列表
+           <Checkbox label="16">激活</Checkbox>
+        </h3>
+        <Col span="12">
+          <h4 class="titleB">问题1</h4>
+          <span>问题描述：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+          <br/>
+          <br/>
+          <span>解决方案：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+          <br/>
+          <br/>
+          <Button class="hy_btn" @click="setQue">设置解决方案</Button>
+        </Col>
+        <Col span="12">
+          <h4 class="titleB">问题2</h4>
+          <span>问题描述：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+          <br/>
+          <br/>
+          <span>解决方案：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+          <br/>
+          <br/>
+          <Button class="hy_btn" @click="setQue">设置解决方案</Button>
+        </Col>
+      </Row>
+    </div>
   </div>
 </template>
 
@@ -118,7 +145,10 @@
           this.indeterminate = false;
           this.checkAll = false;
         }
-      }
+      },
+      setQue() {
+
+      },
     }
   };
 </script>
