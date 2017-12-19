@@ -108,9 +108,24 @@
           },
           {
             title: '操作',
+            width: 200,
             key: 'action',
             render: (h, params) => {
               return h('div', [
+                h('Button', {
+                  props: {
+                    type: 'success',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: () => {
+                      this.check(params.row)
+                    }
+                  }
+                }, '诊断'),
                 h('Button', {
                   props: {
                     type: 'warning',
@@ -223,6 +238,9 @@
       },
       manerge(id) {
         this.$router.push({path:'s_datile/'+id});
+      },
+      check(data) {
+
       },
     },
   };

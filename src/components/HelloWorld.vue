@@ -2,10 +2,10 @@
   <div class="layout">
     <Row type="flex" style="height: 100%">
       <Col span="3" class="layout-menu-left">
-      <Menu active-name="s_index" theme="light" width="auto" :open-names="['1']" @on-select="go">
-        <div class="layout-logo-left">华扬咨询</div>
-        <MenuItem name="s_index"><i class="iconfont icon-homepage"></i>门店信息</MenuItem>
-      </Menu>
+        <Menu active-name="s_index" theme="light" width="auto" :open-names="['1']" @on-select="go">
+          <div class="layout-logo-left">华扬咨询</div>
+          <MenuItem name="s_index"><i class="iconfont icon-homepage"></i>门店信息</MenuItem>
+        </Menu>
       </Col>
       <Col span="21">
       <div class="layout-header">
