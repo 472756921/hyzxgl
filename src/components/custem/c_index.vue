@@ -20,10 +20,21 @@
           <h4 class="titleB">失去联系的因素</h4>
            <Checkbox label="5">顾客投诉</Checkbox>
            <Checkbox label="6">其他技师建立联系</Checkbox>
-           <Checkbox label="7">顾客联系N个月不到店</Checkbox>
+           <Checkbox label="7">顾客联系<input type="text" class="inputext" placeholder="填写"/> 个月不到店</Checkbox>
            <Checkbox label="8">顾客连续N月无现金</Checkbox>
         </Col>
         </CheckboxGroup>
+      </Row>
+    </div>
+    <div class="content">
+      <Row>
+        <h3 class="title">顾客到店员工护理顺序</h3>
+          <Col span="12">
+          <Checkbox label="1">指定技师</Checkbox>
+          <Checkbox label="2">上次服务者</Checkbox>
+          <Checkbox label="3">服务最多者</Checkbox>
+          <Checkbox label="4">店长顾问指定</Checkbox>
+          </Col>
       </Row>
     </div>
     <div class="content">
@@ -167,5 +178,10 @@
     padding: 1rem;
     overflow: auto;
     margin: 10px 0;
+  }
+  .inputext{
+    width: 30px;
+    margin: 0 3px;
+    border: 1px solid #ccc;
   }
 </style>
