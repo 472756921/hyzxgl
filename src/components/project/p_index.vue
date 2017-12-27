@@ -9,34 +9,69 @@
     <Table :columns="columns" :data="data"></Table>
 
     <Modal  v-model="storeFlag" :title="store" @on-ok="ok">
-      产品名称：<Input v-model="p_names" placeholder="名称" style="width: 300px"></Input>
+      产品名称：<Input v-model="pis.p_names" placeholder="名称" style="width: 300px"/>
       <br/>
       <br/>
-      推荐次数：<Input v-model="p_time" placeholder="推荐次数" style="width: 300px"></Input>
+      推荐次数：<Input v-model="pis.p_time" placeholder="推荐次数" style="width: 300px"/>
       <br/>
       <br/>
-      项目间隔：<Input v-model="p_jg" placeholder="间隔" style="width: 300px"></Input>
+      项目间隔：<Input v-model="pis.p_jg" placeholder="间隔" style="width: 300px"/>
       <br/>
       <br/>
-      现金价格：<Input v-model="p_xjjg" placeholder="现金价格" style="width: 300px"></Input>
+      项目单价：<Input v-model="pis.p_dj" placeholder="项目单价" style="width: 300px"/>
       <br/>
       <br/>
-      卡扣价格：<Input v-model="p_kkjg" placeholder="卡扣价格" style="width: 300px"></Input>
+      现金价格：<Input v-model="pis.p_xjjg" placeholder="现金价格" style="width: 300px"/>
       <br/>
       <br/>
-      赠送项目：<Input v-model="p_zsxm" placeholder="赠送项目" style="width: 300px"></Input>
+      卡扣价格：<Input v-model="pis.p_kkjg" placeholder="卡扣价格" style="width: 300px"/>
       <br/>
       <br/>
-      配赠尊享：<Input v-model="p_pzzx" placeholder="配赠尊享" style="width: 300px"></Input>
+      体验价格：<Input v-model="pis.p_tyjg" placeholder="体验价格" style="width: 300px"/>
       <br/>
       <br/>
-      赠现金券：<Input v-model="p_xjq" placeholder="赠现金券" style="width: 300px"></Input>
+      赠送项目：<Input v-model="pis.p_zsxm" placeholder="赠送项目" style="width: 300px"/>
       <br/>
       <br/>
-      介绍返利：<Input v-model="p_jsfl" placeholder="介绍返利" style="width: 300px"></Input>
+      配赠尊享：<Input v-model="pis.p_pzzx" placeholder="配赠尊享" style="width: 300px"/>
       <br/>
       <br/>
-      消费返利：<Input v-model="p_xffl" placeholder="消费返利" style="width: 300px"></Input>
+      赠现金券：<Input v-model="pis.p_xjq" placeholder="赠现金券" style="width: 300px"/>
+      <br/>
+      <br/>
+      介绍返利：<Input v-model="pis.p_jsfl" placeholder="介绍返利" style="width: 300px"/>
+      <br/>
+      <br/>
+      消费返利：<Input v-model="pis.p_xffl" placeholder="消费返利" style="width: 300px"/>
+      <br/>
+      <br/>
+      搭配项目：<Select v-model="model1" style="width:300px">
+                <Option :value="1">项目A</Option>
+                <Option :value="2">项目B</Option>
+                <Option :value="3">项目C</Option>
+              </Select>
+      <br/>
+      <br/>
+      项目类别：<Select v-model="model1" style="width:300px">
+                <Option :value="1">身体类</Option>
+                <Option :value="2">面护类</Option>
+              </Select>
+      <br/>
+      <br/>
+      项目属性：<Select v-model="model1" style="width:300px">
+                <Option :value="1">到店率</Option>
+                <Option :value="2">功效类</Option>
+                <Option :value="3">保养类</Option>
+              </Select>
+      <br/>
+      <br/>
+      解决问题：<Input v-model="pis.p_jjzz" type="textarea" :rows="2" placeholder="解决问题"/>
+      <br/>
+      <br/>
+      专业说明：<Input v-model="pis.p_zysm" type="textarea" :rows="2" placeholder="专业说明"/>
+      <br/>
+      <br/>
+      技术要点：<Input v-model="pis.p_jsyd" type="textarea" :rows="2" placeholder="技术要点"/>
     </Modal>
   </div>
 </template>
@@ -44,30 +79,30 @@
 <script type="text/ecmascript-6">
   export default {
     name: 'p_index',
-    watch:{
-      '$route' (to, from) {
-        this.getStatus(this.$route.params.type);
-      }
-    },
     created() {
-      const type = this.$route.params.type;
-      this.getStatus(type);
     },
     data(){
       return {
         storeFlag: false,
         store: '',
         card: '',
-        p_names : '',
-        p_jg : '',
-        p_time : '',
-        p_xjjg : '',
-        p_kkjg : '',
-        p_zsxm : '',
-        p_pzzx : '',
-        p_xjq : '',
-        p_jsfl : '',
-        p_xffl : '',
+        pis: {
+          p_names : '',
+          p_dg: '',
+          p_jg : '',
+          p_time : '',
+          p_xjjg : '',
+          p_kkjg : '',
+          p_tyjg: '',
+          p_zsxm : '',
+          p_pzzx : '',
+          p_xjq : '',
+          p_jsfl : '',
+          p_xffl : '',
+          p_jjzz: '',
+          p_zysm: '',
+          p_jsyd: '',
+        },
         columns: [
           {
             title: '项目',
@@ -82,6 +117,10 @@
             key: 'p_jg'
           },
           {
+            title: '单价',
+            key: 'p_dg'
+          },
+          {
             title: '现金价格',
             key: 'p_xjjg'
           },
@@ -90,24 +129,8 @@
             key: 'p_kkjg'
           },
           {
-            title: '配赠尊享',
-            key: 'p_pzzx'
-          },
-          {
-            title: '赠送项目',
-            key: 'p_zsxm',
-          },
-          {
-            title: '现金券',
-            key: 'p_xjq',
-          },
-          {
-            title: '介绍返利',
-            key: 'p_jsfl',
-          },
-          {
-            title: '消费返利',
-            key: 'p_xffl',
+            title: '体验价格',
+            key: 'p_tyjg'
           },
           {
             title: '操作',
@@ -133,7 +156,7 @@
         data: [
           {
             id: 12138,
-            p_names: '美白疗程卡',
+            p_names: '美白疗程',
             p_jg: '4天',
             p_time: '5次',
             p_xjjg: 2888,
@@ -146,7 +169,7 @@
           },
           {
             id: 12138,
-            p_names: '嫩肤疗程卡',
+            p_names: '嫩肤疗程',
             p_jg: '12天',
             p_time: '8次',
             p_xjjg: 6888,
@@ -164,48 +187,36 @@
       newEm() {
         this.storeFlag = true;
         this.store = '新建';
-        this.p_names = '';
-        this.p_jg = '';
-        this.p_time = '';
-        this.p_xjjg = '';
-        this.p_kkjg = '';
-        this.p_zsxm = '';
-        this.p_pzzx = '';
-        this.p_xjq = '';
-        this.p_jsfl = '';
-        this.p_xffl = '';
+        this.pis = {
+          p_names:'',
+          p_jg : '',
+          p_time : '',
+          p_xjjg : '',
+          p_kkjg : '',
+          p_zsxm : '',
+          p_pzzx : '',
+          p_xjq : '',
+          p_jsfl : '',
+          p_xffl : '',
+        };
+
       },
       ok() {},
       mannger(data) {
-        this.p_names = data.p_names;
-        this.p_jg = data.p_jg;
-        this.p_time = data.p_time;
-        this.p_xjjg = data.p_xjjg;
-        this.p_kkjg = data.p_kkjg;
-        this.p_zsxm = data.p_zsxm;
-        this.p_pzzx = data.p_pzzx;
-        this.p_xjq = data.p_xjq;
-        this.p_jsfl = data.p_jsfl;
-        this.p_xffl = data.p_xffl;
+        this.pis = {
+          p_names : data.p_names,
+          p_jg : data.p_jg,
+          p_time : data.p_time,
+          p_xjjg : data.p_xjjg,
+          p_kkjg : data.p_kkjg,
+          p_zsxm : data.p_zsxm,
+          p_pzzx : data.p_pzzx,
+          p_xjq : data.p_xjq,
+          p_jsfl : data.p_jsfl,
+          p_xffl : data.p_xffl,
+        };
         this.storeFlag = true;
         this.store = '修改';
-      },
-      getStatus(type) {
-        if( type == 1 ) {
-          this.card = '疗程卡';
-        }
-        if( type == 2 ) {
-          this.card = '疗程组合卡';
-        }
-        if( type == 3 ) {
-          this.card = '拓客卡';
-        }
-        if( type == 4 ) {
-          this.card = '体验卡';
-        }
-        if( type == 5 ) {
-          this.card = '产品卡';
-        }
       },
     }
   };

@@ -9,7 +9,21 @@
     <Table :columns="columns" :data="data"></Table>
 
     <Modal  v-model="storeFlag" :title="store" @on-ok="ok">
-      名称：<Input v-model="p_names" placeholder="名称" style="width: 300px"></Input>
+      <div class="com">
+        岗位名称：<Input v-model="p_names" placeholder="岗位名称" style="width: 300px"/>
+      </div>
+      <div class="com">
+        岗位职责：<Input v-model="p_dat" placeholder="岗位职责" style="width: 300px"/>
+      </div>
+      <div class="com">
+        工作流程：<Input v-model="p_dat" placeholder="工作流程" style="width: 300px"/>
+      </div>
+      <div class="com">
+        行为绩效与评分：<Input v-model="p_dat" placeholder="行为绩效与评分" style="width: 264px"/>
+      </div>
+      <div class="com">
+        技术考核：<Input v-model="p_dat" placeholder="技术考核" style="width: 300px"/>
+      </div>
       <br/>
       <br/>
     </Modal>
@@ -25,8 +39,6 @@
       }
     },
     created() {
-      const type = this.$route.params.type;
-      this.getStatus(type);
     },
     data(){
       return {
@@ -34,6 +46,7 @@
         store: '',
         card: '',
         p_names : '',
+        p_dat : '',
         id : '',
         columns: [
           {
@@ -43,6 +56,10 @@
           {
             title: '名称',
             key: 'p_names',
+          },
+          {
+            title: '职责',
+            key: 'p_jj',
           },
           {
             title: '操作',
@@ -91,24 +108,12 @@
         this.storeFlag = true;
         this.store = '修改';
       },
-      getStatus(type) {
-        if( type == 1 ) {
-          this.card = '技术等级';
-        }
-        if( type == 2 ) {
-          this.card = '行政等级';
-        }
-        if( type == 3 ) {
-          this.card = '员工优先权';
-        }
-        if( type == 4 ) {
-          this.card = '薪酬方式';
-        }
-      },
     }
   };
 </script>
 
 <style scoped>
-
+  .com{
+    margin: 10px 0;
+  }
 </style>

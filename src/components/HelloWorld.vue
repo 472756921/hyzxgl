@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <Row type="flex" style="height: 100%">
+    <Row type="flex">
       <Col span="3" class="layout-menu-left">
         <Menu active-name="s_index" theme="light" width="auto" :open-names="['1']" @on-select="go">
           <div class="layout-logo-left">华扬咨询</div>
@@ -46,7 +46,11 @@
     },
   }
 </script>
-
+<style>
+  .ivu-row-flex{
+    min-height: 100%!important;
+  }
+</style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .ivu-menu-item-active:not(.ivu-menu-submenu){
@@ -60,6 +64,9 @@
     font-weight: 600;
     color: #66368C;
   }
+  .flex{
+    min-height: 100%;
+  }
   .title{
     font-weight: 600;
     font-size: 20px;
@@ -71,18 +78,16 @@
     border: 1px solid #d7dde4;
     background: #f5f7f9;
     position: relative;
-    height: 100%;
+    min-height: 100%;
   }
   .layout-content{
-    min-height: 300px;
     margin: 10px;
-    overflow: hidden;
     background: #fff;
     border-radius: 4px;
-    height: 85%;
   }
   .layout-content-main{
     padding: 10px;
+    min-height: 100%;
   }
   .layout-copy{
     text-align: center;
@@ -91,6 +96,7 @@
   }
   .layout-menu-left{
     background: #fff;
+    min-height: 100%;
   }
   .layout-header{
     background: #fff;

@@ -42,7 +42,7 @@ export default new Router({
               component: m_index_info,
             },
             {
-              path: 'p_index/:type',
+              path: 'p_index',
               name: 'p_index',
               component: p_index,
             },
@@ -52,7 +52,7 @@ export default new Router({
               component: c_index,
             },
             {
-              path: 'e_index/:type',
+              path: 'e_index',
               name: 'e_index',
               component: e_index,
             },

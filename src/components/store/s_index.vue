@@ -14,19 +14,19 @@
 
 
     <Modal  v-model="storeFlag" :title="store" @on-ok="ok">
-      <Input v-model="mdPerName" placeholder="联系人" style="width: 300px"></Input>
+      <Input v-model="mdPerName" placeholder="联系人" style="width: 300px"/>
       <br/>
       <br/>
-      <Input v-model="mdPerPhone" placeholder="联系人电话" style="width: 300px"></Input>
+      <Input v-model="mdPerPhone" placeholder="联系人电话" style="width: 300px"/>
       <br/>
       <br/>
-      <Input v-model="mdName" placeholder="门店名称" style="width: 300px"></Input>
+      <Input v-model="mdName" placeholder="门店名称" style="width: 300px"/>
       <br/>
       <br/>
-      <Input v-model="mdAddress" placeholder="门店地址" style="width: 300px"></Input>
+      <Input v-model="mdAddress" placeholder="门店地址" style="width: 300px"/>
       <br/>
       <br/>
-      <Input v-model="mdPhone" placeholder="门店电话" style="width: 300px"></Input>
+      <Input v-model="mdPhone" placeholder="门店电话" style="width: 300px"/>
       <br/>
       <br/>
       <Select v-model="mdType" style="width:300px" placeholder="门店类型">
@@ -47,16 +47,108 @@
         <Radio label="3">不再管理</Radio>
       </RadioGroup>
     </Modal>
+
+    <Modal  v-model="questionFlag" title="门店问题分析" @on-ok="ok" width="30%">
+      联系人：<Input v-model="question.name" placeholder="联系人" style="width: 300px"/>
+      &nbsp;
+      联系人电话：<Input v-model="question.phone" placeholder="联系人电话" style="width: 275px"/>
+      <br/>
+      <br/>
+      省份: <Input v-model="mdName" placeholder="省份" style="width: 316px"/>
+      &nbsp;
+      店平方数：<Input v-model="mdAddress" placeholder="店平方数" style="width: 288px"/>
+      <br/>
+      <br/>
+      年房租：<Input v-model="mdPhone" placeholder="年房租" style="width: 300px"/>
+      &nbsp;
+      几家店：<Input v-model="mdPhone" placeholder="几家店" style="width: 300px"/>
+      <br/>
+      <br/>
+      房间数量：<Input v-model="mdPhone" placeholder="房间数量" style="width:288px"/>
+      &nbsp;
+      床位数量：<Input v-model="mdPhone" placeholder="床位数量" style="width: 288px"/>
+      <br/>
+      <br/>
+      员工数量：<Input v-model="mdPhone" placeholder="员工数量" style="width:288px"/>
+      &nbsp;
+      有无销售顾问：<Input v-model="mdPhone" placeholder="有无销售顾问" style="width: 264px"/>
+      <br/>
+      <br/>
+      有无店长：<Input v-model="mdPhone" placeholder="有无店长" style="width: 288px"/>
+      &nbsp;
+      连续十二个月店内现金流水：<Input v-model="mdPhone" placeholder="连续十二个月店内现金流水" style="width: 192px"/>
+      <br/>
+      <br/>
+      连续十二个月店内实操：<Input v-model="mdPhone" placeholder="连续十二个月店内实操" style="width: 216px"/>
+      &nbsp;
+      连续十二个月店内客流：<Input v-model="mdPhone" placeholder="连续十二个月店内客流" style="width: 216px"/>
+      <br/>
+      <br/>
+      连续十二个月店内产品业绩：<Input v-model="mdPhone" placeholder="连续十二个月店内产品业绩" style="width: 192px"/>
+      &nbsp;
+      直营产品品牌：<Input v-model="mdPhone" placeholder="直营产品品牌" style="width: 264px"/>
+      <br/>
+      <br/>
+      直营产品品牌数量：<Input v-model="mdPhone" placeholder="直营产品品牌数量" style="width: 240px"/>
+      &nbsp;
+      仪器种类：<Input v-model="mdPhone" placeholder="仪器种类" style="width: 288px"/>
+      <br/>
+      <br/>
+      仪器数量：<Input v-model="mdPhone" placeholder="仪器数量" style="width: 288px"/>
+      &nbsp;
+      仪器品牌：<Input v-model="mdPhone" placeholder="仪器品牌" style="width: 288px"/>
+      <br/>
+      <br/>
+      薪资制度：<Input v-model="mdPhone" placeholder="薪资制度" style="width: 288px"/>
+      &nbsp;
+      员工12个月薪资：<Input v-model="mdPhone" placeholder="员工12个月薪资" style="width: 250px"/>
+      <br/>
+      <br/>
+      项目价格单：<Input v-model="mdPhone" placeholder="项目价格单" style="width: 276px"/>
+      &nbsp;
+      卡项：<Input v-model="mdPhone" placeholder="卡项" style="width: 312px"/>
+      <br/>
+      <br/>
+      拓客卡：<Input v-model="mdPhone" placeholder="拓客卡" style="width: 300px"/>
+      &nbsp;
+      留客卡：<Input v-model="mdPhone" placeholder="留客卡" style="width: 300px"/>
+      <br/>
+      <br/>
+      主要拓客方式：<Input v-model="mdPhone" placeholder="主要拓客方式" style="width: 264px"/>
+      &nbsp;
+      每个月进店新顾客人数：<Input v-model="mdPhone" placeholder="每个月进店新顾客人数" style="width: 216px"/>
+      <br/>
+      <br/>
+      成交人数：<Input v-model="mdPhone" placeholder="成交人数" style="width: 288px"/>
+      &nbsp;
+      第一次成交：<Input v-model="mdPhone" placeholder="第一次成交" style="width: 276px"/>
+      <br/>
+      <br/>
+      第二次成交：<Input v-model="mdPhone" placeholder="第二次成交" style="width: 276px"/>
+      &nbsp;
+      现有顾客数量：<Input v-model="mdPhone" placeholder="现有顾客数量" style="width: 265px"/>
+      <br/>
+      <br/>
+      老顾客续费人数：<Input v-model="mdPhone" placeholder="老顾客续费人数" style="width: 252px"/>
+      <br/>
+      <br/>
+      目前自己认为经营的最大问题是什么？：<Input v-model="mdPhone" placeholder="目前自己认为经营的最大问题是什么？" style="width: 265px"/>
+      <br/>
+      <br/>
+    </Modal>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import { findStoreList } from '../../interface';
+
   export default {
     name: 's_index',
     data () {
       return {
         mdstaus: 1,
         storeFlag: false,
+        questionFlag: false,
         store: '新建门店',
         mdName: '',
         mdPerName: '',
@@ -66,6 +158,42 @@
         mdType: '',
         mdWay: '',
         serch: '',
+        question: {
+          name: '',
+          phone: '',
+          pr: '',
+          area: '',
+          fz: '',
+          numb: '',
+          roomNum: '',
+          bedNum: '',
+          erNum: '',
+          isGW: '',
+          isDZ: '',
+          xjls: '',
+          shic: '',
+          kl: '',
+          cpyj: '',
+          zupp: '',
+          zuppNum: '',
+          yqzl: '',
+          yqNum: '',
+          yqPp: '',
+          xzZD: '',
+          e12xzZD: '',
+          prp: '',
+          prpC: '',
+          tkc: '',
+          lkc: '',
+          tkfs: '',
+          xgknum: '',
+          cjrs: '',
+          dycj: '',
+          decj: '',
+          xygkl: '',
+          lgkxfrs: '',
+          maxTrub: '',
+        },
         columns1: [
           {
             title: '编号',
@@ -73,7 +201,7 @@
           },
           {
             title: '门店',
-            key: 'name'
+            key: 'storeName'
           },
           {
             title: '地址',
@@ -81,11 +209,11 @@
           },
           {
             title: '联系电话',
-            key: 'phone'
+            key: 'telephone'
           },
           {
             title: '人流量',
-            key: 'rll'
+            key: 'numberOfCustomers'
           },
           {
             title: '管理周期',
@@ -202,7 +330,26 @@
         ]
       }
     },
+    created() {
+      sessionStorage.setItem("authToken",'73d04ca9-8fa9-419f-a2d2-cc19da374dc6-s');
+      this.getList();
+    },
     methods: {
+      getList() {
+        this.$ajax({
+          method: 'GET',
+          dataType: 'JSON',
+          contentType: 'application/json;charset=UTF-8',
+          headers: {
+            "authToken": sessionStorage.getItem('authToken')
+          },
+          url: findStoreList(),
+        }).then((res) => {
+          this.data1 = res.data.results;
+//          this.questionList = res.data;
+        }).catch((error) => {
+        });
+      },
       rowClassName (row, index) {
         if (row.status === 1) {
           return 'jyinfo';
@@ -240,7 +387,7 @@
         this.$router.push({path:'s_datile/'+id});
       },
       check(data) {
-
+        this.questionFlag = true;
       },
     },
   };

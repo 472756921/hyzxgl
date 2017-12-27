@@ -12,7 +12,7 @@
         <Col span="12">
           <h4 class="titleB">建立联系的方式</h4>
            <Checkbox label="1">排他性点单</Checkbox>
-           <Checkbox label="2">某技师连续服务N次</Checkbox>
+           <Checkbox label="2">某技师连续服务 <input type="text" class="inputext" placeholder="填写"/> 次</Checkbox>
            <Checkbox label="3">有联系的顾客介绍</Checkbox>
            <Checkbox label="4">技师直接拓客</Checkbox>
         </Col>
@@ -20,8 +20,8 @@
           <h4 class="titleB">失去联系的因素</h4>
            <Checkbox label="5">顾客投诉</Checkbox>
            <Checkbox label="6">其他技师建立联系</Checkbox>
-           <Checkbox label="7">顾客联系<input type="text" class="inputext" placeholder="填写"/> 个月不到店</Checkbox>
-           <Checkbox label="8">顾客连续N月无现金</Checkbox>
+           <Checkbox label="7">顾客联系 <input type="text" class="inputext" placeholder="填写"/> 个月不到店</Checkbox>
+           <Checkbox label="8">顾客连续 <input type="text" class="inputext" placeholder="填写"/> 月无现金</Checkbox>
         </Col>
         </CheckboxGroup>
       </Row>
@@ -29,12 +29,36 @@
     <div class="content">
       <Row>
         <h3 class="title">顾客到店员工护理顺序</h3>
-          <Col span="12">
-          <Checkbox label="1">指定技师</Checkbox>
-          <Checkbox label="2">上次服务者</Checkbox>
-          <Checkbox label="3">服务最多者</Checkbox>
-          <Checkbox label="4">店长顾问指定</Checkbox>
-          </Col>
+        <Col span="24">
+          <span>第一规则：</span>
+          <Select style="width:100px">
+            <Option value="1" :key="1">指定技师</Option>
+            <Option value="2" :key="1">上次服务者</Option>
+            <Option value="3" :key="1">服务最多者</Option>
+            <Option value="4" :key="1">店长指定</Option>
+          </Select>
+          <span>第二规则：</span>
+          <Select style="width:100px">
+            <Option value="1" :key="1">指定技师</Option>
+            <Option value="2" :key="1">上次服务者</Option>
+            <Option value="3" :key="1">服务最多者</Option>
+            <Option value="4" :key="1">店长指定</Option>
+          </Select>
+          <span>第三规则：</span>
+          <Select style="width:100px">
+            <Option value="1" :key="1">指定技师</Option>
+            <Option value="2" :key="1">上次服务者</Option>
+            <Option value="3" :key="1">服务最多者</Option>
+            <Option value="4" :key="1">店长指定</Option>
+          </Select>
+          <span>第四规则：</span>
+          <Select style="width:100px">
+            <Option value="1" :key="1">指定技师</Option>
+            <Option value="2" :key="1">上次服务者</Option>
+            <Option value="3" :key="1">服务最多者</Option>
+            <Option value="4" :key="1">店长指定</Option>
+          </Select>
+        </Col>
       </Row>
     </div>
     <div class="content">
@@ -50,12 +74,14 @@
         </Col>
         <Col span="8">
           <h4 class="titleB">消费实力</h4>
-           <Checkbox label="13">大客户（消费达N元）</Checkbox>
-           <Checkbox label="14">普通客户（消费不足N元）</Checkbox>
+           <Checkbox label="13">大客户（消费达 <input type="text" class="inputext" placeholder="填写"/> 元）</Checkbox>
+           <Checkbox label="14">普通客户（消费不足 <input type="text" class="inputext" placeholder="填写"/> 元）</Checkbox>
         </Col>
         <Col span="8">
-          <h4 class="titleB">睡眠客户</h4>
-           <Checkbox label="15">睡眠客户</Checkbox>
+          <h4 class="titleB">客户活跃度</h4>
+           <Checkbox label="15">常到店客户 （连续 <input type="text" class="inputext" placeholder="填写"/> 月至少到店一次）</Checkbox>
+           <Checkbox label="15">睡眠客户 （连续 <input type="text" class="inputext" placeholder="填写"/> 月以上未到店）</Checkbox>
+           <Checkbox label="15">冻结客户 （连续 <input type="text" class="inputext" placeholder="填写"/> 月以上未到店）</Checkbox>
         </Col>
       </Row>
     </div>
@@ -91,32 +117,45 @@
       </Row>
     </div>
     <div class="content">
-      <Row>
+      <Row :gutter="16">
         <h3 class="title">问题列表
            <Checkbox label="16">激活</Checkbox>
+          <Button class="hy_btn" @click="setQue(false)">添加问题</Button>
         </h3>
         <Col span="12">
           <h4 class="titleB">问题1</h4>
-          <span>问题描述：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+          <div class="askText">问题描述：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
           <br/>
           <br/>
-          <span>解决方案：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+          <div class="askText">解决方案：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
           <br/>
           <br/>
-          <Button class="hy_btn" @click="setQue">设置解决方案</Button>
+          <Button class="hy_btn" @click="setQue(true)">设置解决方案</Button>
         </Col>
         <Col span="12">
           <h4 class="titleB">问题2</h4>
-          <span>问题描述：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+          <div class="askText">问题描述：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
           <br/>
           <br/>
-          <span>解决方案：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+          <div class="askText">解决方案：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
           <br/>
           <br/>
-          <Button class="hy_btn" @click="setQue">设置解决方案</Button>
+          <Button class="hy_btn" @click="setQue(true)">设置解决方案</Button>
         </Col>
       </Row>
     </div>
+
+    <Modal v-model="f_jj" title="解决方案" @on-ok="ok">
+      <div>问题描述：</div>
+      <Input v-model="ques" type="textarea" :rows="4" :disabled="setType" placeholder="请输入问题描述"/>
+      <br/>
+      <br/>
+      <div>解决方案：</div>
+      <Input v-model="plan" type="textarea" :rows="4" placeholder="请输入解决方案"/>
+    </Modal>
+
+
+
   </div>
 </template>
 
@@ -127,6 +166,10 @@
       return {
         indeterminate: true,
         checkAll: false,
+        f_jj: false,
+        plan: '',
+        ques: '',
+        setType: false,
         checkAllGroup: [],
       };
     },
@@ -157,14 +200,20 @@
           this.checkAll = false;
         }
       },
-      setQue() {
-
+      setQue(type) {
+        this.setType = type;
+        this.f_jj = true;
       },
+      ok(){},
     }
   };
 </script>
 
 <style scoped>
+  .askText{
+    widht:100%;
+    word-wrap: break-word;
+  }
   .title{
     border-bottom: 1px solid #eee;
     margin: 0 0 10px 0;
@@ -176,7 +225,6 @@
   .content{
     border: 1px solid #e3e3e3;
     padding: 1rem;
-    overflow: auto;
     margin: 10px 0;
   }
   .inputext{
