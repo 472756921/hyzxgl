@@ -5,6 +5,7 @@
         <Menu active-name="s_index" theme="light" width="auto" :open-names="['1']" @on-select="go">
           <div class="layout-logo-left">华扬咨询</div>
           <MenuItem name="s_index"><i class="iconfont icon-homepage"></i>门店信息</MenuItem>
+          <MenuItem name="m_index_info_gl"><i class="iconfont icon-document"></i>用户信息收集</MenuItem>
         </Menu>
       </Col>
       <Col span="21">

@@ -9,19 +9,14 @@
       <Table :columns="columns" :data="data"></Table>
 
       <Modal  v-model="storeFlag" :title="store" @on-ok="ok">
-        收集：
-        <Select v-model="sjxx" style="width:200px">
-          <Option value="星座" >星座</Option>
-          <Option value="爱好" >爱好</Option>
-          <Option value="颜色" >颜色</Option>
-        </Select>
+        收集：<Input v-model="sjxx" placeholder="收集信息" style="width: 300px"></Input>
       </Modal>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
   export default {
-    name: 'm_index_info',
+    name: 'm_index_info_gl',
     data() {
       return {
         storeFlag: false,
@@ -53,7 +48,7 @@
                     this.mannger(params.row)
                   }
                 }
-              }, '删除');
+              }, '修改');
             }
           }
         ],
@@ -72,10 +67,9 @@
     methods: {
       ok() {},
       mannger(data) {
-        let s = confirm('确认删除？');
-        if (s){
-          this.data.splice(data._index, 1);
-        }
+        this.storeFlag = true;
+        this.sjxx = data.item;
+        this.store = '修改条目';
       },
       newEm(data) {
         this.storeFlag = true;

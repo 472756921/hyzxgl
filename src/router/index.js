@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import HelloWorld from '@/components/HelloWorld';
 
+import m_index_info_gl from '@/components/store/m_index_info_gl';
 import s_index from '@/components/store/s_index';
 import s_datile from '@/components/store/s_datile';
 import m_index_set from '@/components/member/m_index_set';
@@ -20,6 +21,11 @@ export default new Router({
       name: 'Hello',
       component: HelloWorld,
       children: [
+        {
+          path: 'm_index_info_gl',
+          name: 'm_index_info_gl',
+          component: m_index_info_gl,
+        },
         {
           path: '/s_index',
           name: 's_index',
@@ -59,6 +65,6 @@ export default new Router({
           ],
         },
       ],
-    }
+    },
   ]
 })
