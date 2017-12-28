@@ -17,7 +17,7 @@
         <Button class="hy_btn" @click="got('p_index')">项目管理</Button>
       </Col>
       <Col span="3">
-        <Button class="hy_btn" @click="got('e_index')">员工管理</Button>
+        <Button class="hy_btn" @click="got('e_index')">岗位管理</Button>
       </Col>
     </Row>
     <router-view></router-view>

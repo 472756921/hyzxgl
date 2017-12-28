@@ -36,3 +36,25 @@ export const findProjectList = function () {
   const API = host + URL;
   return API;
 };
+//员工管理
+export const findPostList = function () {
+  const URL = '/app/api/post/findPostList';
+  const API = host + URL;
+  return API;
+};
+export const findPostsave = function () {
+  const URL = '/app/api/post/save';
+  const API = host + URL;
+  return API;
+};
+export const findPostedit = function () {
+  const URL = '/app/api/post/edit';
+  const API = host + URL;
+  return API;
+};
+//客户管理
+export const findStoreById = function () {
+  const URL = '/app/api/post/findStoreById';
+  const API = host + URL;
+  return API;
+};

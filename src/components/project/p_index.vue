@@ -52,13 +52,13 @@
               </Select>
       <br/>
       <br/>
-      项目类别：<Select v-model="model1" style="width:300px">
+      项目类别：<Select v-model="pis.type" style="width:300px">
                 <Option :value="1">身体类</Option>
                 <Option :value="2">面护类</Option>
               </Select>
       <br/>
       <br/>
-      项目属性：<Select v-model="model1" style="width:300px">
+      项目属性：<Select v-model="pis.projectAttributes" style="width:300px">
                 <Option :value="1">到店率</Option>
                 <Option :value="2">功效类</Option>
                 <Option :value="3">保养类</Option>
@@ -105,6 +105,9 @@
           effect: '',
           projectDescription: '',
           technicalPoints: '',
+          collocationItems: '',
+          type: '',
+          projectAttributes: '',
         },
         columns: [
           {

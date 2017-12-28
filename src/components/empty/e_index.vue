@@ -2,27 +2,26 @@
   <div>
     <Row :gutter="24" class="option">
       <Col span="2">
-      <Button class="hy_btn" @click="newEm">新建{{card}}</Button>
+      <Button class="hy_btn" @click="newEm">新建</Button>
       </Col>
     </Row>
-    <h3 style="text-align: center;padding: .6rem;">{{card}}</h3>
     <Table :columns="columns" :data="data"></Table>
 
-    <Modal  v-model="storeFlag" :title="store" @on-ok="ok">
+    <Modal  v-model="storeFlag" :title="store" @on-ok="optai">
       <div class="com">
-        岗位名称：<Input v-model="p_names" placeholder="岗位名称" style="width: 300px"/>
+        岗位名称：<Input v-model="job.postName" placeholder="岗位名称" style="width: 300px"/>
       </div>
       <div class="com">
-        岗位职责：<Input v-model="p_dat" placeholder="岗位职责" style="width: 300px"/>
+        岗位职责：<Input v-model="job.postDuties" placeholder="岗位职责" style="width: 300px"/>
       </div>
       <div class="com">
-        工作流程：<Input v-model="p_dat" placeholder="工作流程" style="width: 300px"/>
+        工作流程：<Input v-model="job.workflow" placeholder="工作流程" style="width: 300px"/>
       </div>
       <div class="com">
-        行为绩效与评分：<Input v-model="p_dat" placeholder="行为绩效与评分" style="width: 264px"/>
+        行为绩效与评分：<Input v-model="job.achievements" placeholder="行为绩效与评分" style="width: 264px"/>
       </div>
       <div class="com">
-        技术考核：<Input v-model="p_dat" placeholder="技术考核" style="width: 300px"/>
+        技术考核：<Input v-model="job.technicalExamination" placeholder="技术考核" style="width: 300px"/>
       </div>
       <br/>
       <br/>
@@ -31,23 +30,27 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {findPostList, findPostsave, findPostedit} from '../../interface';
+
   export default {
     name: 'e_index',
-    watch:{
-      '$route' (to, from) {
-        this.getStatus(this.$route.params.type);
-      }
-    },
     created() {
+      this.getList(1);
     },
     data(){
       return {
         storeFlag: false,
         store: '',
-        card: '',
-        p_names : '',
-        p_dat : '',
-        id : '',
+        job: {
+          id : '',
+          storeId: '',
+          postName: '',
+          postDuties: '',
+          workflow: '',
+          achievements: '',
+          technicalExamination: '',
+          checkWorkAttendance: '',
+        },
         columns: [
           {
             title: '序号',
@@ -55,11 +58,11 @@
           },
           {
             title: '名称',
-            key: 'p_names',
+            key: 'postName',
           },
           {
             title: '职责',
-            key: 'p_jj',
+            key: 'postDuties',
           },
           {
             title: '操作',
@@ -82,31 +85,66 @@
             }
           }
         ],
-        data: [
-          {
-            id: 12138,
-            p_names: '测试',
-          },
-          {
-            id: 12138,
-            p_names: '测试',
-          },
-        ]
+        data: [],
       };
     },
     methods: {
+      getList(page) {
+        this.$ajax({
+          method: 'GET',
+          dataType: 'JSON',
+          contentType: 'application/json;charset=UTF-8',
+          headers: {
+            "authToken": sessionStorage.getItem('authToken')
+          },
+          url: findPostList()+"?id="+this.$route.params.id+"&page="+page+"&pageSize=30",
+        }).then((res) => {
+          this.data = res.data.results;
+        }).catch((error) => {
+        });
+      },
+      optai() {
+        if(this.job.postName == '' || this.job.postDuties == '' || this.job.workflow == '' || this.job.achievements == '' || this.job.technicalExamination == ''){
+          this.$Message.warning('请完整填写内容');
+          return false;
+        }
+        this.job.storeId = this.$route.params.id;
+        let URL = findPostsave();
+        if( this.store == '修改') {
+          URL = findPostedit();
+        };
+        this.$ajax({
+          method: 'POST',
+          dataType: 'JSON',
+          contentType: 'application/json;charset=UTF-8',
+          headers: {
+            "authToken": sessionStorage.getItem('authToken')
+          },
+          data: this.job,
+          url: URL,
+        }).then((res) => {
+          this.$Message.success('操作成功');
+        }).catch((error) => {
+        });
+      },
       newEm() {
         this.storeFlag = true;
         this.store = '新建';
-        this.p_names = '';
-        this.id = '';
+        this.job = {
+          id : '',
+            postName: '',
+            postDuties: '',
+            workflow: '',
+            achievements: '',
+            technicalExamination: '',
+            checkWorkAttendance: '',
+        };
       },
       ok() {},
       mannger(data) {
-        this.p_names = data.p_names;
-        this.id = data.id;
         this.storeFlag = true;
         this.store = '修改';
+        this.job = data;
       },
     }
   };
