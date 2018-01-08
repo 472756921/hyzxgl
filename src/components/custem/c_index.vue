@@ -116,43 +116,6 @@
         </Col>
       </Row>
     </div>
-    <div class="content">
-      <Row :gutter="16">
-        <h3 class="title">问题列表
-           <Checkbox label="16">激活</Checkbox>
-          <Button class="hy_btn" @click="setQue(false)">添加问题</Button>
-        </h3>
-        <Col span="12">
-          <h4 class="titleB">问题1</h4>
-          <div class="askText">问题描述：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
-          <br/>
-          <br/>
-          <div class="askText">解决方案：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
-          <br/>
-          <br/>
-          <Button class="hy_btn" @click="setQue(true)">设置解决方案</Button>
-        </Col>
-        <Col span="12">
-          <h4 class="titleB">问题2</h4>
-          <div class="askText">问题描述：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
-          <br/>
-          <br/>
-          <div class="askText">解决方案：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
-          <br/>
-          <br/>
-          <Button class="hy_btn" @click="setQue(true)">设置解决方案</Button>
-        </Col>
-      </Row>
-    </div>
-
-    <Modal v-model="f_jj" title="解决方案" @on-ok="ok">
-      <div>问题描述：</div>
-      <Input v-model="ques" type="textarea" :rows="4" :disabled="setType" placeholder="请输入问题描述"/>
-      <br/>
-      <br/>
-      <div>解决方案：</div>
-      <Input v-model="plan" type="textarea" :rows="4" placeholder="请输入解决方案"/>
-    </Modal>
 
 
 
@@ -166,10 +129,8 @@
       return {
         indeterminate: true,
         checkAll: false,
-        f_jj: false,
         plan: '',
         ques: '',
-        setType: false,
         checkAllGroup: [],
       };
     },
@@ -199,10 +160,6 @@
           this.indeterminate = false;
           this.checkAll = false;
         }
-      },
-      setQue(type) {
-        this.setType = type;
-        this.f_jj = true;
       },
       ok(){},
     }

@@ -5,10 +5,7 @@
         <Button class="hy_btn" @click="got('m_index_set')">会员权益设置</Button>
       </Col>
       <Col span="3">
-        <Button class="hy_btn" @click="got('m_index_info')">收集会员信息</Button>
-      </Col>
-      <Col span="3">
-        <Button class="hy_btn" @click="got('c_index')">客户管理</Button>
+        <Button class="hy_btn" @click="got('c_index')">顾客管理</Button>
       </Col>
       <Col span="3">
         <Button class="hy_btn" @click="wait">卡项管理</Button>
@@ -18,6 +15,9 @@
       </Col>
       <Col span="3">
         <Button class="hy_btn" @click="got('e_index')">岗位管理</Button>
+      </Col>
+      <Col span="3">
+      <Button class="hy_btn" @click="wait">薪资管理</Button>
       </Col>
     </Row>
     <router-view></router-view>
