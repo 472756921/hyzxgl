@@ -2,7 +2,7 @@
   <div>
     <Row :gutter="24" class="option">
       <Col span="2">
-      <Button class="hy_btn" @click="newEm">新建</Button>
+        <Button class="hy_btn" @click="newEm">新建</Button>
       </Col>
     </Row>
     <Table :columns="columns" :data="data"></Table>

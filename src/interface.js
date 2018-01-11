@@ -54,7 +54,12 @@ export const findPostedit = function () {
 };
 //客户管理
 export const findStoreById = function () {
-  const URL = '/app/api/post/findStoreById';
+  const URL = '/app/api/store/findStoreById';
+  const API = host + URL;
+  return API;
+};
+export const editStoreCustomer = function () {
+  const URL = '/app/api/store/editStoreCustomer';
   const API = host + URL;
   return API;
 };
