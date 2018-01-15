@@ -9,24 +9,23 @@
         </Menu>
       </Col>
       <Col span="21">
-      <div class="layout-header">
-        <span class="title">管理系统</span>
-        <div class="adminInfo">
-          <Avatar icon="person" size="large" style="vertical-align: middle"/>
-          <span class="user"> &nbsp;&nbsp;刘德华 <Icon type="arrow-down-b"></Icon>
-          </span>
-          <span> &nbsp;&nbsp;|&nbsp;&nbsp; </span>
-          <span class="user">退出&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <div class="layout-header">
+          <span class="title">管理系统</span>
+          <div class="adminInfo">
+            <Avatar icon="person" size="large" style="vertical-align: middle"/>
+            <span class="user"> &nbsp;&nbsp;刘德华 <Icon type="arrow-down-b"></Icon></span>
+            <span> &nbsp;&nbsp;|&nbsp;&nbsp; </span>
+            <span class="user">退出&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          </div>
         </div>
-      </div>
-      <div class="layout-content">
-        <div class="layout-content-main">
-          <router-view></router-view>
+        <div class="layout-content">
+          <div class="layout-content-main">
+            <router-view></router-view>
+          </div>
         </div>
-      </div>
-      <div class="layout-copy">
-        2017-2018 &copy; BENSON
-      </div>
+        <div class="layout-copy">
+          2017-2018 &copy; BENSON
+        </div>
       </Col>
     </Row>
   </div>

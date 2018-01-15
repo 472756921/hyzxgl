@@ -23,6 +23,41 @@
       <div class="com">
         技术考核：<Input v-model="job.technicalExamination" placeholder="技术考核" style="width: 300px"/>
       </div>
+      <div class="com">
+        员工等级：<Input v-model="job.classes" placeholder="员工等级" style="width: 300px"/>
+      </div>
+      <div class="com">
+        员工考勤：
+        <Select v-model="job.kq" style="width:296px">
+          <Option value="是" >是</Option>
+          <Option value="否" >否</Option>
+        </Select>
+      </div>
+      <div class="com">
+        员工数据排名：
+        <Select v-model="job.multiMonthCash" style="width:274px">
+          <Option value="单月现金" >单月现金</Option>
+          <Option value="多月现金" >多月现金</Option>
+          <Option value="客流" >客流</Option>
+          <Option value="实操" >实操</Option>
+        </Select>
+      </div>
+      <div class="com" v-if="job.multiMonthCash == '多月现金'">
+        多月现金：<Input v-model="job.dataRankings" placeholder="统计月单位" style="width: 300px"/>
+      </div>
+      <div class="com">
+        入股金额：<Input v-model="job.shareAmount" placeholder="入股金额" style="width: 300px"/>
+      </div>
+      <div class="com">
+        分红管理：<Input v-model="job.dividendManagement" placeholder="分红管理" style="width: 300px"/>
+      </div>
+      <div class="com">
+        股权性质：
+        <Select v-model="job.natureOfEquity" style="width:297px">
+          <Option value="干股" >干股</Option>
+          <Option value="实股" >实股</Option>
+        </Select>
+      </div>
       <br/>
       <br/>
     </Modal>
@@ -50,6 +85,14 @@
           achievements: '',
           technicalExamination: '',
           checkWorkAttendance: '',
+
+          multiMonthCash: '',
+          classes: '',
+          shareAmount: '',
+          dividendManagement: '',
+          natureOfEquity: '',
+          dataRankings: '',
+          kq: '',
         },
         columns: [
           {
@@ -57,7 +100,7 @@
             key: 'id',
           },
           {
-            title: '名称',
+            title: '岗位名称',
             key: 'postName',
           },
           {

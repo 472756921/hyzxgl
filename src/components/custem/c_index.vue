@@ -162,7 +162,7 @@
           body: false,
           internalCause: false,
           externalcause: false,
-          advisorDesignation: false
+          advisorDesignation: []
         }
       };
     },
@@ -180,12 +180,13 @@
           },
           url: findStoreById()+"?id="+this.$route.params.id,
         }).then((res) => {
+         this.getSort(res.data.advisorDesignation);
           this.data = res.data;
         }).catch((error) => {
         });
       },
       save() {
-        this.data.advisorDesignation = [this.RA,this.RB,this.RC,this.RD],
+        this.data.advisorDesignation = this.RA+','+this.RB+','+this.RC+','+this.RD,
         this.$ajax({
           method: 'POST',
           dataType: 'JSON',
@@ -198,6 +199,22 @@
         }).then((res) => {
 
         }).catch((error) => {
+        });
+      },
+      getSort(data) {
+        data.split(',').map( (i, index) => {
+          if(index == 0) {
+            this.RA = i;
+          }
+          if(index == 1) {
+            this.RB = i;
+          }
+          if(index == 2) {
+            this.RC = i;
+          }
+          if(index == 3) {
+            this.RD = i;
+          }
         });
       },
     }
