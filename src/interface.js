@@ -20,6 +20,7 @@ export const editStore = function () {
   const API = host + URL;
   return API;
 };
+
 //项目管理
 export const projectsave = function () {
   const URL = '/app/api/project/save';
@@ -36,6 +37,28 @@ export const findProjectList = function () {
   const API = host + URL;
   return API;
 };
+//查找症状
+export const findproblemList = function () {
+  const URL = '/app/api/problem/findProblemList';
+  const API = host + URL;
+  return API;
+};
+export const saveproblem = function () {
+  const URL = '/app/api/problem/save';
+  const API = host + URL;
+  return API;
+};
+export const editproblem = function () {
+  const URL = '/app/api/problem/edit';
+  const API = host + URL;
+  return API;
+};
+export const deleteproblem = function () {
+  const URL = '/app/api/problem/delete';
+  const API = host + URL;
+  return API;
+};
+
 //员工管理
 export const findPostList = function () {
   const URL = '/app/api/post/findPostList';

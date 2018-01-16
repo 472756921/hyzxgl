@@ -35,18 +35,18 @@
       </div>
       <div class="com">
         员工数据排名：
-        <Select v-model="job.multiMonthCash" style="width:274px">
+        <Select v-model="job.dataRankings" style="width:274px">
           <Option value="单月现金" >单月现金</Option>
           <Option value="多月现金" >多月现金</Option>
           <Option value="客流" >客流</Option>
           <Option value="实操" >实操</Option>
         </Select>
       </div>
-      <div class="com" v-if="job.multiMonthCash == '多月现金'">
-        多月现金：<Input v-model="job.dataRankings" placeholder="统计月单位" style="width: 300px"/>
+      <div class="com" v-if="job.dataRankings == '多月现金'">
+        多月现金：<Input v-model="job.multiMonthCash" placeholder="统计月单位" style="width: 300px" onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/"/>
       </div>
       <div class="com">
-        入股金额：<Input v-model="job.shareAmount" placeholder="入股金额" style="width: 300px"/>
+        入股金额：<Input v-model="job.shareAmount" placeholder="入股金额" style="width: 300px" onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/"/>
       </div>
       <div class="com">
         分红管理：<Input v-model="job.dividendManagement" placeholder="分红管理" style="width: 300px"/>

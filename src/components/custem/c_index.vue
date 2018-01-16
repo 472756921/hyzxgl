@@ -187,6 +187,7 @@
       },
       save() {
         this.data.advisorDesignation = this.RA+','+this.RB+','+this.RC+','+this.RD,
+        this.data.id = this.$route.params.id;
         this.$ajax({
           method: 'POST',
           dataType: 'JSON',
