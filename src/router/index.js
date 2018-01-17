@@ -12,6 +12,7 @@ import p_symptom from '@/components/project/p_symptom';
 import p_program from '@/components/project/p_program';
 import c_index from '@/components/custem/c_index';
 import e_index from '@/components/empty/e_index';
+import t_index from '@/components/table/t_index';
 
 Vue.use(Router)
 
@@ -73,6 +74,11 @@ export default new Router({
               path: 'e_index',
               name: 'e_index',
               component: e_index,
+            },
+            {
+              path: 't_index',
+              name: 't_index',
+              component: t_index,
             },
           ],
         },

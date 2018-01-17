@@ -32,7 +32,7 @@
       <Button class="hy_btn" @click="wait">库存管理</Button>
       </Col>
       <Col span="3">
-      <Button class="hy_btn" @click="wait">报表管理</Button>
+      <Button class="hy_btn" @click="got('t_index')">报表管理</Button>
       </Col>
     </Row>
     <router-view></router-view>

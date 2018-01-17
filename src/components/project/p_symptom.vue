@@ -209,6 +209,10 @@
       },
       mannger(data) {
         this.pis = data;
+        if (typeof data.basicProgrammeIds == 'string') {
+          this.pis.basicProgrammeIds = data.basicProgrammeIds.split(',').map( (it, i) => {return +it});
+          this.pis.optimalSchemeIds = data.optimalSchemeIds.split(',').map( (it, i) => {return +it});
+        }
         this.storeFlag = true;
         this.store = '修改';
       },
