@@ -99,7 +99,6 @@
           p_jsfl : '',
           p_xffl : '',
         };
-
       },
       getList() {
         this.$ajax({

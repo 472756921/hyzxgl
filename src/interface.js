@@ -86,3 +86,10 @@ export const editStoreCustomer = function () {
   const API = host + URL;
   return API;
 };
+
+//报表
+export const findBeauticianMonthlyReport = function () {
+  const URL = '/app/api/report/findBeauticianMonthlyReport';
+  const API = host + URL;
+  return API;
+};

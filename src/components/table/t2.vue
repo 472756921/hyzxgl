@@ -24,6 +24,8 @@
 </template>
 
 <script>
+  import { findBeauticianMonthlyReport } from '../../interface';
+
     export default {
       name: "t2",
       data () {
@@ -43,6 +45,21 @@
             giveHandToHand: false,
             storeId: '',
           },
+        }
+      },
+      created() {
+        this.getData();
+      },
+      methods: {
+        getData() {
+          this.$ajax({
+            method: 'get',
+            dataType: 'JSON',
+            contentType: 'application/json;charset=UTF-8',
+            url: findBeauticianMonthlyReport()+"?id="+this.$route.params.id,
+          }).then((res) => {
+          }).catch((error) => {
+          });
         }
       }
     }
