@@ -88,8 +88,90 @@ export const editStoreCustomer = function () {
 };
 
 //报表
+//获取顾问月报
+export const findConsultantMonthlyReport = function () {
+  const URL = '/app/api/report/findConsultantMonthlyReport';
+  const API = host + URL;
+  return API;
+};
+//保存顾问月报
+export const saveOrUpateConsultantMonthlyReport = function () {
+  const URL = '/app/api/report/saveOrUpateConsultantMonthlyReport';
+  const API = host + URL;
+  return API;
+};
+//获取美容师月报
 export const findBeauticianMonthlyReport = function () {
   const URL = '/app/api/report/findBeauticianMonthlyReport';
   const API = host + URL;
   return API;
 };
+//保存美容师月报
+export const saveOrUpateBeauticianMonthlyReport = function () {
+  const URL = '/app/api/report/saveOrUpateBeauticianMonthlyReport';
+  const API = host + URL;
+  return API;
+};
+
+//获取美发技师报表
+export const findHairTechnicianMonthlyReport = function () {
+  const URL = '/app/api/report/findHairTechnicianMonthlyReport';
+  const API = host + URL;
+  return API;
+};
+//保存美发技师报表
+export const saveOrUpateHairTechnicianMonthlyReport = function () {
+  const URL = '/app/api/report/saveOrUpateHairTechnicianMonthlyReport';
+  const API = host + URL;
+  return API;
+};
+//获取店长月报
+export const findManagerOfTheMonthlyReport = function () {
+  const URL = '/app/api/report/findManagerOfTheMonthlyReport';
+  const API = host + URL;
+  return API;
+};
+
+//保存店长月报
+export const saveOrUpateManagerOfTheMonthlyReport = function () {
+  const URL = '/app/api/report/saveOrUpateManagerOfTheMonthlyReport';
+  const API = host + URL;
+  return API;
+};
+//获取店月报
+export const findShopMonthlyReport = function () {
+  const URL = '/app/api/report/findShopMonthlyReport';
+  const API = host + URL;
+  return API;
+};
+//保存店月报
+export const saveOrUpateShopMonthlyReport = function () {
+  const URL = '/app/api/report/saveOrUpateShopMonthlyReport';
+  const API = host + URL;
+  return API;
+};
+//获取店日报
+export const findDailyStoreDesign = function () {
+  const URL = '/app/api/report/findDailyStoreDesign';
+  const API = host + URL;
+  return API;
+};
+//保存店日报
+export const saveOrUpateDailyStoreDesign = function () {
+  const URL = '/app/api/report/saveOrUpateDailyStoreDesign';
+  const API = host + URL;
+  return API;
+};
+//获取详细店日报
+export const findShopDailyDetails = function () {
+  const URL = '/app/api/report/findShopDailyDetails';
+  const API = host + URL;
+  return API;
+};
+//保存详细店日报
+export const saveOrUpateShopDailyDetails = function () {
+  const URL = '/app/api/report/saveOrUpateShopDailyDetails';
+  const API = host + URL;
+  return API;
+};
+
