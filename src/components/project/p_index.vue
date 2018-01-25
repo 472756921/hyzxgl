@@ -45,20 +45,20 @@
       消费返利：<Input v-model="pis.p_xffl" placeholder="消费返利" style="width: 300px"/>
       <br/>
       <br/>
-      搭配项目：<Select v-model="pis.collocationItems" style="width:300px">
+      搭配项目：<Select v-model="pis.collocationItems" style="width:300px" :transfer=true>
                 <Option :value="1">项目A</Option>
                 <Option :value="2">项目B</Option>
                 <Option :value="3">项目C</Option>
               </Select>
       <br/>
       <br/>
-      项目类别：<Select v-model="pis.type" style="width:300px">
+      项目类别：<Select v-model="pis.type" style="width:300px" :transfer=true>
                 <Option :value="1">身体类</Option>
                 <Option :value="2">面护类</Option>
               </Select>
       <br/>
       <br/>
-      项目属性：<Select v-model="pis.projectAttributes" style="width:300px">
+      项目属性：<Select v-model="pis.projectAttributes" style="width:300px" :transfer=true>
                 <Option :value="1">到店率</Option>
                 <Option :value="2">功效类</Option>
                 <Option :value="3">保养类</Option>

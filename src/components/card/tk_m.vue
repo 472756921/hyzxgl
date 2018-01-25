@@ -12,7 +12,7 @@
       <div class='com'>是否计算手工：<Input style="width: 275px"></Input></div>
       <div class='com'>有效期：<Input placeholder="单位月" style="width: 288px"></Input></div>
       <div class='com'>项目：
-        <Select style="width:275px">
+        <Select style="width:275px" :transfer=true>
           <Option>A</Option>
           <Option>B</Option>
         </Select>

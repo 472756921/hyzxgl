@@ -13,7 +13,7 @@
         <div class='com'>产品折扣：<Input style="width: 275px"></Input></div>
         <div class='com'>有效期：<Input placeholder="单位月" style="width: 288px"></Input></div>
         <div class='com'>升卡原则：
-          <Select style="width:275px">
+          <Select style="width:275px" :transfer=true>
             <Option>累计现金</Option>
             <Option>累计充值</Option>
             <Option>增量充值</Option>
@@ -25,14 +25,14 @@
           <h3>会员尊享</h3>
           <div class='com'>有效期：<Input style="width: 288px" placeholder="单位月" ></Input></div>
           <div class='com'>尊享项目：
-            <Select style="width:275px">
+            <Select style="width:275px" :transfer=true>
               <Option>项目A</Option>
               <Option>项目B</Option>
             </Select>
           </div>
           <div class='com'>尊享次数：<Input style="width: 275px"></Input></div>
           <div class='com'>时效类型：
-            <Select style="width:275px">
+            <Select style="width:275px" :transfer=true>
               <Option>时间</Option>
               <Option>次数</Option>
             </Select>
@@ -81,6 +81,42 @@
               title: '有效期',
               key: 'projectName',
             },
+            {
+              title: '操作',
+              key: 'action',
+              render: (h, params) => {
+                return h('div', [
+                  h('Button', {
+                    props: {
+                      type: 'primary',
+                      size: 'small'
+                    },
+                    style: {
+                      marginRight: '5px'
+                    },
+                    on: {
+                      click: () => {
+                        this.mannger(params.row)
+                      }
+                    }
+                  }, '修改'),
+                  h('Button', {
+                    props: {
+                      type: 'warning',
+                      size: 'small'
+                    },
+                    style: {
+                      marginRight: '5px'
+                    },
+                    on: {
+                      click: () => {
+                        this.del(params.row, params.index)
+                      }
+                    }
+                  }, '删除'),
+                ]);
+              }
+            }
           ],
           data: [],
           addF: false,
