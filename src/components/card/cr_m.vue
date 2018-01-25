@@ -94,6 +94,8 @@
       },
       methods: {
         ok() {},
+        mannger(data, i) {},
+        del(data, i) {},
       },
     }
 </script>

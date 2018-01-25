@@ -4,12 +4,87 @@
     <br/>
     <br/>
     <Table :columns="columns" :data="data"></Table>
+
+    <Modal v-model="addF" title="添加" @on-ok="ok" class="mod">
+      <div class='com'>价格：<Input style="width: 300px"></Input></div>
+      <div class='com'>是否计算业绩：<Input style="width: 300px"></Input></div>
+      <div class='com'>是否计算实操：<Input style="width: 300px"></Input></div>
+      <div class='com'>是否计算手工：<Input style="width: 275px"></Input></div>
+      <div class='com'>有效期：<Input placeholder="单位月" style="width: 288px"></Input></div>
+      <div class='com'>项目：
+        <Select style="width:275px">
+          <Option>A</Option>
+          <Option>B</Option>
+        </Select>
+      </div>
+      <div class='com'>次数：<Input style="width: 300px"></Input></div>
+      <div class='group'>
+        <h3>奖励政策</h3>
+        <div class='com'> 每周销售 <Input style="width: 30px"/> 张，奖励 <Input style="width: 30px"/> 元</div>
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script>
     export default {
-        name: "tk_m"
+      name: "tk_m",
+      data() {
+        return {
+          columns: [
+            { title: '价格', key: 'projectName',},
+            { title: '有效期', key: 'projectName',},
+            { title: '是否计算业绩', key: 'projectName',},
+            { title: '是否计算实操', key: 'projectName',},
+            { title: '是否计算手工', key: 'projectName',},
+            { title: '项目', key: 'projectName',},
+            { title: '次数', key: 'projectName',},
+            {
+              title: '操作',
+              key: 'action',
+              render: (h, params) => {
+                return h('div', [
+                  h('Button', {
+                    props: {
+                      type: 'primary',
+                      size: 'small'
+                    },
+                    style: {
+                      marginRight: '5px'
+                    },
+                    on: {
+                      click: () => {
+                        this.mannger(params.row)
+                      }
+                    }
+                  }, '修改'),
+                  h('Button', {
+                    props: {
+                      type: 'warning',
+                      size: 'small'
+                    },
+                    style: {
+                      marginRight: '5px'
+                    },
+                    on: {
+                      click: () => {
+                        this.del(params.row, params.index)
+                      }
+                    }
+                  }, '删除'),
+                ]);
+              }
+            }
+          ],
+          data: [],
+          addF: false,
+        }
+      },
+      methods: {
+        ok() {},
+        mannger(data, i) {},
+        del(data, i) {},
+      }
     }
 </script>
 
