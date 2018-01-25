@@ -15,10 +15,10 @@
           </Button>
           <DropdownMenu slot="list">
             <DropdownItem name="cr_index">会员卡</DropdownItem>
-            <DropdownItem name="p_symptom">拓客卡</DropdownItem>
-            <DropdownItem name="p_symptom">活动卡</DropdownItem>
-            <DropdownItem name="p_symptom">疗程组合卡</DropdownItem>
-            <DropdownItem name="p_symptom">产品卡</DropdownItem>
+            <DropdownItem name="tk_m">拓客卡</DropdownItem>
+            <DropdownItem name="hd_m">活动卡</DropdownItem>
+            <DropdownItem name="lc_m">疗程组合卡</DropdownItem>
+            <DropdownItem name="cp_m">产品卡</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </Col>

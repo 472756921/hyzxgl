@@ -16,6 +16,10 @@ import t_index from '@/components/table/t_index';
 
 
 import cr_index from '@/components/card/cr_m';
+import tk_m from '@/components/card/tk_m';
+import hd_m from '@/components/card/hd_m';
+import lc_m from '@/components/card/lc_m';
+import cp_m from '@/components/card/cp_m';
 
 Vue.use(Router)
 
@@ -84,9 +88,24 @@ export default new Router({
               component: t_index,
             },
             {
-              path: 'cr_index',
-              name: 'cr_index',
-              component: cr_index,
+              path: 'tk_m',
+              name: 'tk_m',
+              component: tk_m,
+            },
+            {
+              path: 'hd_m',
+              name: 'hd_m',
+              component: hd_m,
+            },
+            {
+              path: 'lc_m',
+              name: 'lc_m',
+              component: lc_m,
+            },
+            {
+              path: 'cp_m',
+              name: 'cp_m',
+              component: cp_m,
             },
           ],
         },
