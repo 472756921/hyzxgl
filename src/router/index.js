@@ -107,6 +107,11 @@ export default new Router({
               name: 'cp_m',
               component: cp_m,
             },
+            {
+              path: 'cr_index',
+              name: 'cr_index',
+              component: cr_index,
+            },
           ],
         },
       ],
