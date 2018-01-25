@@ -181,6 +181,8 @@
 
       },
       getList() {
+        // 73d04ca9-8fa9-419f-a2d2-cc19da374dc6-s
+        console.log(sessionStorage.getItem('authToken'))
         this.$ajax({
           method: 'GET',
           dataType: 'JSON',

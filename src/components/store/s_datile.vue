@@ -1,14 +1,26 @@
 <template>
   <div>
     <Row :gutter="24" class="option">
-      <Col span="3">
-        <Button class="hy_btn" @click="got('m_index_set')">会员权益设置</Button>
-      </Col>
+      <!--<Col span="3">-->
+        <!--<Button class="hy_btn" @click="got('m_index_set')">会员权益设置</Button>-->
+      <!--</Col>-->
       <Col span="3">
         <Button class="hy_btn" @click="got('c_index')">顾客管理</Button>
       </Col>
       <Col span="3">
-        <Button class="hy_btn" @click="wait">卡项管理</Button>
+        <Dropdown @on-click=got>
+          <Button class="hy_btn">
+            卡项管理
+            <Icon type="arrow-down-b"></Icon>
+          </Button>
+          <DropdownMenu slot="list">
+            <DropdownItem name="cr_index">会员卡</DropdownItem>
+            <DropdownItem name="p_symptom">拓客卡</DropdownItem>
+            <DropdownItem name="p_symptom">活动卡</DropdownItem>
+            <DropdownItem name="p_symptom">疗程组合卡</DropdownItem>
+            <DropdownItem name="p_symptom">产品卡</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
       </Col>
       <Col span="3">
         <Dropdown @on-click=got>

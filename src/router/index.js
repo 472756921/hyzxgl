@@ -14,6 +14,9 @@ import c_index from '@/components/custem/c_index';
 import e_index from '@/components/empty/e_index';
 import t_index from '@/components/table/t_index';
 
+
+import cr_index from '@/components/card/cr_m';
+
 Vue.use(Router)
 
 export default new Router({
@@ -79,6 +82,11 @@ export default new Router({
               path: 't_index',
               name: 't_index',
               component: t_index,
+            },
+            {
+              path: 'cr_index',
+              name: 'cr_index',
+              component: cr_index,
             },
           ],
         },
