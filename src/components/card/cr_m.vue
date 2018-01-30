@@ -1,6 +1,7 @@
 <template>
     <!--会员卡-->
     <div class="list">
+      <h2 style="padding: .6rem;">会员卡管理</h2>
       <Button class="hy_btn" @click="addF=true">添加</Button>
       <br/>
       <br/>
@@ -59,27 +60,27 @@
           columns: [
             {
               title: '名称',
-              key: 'projectName',
+              key: 'name',
             },
             {
               title: '级别',
-              key: 'projectName',
+              key: 'cless',
             },
             {
               title: '金额',
-              key: 'projectName',
+              key: 'money',
             },
             {
               title: '项目单次折扣',
-              key: 'projectName',
+              key: 'zk',
             },
             {
               title: '产品折扣',
-              key: 'projectName',
+              key: 'pzk',
             },
             {
               title: '有效期',
-              key: 'projectName',
+              key: 'yxq',
             },
             {
               title: '操作',
@@ -118,7 +119,11 @@
               }
             }
           ],
-          data: [],
+          data: [
+            {name: '会员卡', cless: '一级', money: '300', zk: '0.9', pzk: '0.85', yxq: '24'},
+            {name: '会员卡', cless: '二级', money: '800', zk: '0.85', pzk: '0.8', yxq: '24'},
+            {name: '会员卡', cless: '三级', money: '1300', zk: '0.8', pzk: '0.75', yxq: '48'},
+          ],
           addF: false,
           addData: {
 

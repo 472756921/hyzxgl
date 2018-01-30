@@ -30,7 +30,8 @@
           </Button>
           <DropdownMenu slot="list">
             <DropdownItem name="p_index">项目列表</DropdownItem>
-            <DropdownItem name="p_symptom">症状方案管理</DropdownItem>
+            <DropdownItem name="p_symptom">症状管理</DropdownItem>
+            <DropdownItem name="p_program">解决方案管理</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </Col>

@@ -366,7 +366,7 @@
         this.storeVal = data;
       },
       manerge(id) {
-        this.$router.push({path:'s_datile/'+id});
+        this.$router.push({path:'s_datile/'+id+'/c_index'});
       },
       check(data) {
         this.questionFlag = true;

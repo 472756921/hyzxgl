@@ -1,15 +1,15 @@
 <template>
   <div>
+    <h2 style="padding: .6rem;">项目列表</h2>
     <Row :gutter="24" class="option">
       <Col span="2">
-      <Button class="hy_btn" @click="newEm">新建{{card}}</Button>
+      <Button class="hy_btn" @click="newEm">新建</Button>
       </Col>
     </Row>
-    <h3 style="text-align: center;padding: .6rem;">{{card}}</h3>
     <Table :columns="columns" :data="data"></Table>
 
     <Modal  v-model="storeFlag" :title="store" @on-ok="ok">
-      产品名称：<Input v-model="pis.projectName" placeholder="名称" style="width: 300px"/>
+      项目名称：<Input v-model="pis.projectName" placeholder="名称" style="width: 300px"/>
       <br/>
       <br/>
       推荐次数：<Input v-model="pis.frequency" placeholder="推荐次数" style="width: 300px"/>
@@ -28,21 +28,6 @@
       <br/>
       <br/>
       体验价格：<Input v-model="pis.experienceMoney" placeholder="体验价格" style="width: 300px"/>
-      <br/>
-      <br/>
-      赠送项目：<Input v-model="pis.p_zsxm" placeholder="赠送项目" style="width: 300px"/>
-      <br/>
-      <br/>
-      配赠尊享：<Input v-model="pis.p_pzzx" placeholder="配赠尊享" style="width: 300px"/>
-      <br/>
-      <br/>
-      赠现金券：<Input v-model="pis.p_xjq" placeholder="赠现金券" style="width: 300px"/>
-      <br/>
-      <br/>
-      介绍返利：<Input v-model="pis.p_jsfl" placeholder="介绍返利" style="width: 300px"/>
-      <br/>
-      <br/>
-      消费返利：<Input v-model="pis.p_xffl" placeholder="消费返利" style="width: 300px"/>
       <br/>
       <br/>
       搭配项目：<Select v-model="pis.collocationItems" style="width:300px" :transfer=true>
@@ -88,7 +73,6 @@
       return {
         storeFlag: false,
         store: '',
-        card: '',
         pis: {
           projectName : '',
           courseMoney: '',

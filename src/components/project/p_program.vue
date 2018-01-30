@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2 style="padding: .6rem;">解决方案管理</h2>
     <Row :gutter="24" class="option">
       <Col span="2">
       <Button class="hy_btn" @click="newEm">新建{{card}}</Button>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2 style="padding: .6rem;">员工管理</h2>
     <Row :gutter="24" class="option">
       <Col span="2">
         <Button class="hy_btn" @click="newEm">新建</Button>
@@ -17,12 +18,12 @@
       <div class="com">
         工作流程：<Input v-model="job.workflow" placeholder="工作流程" style="width: 300px"/>
       </div>
-      <div class="com">
-        行为绩效与评分：<Input v-model="job.achievements" placeholder="行为绩效与评分" style="width: 264px"/>
-      </div>
-      <div class="com">
-        技术考核：<Input v-model="job.technicalExamination" placeholder="技术考核" style="width: 300px"/>
-      </div>
+      <!--<div class="com">-->
+        <!--行为绩效与评分：<Input v-model="job.achievements" placeholder="行为绩效与评分" style="width: 264px"/>-->
+      <!--</div>-->
+      <!--<div class="com">-->
+        <!--技术考核：<Input v-model="job.technicalExamination" placeholder="技术考核" style="width: 300px"/>-->
+      <!--</div>-->
       <div class="com">
         员工等级：<Input v-model="job.classes" placeholder="员工等级" style="width: 300px"/>
       </div>

@@ -1,5 +1,6 @@
 <template>
   <div class="list">
+    <h2 style="padding: .6rem;">拓客卡管理</h2>
     <Button class="hy_btn" @click="addF=true">添加</Button>
     <br/>
     <br/>
@@ -32,13 +33,13 @@
       data() {
         return {
           columns: [
-            { title: '价格', key: 'projectName',},
-            { title: '有效期', key: 'projectName',},
-            { title: '是否计算业绩', key: 'projectName',},
-            { title: '是否计算实操', key: 'projectName',},
-            { title: '是否计算手工', key: 'projectName',},
-            { title: '项目', key: 'projectName',},
-            { title: '次数', key: 'projectName',},
+            { title: '价格', key: 'p',},
+            { title: '有效期', key: 'd',},
+            { title: '是否计算业绩', key: 'yj',},
+            { title: '是否计算实操', key: 'sc',},
+            { title: '是否计算手工', key: 'sg',},
+            { title: '项目', key: 'x',},
+            { title: '次数', key: 'c',},
             {
               title: '操作',
               key: 'action',
@@ -76,7 +77,10 @@
               }
             }
           ],
-          data: [],
+          data: [
+            {p: '300', d: "24", yj: '是', sc: '是', sg: '是', x: '足浴，美肤', c: '2'},
+            {p: '300', d: "24", yj: '是', sc: '是', sg: '是', x: '足浴，美肤，嫩白', c: '8'},
+          ],
           addF: false,
         }
       },

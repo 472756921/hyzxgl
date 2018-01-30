@@ -1,20 +1,21 @@
 <template>
   <div style="padding: 1rem">
+    <h2 style="padding: .6rem;">顾客管理</h2>
     <Button class="hy_btn" @click="save">保存规则</Button>
     <div class="content">
       <Row>
         <h3 class="title">客户与员工关系</h3>
           <Col span="12">
-            <h4 class="titleB">建立联系的方式</h4>
+            <h4 class="titleB">指定条件</h4>
              <Checkbox label="1" v-model="data.exclusivePointList">排他性点单</Checkbox>
              <Checkbox label="2" v-model="data.continuousService">某技师连续服务 <input type="text" class="inputext" placeholder="填写" v-model="data.serviceTimes"/> 次</Checkbox>
              <Checkbox label="3" v-model="data.customerIntroduction">有联系的顾客介绍</Checkbox>
              <Checkbox label="4" v-model="data.technician">技师直接拓客</Checkbox>
           </Col>
           <Col span="12">
-            <h4 class="titleB">失去联系的因素</h4>
+            <h4 class="titleB">非指定条件</h4>
              <Checkbox label="5" v-model="data.customerComplaint">顾客投诉</Checkbox>
-             <Checkbox label="6" v-model="data.establishContact">其他技师建立联系</Checkbox>
+             <Checkbox label="6" v-model="data.establishContact">改为连续被他人<input type="text" class="inputext" placeholder="填写" v-model="data.xxxx"/> 次服务</Checkbox>
              <Checkbox label="7" v-model="data.noStore">顾客连续 <input type="text" class="inputext" placeholder="填写" v-model="data.noStoreN"/> 个月不到店</Checkbox>
              <Checkbox label="8" v-model="data.cashPoor">顾客连续 <input type="text" class="inputext" placeholder="填写" v-model="data.cashPoorN"/> 月无现金</Checkbox>
           </Col>
@@ -61,10 +62,10 @@
            <Checkbox label="9" v-model="data.customerClassification">激活</Checkbox>
         </h3>
         <Col span="8">
-          <h4 class="titleB">客户分级</h4>
-           <Checkbox label="10" v-model="data.classA">A类（高信任度）</Checkbox>
-           <Checkbox label="11" v-model="data.classB">B类（中信任度）</Checkbox>
-           <Checkbox label="12" v-model="data.classC">C类（不熟悉）</Checkbox>
+          <h4 class="titleB">客户分级 <Checkbox label="12" v-model="data.classC">启用</Checkbox></h4>
+          <div>A类（高信任度）</div>
+          <div>B类（中信任度）</div>
+          <div>C类（不熟悉）</div>
         </Col>
         <Col span="8">
           <h4 class="titleB">消费实力</h4>
@@ -110,15 +111,20 @@
         </Col>
       </Row>
     </div>
+
+    <m_index_info_gl/>
+
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 
   import { findStoreById, editStoreCustomer } from '../../interface';
+  import m_index_info_gl from '../store/m_index_info_gl';
 
   export default {
     name: 'c_index',
+    components: ['m_index_info_gl'],
     data(){
       return {
         RA: '',
@@ -126,6 +132,7 @@
         RC: '',
         RD: '',
         data: {
+          xxxx: '',
           id: '',
           exclusivePointList: false,
           continuousService: false,

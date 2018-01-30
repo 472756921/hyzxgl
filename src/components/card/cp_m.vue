@@ -1,5 +1,6 @@
 <template>
   <div class="list">
+    <h2 style="padding: .6rem;">产品卡管理</h2>
     <Button class="hy_btn" @click="addF=true">添加</Button>
     <br/>
     <br/>
@@ -18,8 +19,8 @@
     data() {
       return {
         columns: [
-          { title: '购价', key: 'projectName',},
-          { title: '金额', key: 'projectName',},
+          { title: '购价', key: 'p',},
+          { title: '金额', key: 'm',},
           {
             title: '操作',
             key: 'action',
@@ -57,7 +58,10 @@
             }
           }
         ],
-        data: [],
+        data: [
+          {p: '300', m: '298'},
+          {p: '420', m: '398'},
+        ],
         addF: false,
       }
     },
