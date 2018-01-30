@@ -13,7 +13,8 @@ import p_program from '@/components/project/p_program';
 import c_index from '@/components/custem/c_index';
 import e_index from '@/components/empty/e_index';
 import t_index from '@/components/table/t_index';
-
+import sa_index from '@/components/salary/sa_index';
+import sa_index2 from '@/components/salary/sa_index2';
 
 import cr_index from '@/components/card/cr_m';
 import tk_m from '@/components/card/tk_m';
@@ -83,10 +84,21 @@ export default new Router({
               component: e_index,
             },
             {
+              path: 'sa_index',
+              name: 'sa_index',
+              component: sa_index,
+            },
+            {
+              path: 'sa_index2',
+              name: 'sa_index2',
+              component: sa_index2,
+            },
+            {
               path: 't_index',
               name: 't_index',
               component: t_index,
             },
+
             {
               path: 'tk_m',
               name: 'tk_m',
