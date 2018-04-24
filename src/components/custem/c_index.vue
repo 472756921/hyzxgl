@@ -4,7 +4,7 @@
     <Button class="hy_btn" @click="save">保存规则</Button>
     <div class="content">
       <Row>
-        <h3 class="title">客户与员工关系</h3>
+        <h3 class="title">指定顾客管理</h3>
           <Col span="12">
             <h4 class="titleB">指定条件</h4>
              <Checkbox label="1" v-model="data.exclusivePointList">排他性点单</Checkbox>
@@ -15,13 +15,13 @@
           <Col span="12">
             <h4 class="titleB">非指定条件</h4>
              <Checkbox label="5" v-model="data.customerComplaint">顾客投诉</Checkbox>
-             <Checkbox label="6" v-model="data.establishContact">改为连续被他人<input type="text" class="inputext" placeholder="填写" v-model="data.xxxx"/> 次服务</Checkbox>
+             <Checkbox label="6" v-model="data.establishContact">连续被他人服务<input type="text" class="inputext" placeholder="填写" v-model="data.establishContactN"/> 次</Checkbox>
              <Checkbox label="7" v-model="data.noStore">顾客连续 <input type="text" class="inputext" placeholder="填写" v-model="data.noStoreN"/> 个月不到店</Checkbox>
-             <Checkbox label="8" v-model="data.cashPoor">顾客连续 <input type="text" class="inputext" placeholder="填写" v-model="data.cashPoorN"/> 月无现金</Checkbox>
+             <Checkbox label="8" v-model="data.cashPoor">顾客连续 <input type="text" class="inputext" placeholder="填写" v-model="data.cashPoorN"/> 个月无现金</Checkbox>
           </Col>
       </Row>
     </div>
-    <div class="content">
+  <div class="content">
       <Row>
         <h3 class="title">顾客到店员工护理顺序</h3>
         <Col span="24">
@@ -62,7 +62,7 @@
            <Checkbox label="9" v-model="data.customerClassification">激活</Checkbox>
         </h3>
         <Col span="8">
-          <h4 class="titleB">客户分级 <Checkbox label="12" v-model="data.classC">启用</Checkbox></h4>
+          <h4 class="titleB">客户分级 <Checkbox label="12" v-model="data.classA">启用</Checkbox></h4>
           <div>A类（高信任度）</div>
           <div>B类（中信任度）</div>
           <div>C类（不熟悉）</div>
@@ -112,7 +112,7 @@
       </Row>
     </div>
 
-    <m_index_info_gl/>
+    <!--<m_index_info_gl/>-->
 
   </div>
 </template>
@@ -124,7 +124,7 @@
 
   export default {
     name: 'c_index',
-    components: ['m_index_info_gl'],
+    components: {m_index_info_gl},
     data(){
       return {
         RA: '',
@@ -205,7 +205,8 @@
           },
           url: editStoreCustomer(),
         }).then((res) => {
-
+          this.$Message.success('保存成功');
+          this.findStore();
         }).catch((error) => {
         });
       },

@@ -1,8 +1,9 @@
 <template>
   <div class="sa_index">
     <h2 style="margin: .6rem 0;">薪资管理</h2>
-    <Button class="hy_btn btn" @click="save">保存</Button>
-    <br><br>
+
+    <h2> <Button class="hy_btn btn"  @click="save">保存规则</Button><Button class="hy_btn btn"  @click="more">具体规则</Button></h2>
+    <br>
     <h3>底薪
       <Checkbox v-model="s1" disabled>启用</Checkbox>
     </h3>
@@ -16,6 +17,7 @@
     </Select>
     <br>
     <br>
+
     <Row>
       <Col span="8">
       <h3>实操提成
@@ -50,19 +52,19 @@
     <br>
 
     <h3>罚金</h3>
+    事假罚金:<Select v-model="data.typeOfLeave" size="small" style="width:150px;margin-right: 10px;">
+    <Option value="1" >固定罚金</Option>
+    <Option value="2" >按计算规则</Option>
+  </Select>
     <Checkbox v-model="data.complaintFines">投诉罚金</Checkbox>
     <Checkbox v-model="data.leaveEarlyFines">迟到早退罚金</Checkbox>
-    <Checkbox v-model="data.leaveAfine">事假罚金</Checkbox>
     <Checkbox v-model="data.absenteeismFine">旷工罚金</Checkbox>
     <Checkbox v-model="data.cashPerformancePpenalty">现金业绩罚金</Checkbox>
     <Checkbox v-model="data.passengerFines">客流罚金</Checkbox>
     <Checkbox v-model="data.consumptionPenalty">消耗罚金</Checkbox>
     <Checkbox v-model="data.otherFines">其他</Checkbox>
 
-    <div style="margin-top: 50px;" >
-      <div class="btnspan">具体规则</div>
-      <sa_index2 ></sa_index2>
-    </div>
+
   </div>
 </template>
 
@@ -104,6 +106,8 @@
           singleDayPassengerFlow: '',
           monthlyCashType: '',
           cashType: '',
+          typeOfLeave: '',
+          leaveThePenaltyRules:''
         },
         data1:{},
         cityList:[
@@ -171,6 +175,7 @@
           this.data.accumulativePassengerFlow = this.data1.accumulativePassengerFlow;
           this.data.accumulativePassengerFlowAward = this.data1.accumulativePassengerFlowAward;
           this.data.cashType = this.data1.cashType;
+          this.data.storeId = this.$route.params.id;
 
         }).catch( (error) =>{
         });
@@ -184,11 +189,14 @@
         }).then( (res) =>{
           this.$Message.success('保存成功');
           this.getData();
-          this.$router.go(0);
+          // window.location.reload();
         }).catch( (err) =>{
           this.$Message.error('失败');
         })
       },
+      more(){
+        this.$router.push({name: 'sa_index2'})
+      }
     },
     created(){
       this.getData();
@@ -202,7 +210,8 @@
     margin: 0px 10px 0 0;
   }
   .sa_index{
-    padding: 20px 20px 30px 20px;
+    padding-left: 10px;
+    padding-bottom: 50px;
   }
   .btnspan{
     display: inline-block;

@@ -1,25 +1,24 @@
 <template>
   <div class="sa1">
     <h3>{{cityList1[typeOfBaseSalary-1].label}}<span style="margin-left:10px;">{{this.data.monthlyCashType}}</span></h3>
-
     <div v-if="typeOfBaseSalary!=5&&typeOfBaseSalary!=6">
      <Button class="hy_btn btn" @click="salaryFlag= true;">新增</Button>
      <br>
      <vtable :sdata="salarydata" :stype="salaryType" @Monitor="takeMonitor"></vtable>
-     <Modal v-model="salaryFlag" title="新增" @on-ok="ok">
-       低限：<Input v-model="add.lowLimit" placeholder="低限" style="width: 300px"/>
+     <Modal v-model="salaryFlag" :mask-closable="false" title="新增" @on-ok="ok">
+       低限：<Input v-model="add.lowLimit" @on-keyup="add.lowLimit=check(add.lowLimit)" placeholder="低限" style="width: 300px"/>
        <br/>
        <br/>
-       高限：<Input v-model="add.highLimit" placeholder="高限" style="width: 300px"/>
+       高限：<Input v-model="add.highLimit" @on-keyup="add.highLimit=check(add.highLimit)" placeholder="高限" style="width: 300px"/>
        <br/>
        <br/>
-       金额：<Input v-model="add.amountOfReward" placeholder="金额" style="width: 300px"/>
+       金额：<Input v-model="add.amountOfReward" @on-keyup="add.amountOfReward=check2(add.amountOfReward)" placeholder="金额" style="width: 300px"/>
        <br/>
        <br/>
      </Modal>
    </div>
     <div v-if="typeOfBaseSalary==5">
-      固定底薪：<Input v-model="data2.baseSalary" placeholder="固定底薪" size="small" style="width: 100px"/>
+      固定底薪：<Input v-model="data2.baseSalary" @on-keyup="data2.baseSalary=check2(data2.baseSalary)" placeholder="固定底薪" size="small" style="width: 100px"/>
       <Button class="btn" size="small" type="success" @click="save">保存</Button>
     </div>
     <div v-if="typeOfBaseSalary == 6">
@@ -27,17 +26,21 @@
       <Button class="hy_btn btn" @click="Add">新增</Button>
       <br>
       <Table  :columns="columns" :data="salarydata" ></Table>
-      <Modal  v-model="salaryFlag2" title="修改" @on-ok="ok()">
-        员工类型：<Input v-model="add2.typeOfEmployee" placeholder="员工类型" style="width: 300px"/>
-        <br/>
-        <br/>
-        员工级别：<Select v-model="add2.employeeLevel" style="width:90px;" size='small'>
-        <Option value="一级技师" >一级技师</Option>
-        <Option value="二级技师" >二级技师</Option>
+      <Modal  v-model="salaryFlag2" :mask-closable="false" title="修改" @on-ok="ok()">
+        员工类型：<Select v-model="add2.typeOfEmployee" style="width:300px;" >
+        <Option value="美容师" >美容师</Option>
+        <Option value="美发师" >美发师</Option>
+
       </Select>
         <br/>
         <br/>
-        员工底薪：<Input v-model="add2.amountOfReward" placeholder="员工底薪" style="width: 300px"/>
+        员工级别：<Select v-model="add2.employeeLevel" style="width:300px;">
+        <Option value="1" >一级</Option>
+        <Option value="2" >二级</Option>
+      </Select>
+        <br/>
+        <br/>
+        员工底薪：<Input v-model="add2.amountOfReward" @on-keyup="add2.amountOfReward=check2(add2.amountOfReward)" placeholder="员工底薪" style="width: 300px"/>
         <br/>
         <br/>
       </Modal>
@@ -77,7 +80,7 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'success',
+                    type: 'primary',
                     size: 'small'
                   },
                   style: {
@@ -204,7 +207,7 @@
         })
       },
       ok(){
-        switch(this.typeOfBaseSalary){
+                switch(this.typeOfBaseSalary){
           case '1': this.saveMonthlyCashVolume()
             break;
           case '2': this.saveTotalMonthlyPassengerFlow()
@@ -216,8 +219,6 @@
           case '6': this.saveStaffLevelBaseSalary()
             break;
         }
-
-
       },
       saveMonthlyCashVolume(){
         this.$ajax({
@@ -233,6 +234,10 @@
 
       },
       saveTotalMonthlyPassengerFlow(){
+        if(this.add.lowLimit==''|| this.add.highLimit==''||this.add.amountOfReward==''){
+          this.$Message.warning('请完整填写内容');
+          return false;
+        }
         this.$ajax({
           method: 'post',
           url: editTotalMonthlyPassengerFlow(),
@@ -245,6 +250,10 @@
         })
       },
       saveTotalMonthlyExercise(){
+        if(this.add.lowLimit==''|| this.add.highLimit==''||this.add.amountOfReward==''){
+          this.$Message.warning('请完整填写内容');
+          return false;
+        }
         this.$ajax({
           method: 'post',
           url: editTotalMonthlyExercise(),
@@ -257,6 +266,10 @@
         })
       },
       saveTotalMonthlyProject(){
+        if(this.add.lowLimit==''|| this.add.highLimit==''||this.add.amountOfReward==''){
+          this.$Message.warning('请完整填写内容');
+          return false;
+        }
         this.$ajax({
           method: 'post',
           url: editTotalMonthlyProject(),
@@ -269,6 +282,10 @@
         })
       },
       saveStaffLevelBaseSalary(){
+        if(this.add2.typeOfEmployee==''|| this.add2.employeeLevel==''||this.add2.amountOfReward==''){
+          this.$Message.warning('请完整填写内容');
+          return false;
+        }
         this.$ajax({
           method: 'post',
           url: editStaffLevelBaseSalary(),
@@ -282,7 +299,8 @@
       },
       updateStaffLevel(row){
         this.salaryFlag2 = true;
-        this.add2 = row;
+        this.add2 = JSON.parse(JSON.stringify(row));
+
       },
       deleteStaffLevel(row){
         this.$ajax({
@@ -318,6 +336,12 @@
       takeMonitor(){
         this.getData();
         this.getData2();
+      },
+      check(value){
+        return value.replace(/[^\d]/g,'');
+      },
+      check2(value){
+        return value.replace(/[^\d\.]/g,'');
       }
     },
     components: { vtable },
@@ -349,13 +373,13 @@
 
 <style scoped>
   .sa1{
-    padding: 1rem;
+    padding-left: .6rem;
 
   }
   h3{
     margin: 0 0 10px 0;
   }
   .btn{
-    margin: 20px 0;
+    margin: 10px 0 20px 0;
   }
 </style>

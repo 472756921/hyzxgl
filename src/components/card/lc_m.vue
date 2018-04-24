@@ -5,11 +5,12 @@
     <br/>
     <br/>
     <Table :columns="columns" :data="data"></Table>
-
-    <Modal v-model="addF" title="添加" @on-ok="ok" class="mod">
+    <Modal v-model="addF" title="添加" :mask-closable="false" @on-ok="ok" class="mod">
       <div class='com'>名称：<Input v-model="addData.treatmentName" style="width: 300px"></Input></div>
-      <div class='com'>价格：<Input v-model="addData.treatmentMoney" style="width: 300px"></Input></div>
-      <div class='com'>有效期：<Input v-model="addData.treatmentCardValidity" placeholder="单位月" style="width: 288px"></Input></div>
+      <div class='com'>卡扣价格：<Input v-model="addData.bucklePrice" style="width: 276px" @on-keyup="addData.bucklePrice =check2(addData.bucklePrice)"></Input></div>
+      <div class="com">现金价格：<Input v-model="addData.cashPrice" style="width: 276px" @on-keyup="addData.cashPrice=check2(addData.cashPrice)"></Input></div>
+
+      <div class='com'>有效期：<Input v-model="addData.treatmentCardValidity" placeholder="单位月" @on-keyup="addData.treatmentCardValidity=check(addData.treatmentCardValidity)" style="width: 288px"></Input></div>
       <div  class='com'>是否显示：
         <Select v-model="displays"  style="width:273px" :transfer=true>
           <Option value="1">是</Option>
@@ -20,11 +21,11 @@
         <h3>项目组合 <Button class="hy_btn" size="small" @click="Addproject">添加</Button></h3>
         <div v-for="item in addData.project" class="projectone">
           <div class='com'>项目：
-            <Select v-model="item.projectId" style="width:297px" :transfer=true>
-              <Option :value="items.id"  v-for="items in projectList">{{items.projectName}}</Option>
+            <Select v-model="item.projectId" :on-change="changeProject(item.projectId)" style="width:150px"  :transfer=true>
+              <Option :value="items.id" :key="items.id"  v-for="items in projectList">{{items.projectName}}</Option>
             </Select>
+            &nbsp;&nbsp;次数：<Input v-model="item.extensionNumber" @on-keyup="item.extensionNumber=check(item.extensionNumber)" style="width: 100px"></Input>
           </div>
-          <div class='com'>次数：<Input v-model="item.extensionNumber" style="width: 300px"></Input></div>
         </div>
       </div>
     </Modal>
@@ -39,8 +40,9 @@ import {findTreatment,saveTreatment,editTreatment,deleteTreatment,findAllProject
       return {
         columns: [
           { title: '名称', key: 'treatmentName',},
-          { title: '价格', key: 'treatmentMoney',},
-          { title: '有效期', key: 'treatmentCardValidity',},
+          { title: '卡扣价格', key: 'bucklePrice',},
+          { title: '现金价格', key: 'cashPrice',},
+          { title: '有效期(月)', key: 'treatmentCardValidity',},
           { title: '是否显示', key: 'display',
             render: (h, params) => {
             if(params.row.display == true){
@@ -113,7 +115,8 @@ import {findTreatment,saveTreatment,editTreatment,deleteTreatment,findAllProject
           ],
           storeName: "",
           treatmentCardValidity: '',
-          treatmentMoney: "",
+          bucklePrice:"",
+          cashPrice:"",
           treatmentName: "",
           storeId: this.$route.params.id,
         },
@@ -125,9 +128,10 @@ import {findTreatment,saveTreatment,editTreatment,deleteTreatment,findAllProject
       getProject(){
         this.$ajax({
           method:'get',
-          url: findAllProject(),
+          url: findAllProject()+'?id='+this.$route.params.id,
         }).then( (res) =>{
-          this.projectList = res.data;
+          this.projectList = res.data.map((it, i) => {return +it});
+          console.log(this.projectList)
         }).catch( (error) =>{
 
         });
@@ -145,6 +149,10 @@ import {findTreatment,saveTreatment,editTreatment,deleteTreatment,findAllProject
       },
       ok() {
         var Surl;
+        if(this.addData.treatmentName == ''){
+          this.$Message.warning('名称不能为空');
+          return;
+        }
         if(this.type == 1){
           Surl = saveTreatment();
         }else{
@@ -179,7 +187,8 @@ import {findTreatment,saveTreatment,editTreatment,deleteTreatment,findAllProject
           ],
             storeName: "",
             treatmentCardValidity: '',
-            treatmentMoney: "",
+            bucklePrice:"",
+            cashPrice:"",
             treatmentName: "",
             storeId: this.$route.params.id,
         };
@@ -196,7 +205,7 @@ import {findTreatment,saveTreatment,editTreatment,deleteTreatment,findAllProject
       mannger(data, i) {
         this.type = 0;
         this.addF =true;
-        this.addData = data;
+        this.addData = JSON.parse(JSON.stringify(data));
         this.displays =(data.display==true? '1':'0');
       },
       del(data, i) {
@@ -210,6 +219,16 @@ import {findTreatment,saveTreatment,editTreatment,deleteTreatment,findAllProject
           this.$Message.error('删除失败');
         })
       },
+      check(value){
+        return value.replace(/[^\d]/g,'');
+      },
+      check2(value){
+        return value.replace(/[^\d\.]/g,'');
+      },
+      changeProject(id){
+
+
+      }
     },
     created(){
       this.getProject();

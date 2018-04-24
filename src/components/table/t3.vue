@@ -43,19 +43,19 @@
     data () {
       return {
         data: {
-          cashPerformance: true,
-          giveHandToHand: true,
-          introducePerformance: true,
-          passenger: true,
-          practicalOperation: true,
-          practicalOperationAppoint: true,
-          practicalOperationNonSpecifiedt: true,
-          product: true,
-          productCash: true,
-          productSnap: true,
+          cashPerformance: false,
+          giveHandToHand: false,
+          introducePerformance: false,
+          passenger: false,
+          practicalOperation: false,
+          practicalOperationAppoint: false,
+          practicalOperationNonSpecifiedt: false,
+          product: false,
+          productCash: false,
+          productSnap: false,
           storeId: '',
-          theTotalOperation: true,
-          totalPerformance: true
+          theTotalOperation: false,
+          totalPerformance: false
         },
       }
     },

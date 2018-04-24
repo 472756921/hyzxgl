@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-left: 5px;">
+  <div class="sa5" >
     <br>
     <div class="content" v-if="data1.typeOfBonus==1">
       <h3>按客流奖励<span class="notice">{{data1.typeOfBonus == 1?'已启用':'未启用'}}</span></h3>
@@ -20,17 +20,16 @@
       </div>
     </div>
     <Modal  v-model="accumulativeFlag" title="新增" @on-ok="saveAccumulativePassengerFlow">
-
       <span class="text">低限：</span>
-      <Input v-model="accumulativeadd.lowLimit" placeholder="奖金总额" style="width: 300px"/>
+      <Input v-model="accumulativeadd.lowLimit" @on-keyup="accumulativeadd.lowLimit=check(accumulativeadd.lowLimit)" placeholder="奖金总额" style="width: 300px"/>
       <br>
       <br>
       <span class="text">高限：</span>
-      <Input v-model="accumulativeadd.highLimit" placeholder="奖金总额" style="width: 300px"/>
+      <Input v-model="accumulativeadd.highLimit" @on-keyup="accumulativeadd.highLimit=check(accumulativeadd.highLimit)" placeholder="奖金总额" style="width: 300px"/>
       <br>
       <br>
       <span class="text">金额：</span>
-      <Input v-model="accumulativeadd.amountOfReward" placeholder="奖金总额" style="width: 300px"/>
+      <Input v-model="accumulativeadd.amountOfReward" @on-keyup="accumulativeadd.amountOfReward=check2(accumulativeadd.amountOfReward)" placeholder="奖金总额" style="width: 300px"/>
       <br/>
       <br/>
     </Modal>
@@ -45,15 +44,15 @@
     </div>
     <Modal  v-model="cashRewarFlag" title="新增" @on-ok="saveCashReward">
       <span class="text">低限：</span>
-      <Input v-model="cashRewardadd.lowLimit" placeholder="低限" style="width: 300px"/>
+      <Input v-model="cashRewardadd.lowLimit" @on-keyup="cashRewardadd.lowLimit=check(cashRewardadd.lowLimit)" placeholder="低限" style="width: 300px"/>
       <br>
       <br>
       <span class="text">高限：</span>
-      <Input v-model="cashRewardadd.highLimit" placeholder="高限" style="width: 300px"/>
+      <Input v-model="cashRewardadd.highLimit" @on-keyup="cashRewardadd.highLimit=check(cashRewardadd.highLimit)" placeholder="高限" style="width: 300px"/>
       <br>
       <br>
       <span class="text">金额：</span>
-      <Input v-model="cashRewardadd.amountOfReward" placeholder="奖金总额" style="width: 300px"/>
+      <Input v-model="cashRewardadd.amountOfReward" @on-keyup="cashRewardadd.amountOfReward=check2(cashRewardadd.amountOfReward)" placeholder="奖金总额" style="width: 300px"/>
       <br/>
       <br/>
     </Modal>
@@ -66,30 +65,31 @@
     </div>
     <Modal  v-model="practiceRewardFlag" title="新增" @on-ok="savePracticeReward">
       <span class="text">低限：</span>
-      <Input v-model="practiceRewardadd.lowLimit" placeholder="低限" style="width: 300px"/>
+      <Input v-model="practiceRewardadd.lowLimit" @on-keyup="practiceRewardadd.lowLimit=check(practiceRewardadd.lowLimit)" placeholder="低限" style="width: 300px"/>
       <br>
       <br>
       <span class="text">高限：</span>
-      <Input v-model="practiceRewardadd.highLimit" placeholder="高限" style="width: 300px"/>
+      <Input v-model="practiceRewardadd.highLimit" @on-keyup="practiceRewardadd.highLimit=check(practiceRewardadd.highLimit)"  placeholder="高限" style="width: 300px"/>
       <br>
       <br>
       <span class="text">金额：</span>
-      <Input v-model="practiceRewardadd.amountOfReward" placeholder="奖金总额" style="width: 300px"/>
+      <Input v-model="practiceRewardadd.amountOfReward" @on-keyup="practiceRewardadd.amountOfReward=check2(practiceRewardadd.amountOfReward)" placeholder="奖金总额" style="width: 300px"/>
       <br/>
       <br/>
     </Modal>
+
     <div class="content">
       <h3>团队奖金<span class="notice">{{data2.teamBonuses==true ? '已启用':'未启用'}}</span>
       <span v-if="data2.teamBonuses==true">
         <Button class="hy_btn btn" style="margin-left: 10px;" size="small" @click="Addteam">新增</Button>
       </span>
       </h3>
-      <Table  :columns="columnsTeam" :data="teamBonus" ></Table>
+      <Table  :columns="columnsTeam" :data="teamBonus" v-if="teamBonus!=null" ></Table>
     </div>
     <Modal  v-model="teamFlag" title="新增" @on-ok="saveTeamBonus">
       <div>
         <span class="text">周期类型：</span>
-        <Select v-model="teamadd.periodType" style="width:200px">
+        <Select v-model="teamadd.periodType" :transfer=true style="width:200px">
           <Option value="单月" >单月</Option>
           <Option value="季度" >季度</Option>
           <Option value="年度" >年度</Option>
@@ -97,13 +97,13 @@
       </div>
       <br/>
       <span class="text">开始时间：</span>
-      <DatePicker v-model="teamadd.startingTime" type="date" placeholder="Select date" style="width: 100px"></DatePicker>
-      <span class="text">结束时间：</span>
-      <DatePicker v-model="teamadd.endTime" type="date" placeholder="Select date" style="width: 100px"></DatePicker>
+      <DatePicker v-model="teamadd.startingTime" type="date" placeholder="Select date" style="width: 120px"></DatePicker>
+      <span class="text" style="padding-left: 10px;">结束时间：</span>
+      <DatePicker v-model="teamadd.endTime" type="date" placeholder="Select date" style="width: 120px"></DatePicker>
       <br>
       <br>
       <span class="text">计算类型：</span>
-      <Select v-model="teamadd.calculateTheType" style="width:200px">
+      <Select v-model="teamadd.calculateTheType" :transfer=true style="width:200px">
         <Option value="现金" >现金</Option>
         <Option value="实操" >实操</Option>
         <Option value="客流" >客流</Option>
@@ -111,21 +111,22 @@
       <br>
       <br>
       <span class="text">奖金总额：</span>
-      <Input v-model="teamadd.totalBonus" placeholder="奖金总额" style="width: 300px"/>
+      <Input v-model="teamadd.totalBonus" @on-keyup="teamadd.totalBonus=check2(teamadd.totalBonus)" placeholder="奖金总额" style="width: 300px"/>
+
       <br>
       <br>
       <span class="text">低限：</span>
-      <Input v-model="teamadd.lowLimit" placeholder="奖金总额" style="width: 300px"/>
+      <Input v-model="teamadd.lowLimit" @on-keyup="teamadd.lowLimit=check(teamadd.lowLimit)" placeholder="低限" style="width: 300px"/>
       <br>
       <br>
       <span class="text">高限：</span>
-      <Input v-model="teamadd.highLimit" placeholder="奖金总额" style="width: 300px"/>
+      <Input v-model="teamadd.highLimit" @on-keyup="teamadd.highLimit=check(teamadd.highLimit)" placeholder="高限" style="width: 300px"/>
       <br>
       <br>
       <span class="text">分配类型：</span>
-      <Select v-model="teamadd.assignmentType" style="width:200px">
-        <Option value="均分" >均分</Option>
-        <Option value="业绩" >业绩</Option>
+      <Select v-model="teamadd.assignmentType" :transfer=true style="width:200px">
+        <Option value="平均" >平均</Option>
+        <Option value="比例" >比例</Option>
 
       </Select>
 
@@ -140,37 +141,37 @@
           <Button class="hy_btn btn" style="margin-left: 10px;" size="small" @click="Addactivity">新增</Button>
        </span>
       </h3>
-      <Table  :columns="columnsActivity" :data="activityBonus" ></Table>
+      <Table  :columns="columnsActivity" :data="activityBonus" v-if="activityBonus!=null" ></Table>
     </div>
     <Modal  v-model="activityFlag" title="新增" @on-ok="saveActivityBonus">
       <span class="text">开始时间：</span>
-      <DatePicker v-model="activityadd.startingTime" type="date" placeholder="Select date" style="width: 100px"></DatePicker>
-      <span class="text">结束时间：</span>
-      <DatePicker v-model="activityadd.endTime" type="date" placeholder="Select date" style="width: 100px"></DatePicker>
+      <DatePicker v-model="activityadd.startingTime" type="date"  style="width: 100px"></DatePicker>
+      <span class="text" style="padding-left: 10px;">结束时间：</span>
+      <DatePicker v-model="activityadd.endTime" type="date"  style="width: 100px"></DatePicker>
       <br>
       <br>
       <span class="text">计算类型：</span>
-      <Select v-model="activityadd.calculateTheType" style="width:200px">
+      <Select v-model="activityadd.calculateTheType" :transfer=true style="width:200px">
         <Option value="现金" >现金</Option>
       </Select>
       <br>
       <br>
       <span class="text">奖金总额：</span>
-      <Input v-model="activityadd.totalBonus" placeholder="奖金总额" style="width: 300px"/>
+      <Input v-model="activityadd.totalBonus" @on-keyup="activityadd.totalBonus=check2(activityadd.totalBonus)" placeholder="奖金总额" style="width: 300px"/>
       <br>
       <br>
       <span class="text">低限：</span>
-      <Input v-model="activityadd.lowLimit" placeholder="奖金总额" style="width: 300px"/>
+      <Input v-model="activityadd.lowLimit" @on-keyup="activityadd.lowLimit=check(activityadd.lowLimit)" placeholder="奖金总额" style="width: 300px"/>
       <br>
       <br>
       <span class="text">高限：</span>
-      <Input v-model="activityadd.highLimit" placeholder="奖金总额" style="width: 300px"/>
+      <Input v-model="activityadd.highLimit" @on-keyup="activityadd.highLimit=check(activityadd.highLimit)" placeholder="奖金总额" style="width: 300px"/>
       <br>
       <br>
       <span class="text">分配类型：</span>
-      <Select v-model="activityadd.assignmentType" style="width:200px">
-        <Option value="均分">均分</Option>
-        <Option value="业绩">业绩</Option>
+      <Select v-model="activityadd.assignmentType" :transfer=true style="width:200px">
+        <Option value="平均">平均</Option>
+        <Option value="比例">比例</Option>
       </Select>
 
 
@@ -309,7 +310,7 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'success',
+                    type: 'primary',
                     size: 'small'
                   },
                   style: {
@@ -377,7 +378,7 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'success',
+                    type: 'primary',
                     size: 'small'
                   },
                   style: {
@@ -408,6 +409,7 @@
             }
           }
         ],
+        test:''
 
 
       }
@@ -502,6 +504,8 @@
         };
       },
       saveTeamBonus(){
+        this.teamadd.startingTime = this.changeDate(this.teamadd.startingTime);
+        this.teamadd.endTime = this.changeDate(this.teamadd.endTime);
         this.$ajax({
           method: 'post',
           url: editTeamBonus(),
@@ -516,7 +520,7 @@
       },
       updateTeamBonus(row){
         this.teamFlag = true;
-        this.teamadd = row;
+        this.teamadd = JSON.parse(JSON.stringify(row));
       },
       deleteTeamBonus(row){
         this.$ajax({
@@ -547,6 +551,8 @@
         };
       },
       saveActivityBonus(){
+        this.activityadd.startingTime = this.changeDate(this.activityadd.startingTime);
+        this.activityadd.endTime = this.changeDate(this.activityadd.endTime);
         this.$ajax({
           method: 'post',
           url: editActivityBonus(),
@@ -561,7 +567,7 @@
       },
       updateActivityBonus(row){
         this.activityFlag = true;
-        this.activityadd = row;
+        this.activityadd = JSON.parse(JSON.stringify(row));
       },
       deleteActivityBonus(row){
         this.$ajax({
@@ -578,6 +584,20 @@
       },
       takeMonitor(){
         this.getData();
+      },
+      changeDate(date){
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m < 10 ? '0' + m : m;
+        var d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        return y + '-' + m + '-' + d;
+      },
+      check(value){
+        return value.replace(/[^\d]/g,'');
+      },
+      check2(value){
+        return value.replace(/[^\d\.]/g,'');
       }
     },
     created(){
@@ -589,15 +609,20 @@
 </script>
 
 <style scoped>
-  h3{
-    margin: 0 0 10px 0;
-  }
+ .sa5{
+   padding-left: .6rem;
+   box-sizing: border-box;
+ }
   .btn{
     margin: 20px 0;
   }
   .content{
+    width: 95%;
     border: 1px solid #e3e3e3;
-    padding: 1rem;
+    padding: .2rem 1rem 1rem 1rem;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     margin: 10px 0;
   }
   .notice{
@@ -607,7 +632,7 @@
   }
   .text{
     display: inline-block;
-    width: 100px;
+    width: 80px;
   }
   .Input{
     width: 100px;

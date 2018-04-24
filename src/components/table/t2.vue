@@ -1,9 +1,13 @@
 <template>
   <div>
     <Row :gutter="10">
-      <Col span="5" style="padding-top: 40px;">
+      <Col span="2" style="padding-top: 40px;margin-left:5px;">
       <Checkbox v-model="data.passenger">客流</Checkbox>
-      <Checkbox v-model="data.cashPerformance">现金业绩（不含产品）</Checkbox>
+      </Col>
+      <Col span="3" >
+      <h3>现金业绩</h3>
+      <Checkbox v-model="data.storagePerformance">储值业绩</Checkbox>
+      <Checkbox v-model="data.cashCourse">现金疗程</Checkbox>
       </Col>
       <Col span="3">
       <h3>面部实操</h3>
@@ -27,10 +31,11 @@
       </Col>
       <Col span="5">
       <h3>其他</h3>
+      <Checkbox v-model="data.cardPerformance">卡扣疗程业绩</Checkbox>
       <Checkbox v-model="data.giveHandToHand">赠送手工</Checkbox>
       <Checkbox v-model="data.introducePerformance">转介绍业绩</Checkbox>
       </Col>
-      <Col span="2">
+      <Col span="1">
       <Button class="hy_btn btn" @click="saveData()">保存</Button>
       </Col>
     </Row>
@@ -53,7 +58,6 @@
         return {
           data: {
             passenger : false,
-            cashPerformance: false,
             facialPracticeAppoint: false,
             facialPracticeNonSpecifiedt: false,
             physicalExerciseAppoint: false,
@@ -65,7 +69,12 @@
             introducePerformance: false,
             giveHandToHand: false,
             storeId: '',
+            cardPerformance: false,
+            storagePerformance: false,
+            cashCourse: false,
+
           },
+          model1:'',
         }
       },
       created() {

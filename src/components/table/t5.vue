@@ -37,14 +37,14 @@
     data() {
       return {
         data: {
-          buckleProduct: true,
-          cashPerformance: true,
-          cashProducts: true,
-          highEndProjectCash: true,
-          passengerFlow: true,
-          practicalOperation: true,
-          realConsumption: true,
-          remarks: true,
+          buckleProduct: false,
+          cashPerformance: false,
+          cashProducts: false,
+          highEndProjectCash: false,
+          passengerFlow: false,
+          practicalOperation: false,
+          realConsumption: false,
+          remarks: false,
           storeId: '',
 
         }

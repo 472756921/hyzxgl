@@ -41,15 +41,15 @@
     data () {
       return {
         data: {
-          adviser: true,
-          buckle: true,
-          cash: true,
-          customerName: true,
-          practicalOperation: true,
-          serialNumber: true,
-          serviceDepartment: true,
-          serviceItems: true,
-          servicePersonal: true,
+          adviser: false,
+          buckle: false,
+          cash: false,
+          customerName: false,
+          practicalOperation: false,
+          serialNumber: false,
+          serviceDepartment: false,
+          serviceItems: false,
+          servicePersonal: false,
           storeId: '',
         }
       }

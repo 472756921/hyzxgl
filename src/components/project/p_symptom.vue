@@ -3,32 +3,21 @@
     <h2 style="padding: .6rem;">症状管理</h2>
     <Row :gutter="24" class="option">
       <Col span="2">
-      <Button class="hy_btn" @click="newEm">新建{{card}}</Button>
+      <Button class="hy_btn" @click="newEm">新建</Button>
       </Col>
     </Row>
-    <h3 style="text-align: center;padding: .6rem;">{{card}}</h3>
     <Table :columns="columns" :data="data"></Table>
 
-    <Modal  v-model="storeFlag" :title="store" @on-ok="ok">
+    <Modal  v-model="storeFlag" :mask-closable="false" :title="store" @on-ok="ok">
       症状名称：<Input v-model="pis.problem" placeholder="名称" style="width: 300px"/>
       <br/>
       <br/>
-      症状类型：<Input v-model="pis.symptomType" placeholder="症状类型" style="width: 300px"/>
+      症状类型：<Select v-model="pis.symptomType" style="width:300px" :transfer=true>
+      <Option value="1">身体类</Option>
+      <Option value="2">面护类</Option>
+    </Select>
       <br/>
       <br/>
-      处理细节：<Input v-model="pis.handlingDetails" placeholder="处理细节" style="width: 300px"/>
-      <br/>
-      <br/>
-      基础方案：
-      <Select v-model="pis.basicProgrammeIds" multiple style="width:260px">
-        <Option v-for="item in prds" :value="item.id" :key="item.id">{{ item.projectName }}</Option>
-      </Select>
-      <br/>
-      <br/>
-      最优方案：
-      <Select v-model="pis.optimalSchemeIds" multiple style="width:260px">
-        <Option v-for="item in prds" :value="item.id" :key="item.id">{{ item.projectName }}</Option>
-      </Select>
     </Modal>
   </div>
 </template>
@@ -55,9 +44,10 @@
           enable: '',
           handlingDetails : '',
           basicProgramme: '',
-          basicProgrammeIds: [],
+          basicProgrammeIds: '',
           optimalScheme: '',
-          optimalSchemeIds: [],
+          optimalSchemeIds: '',
+          schemeName:'',
         },
         columns: [
           {
@@ -66,19 +56,10 @@
           },
           {
             title: '症状类型',
-            key: 'symptomType'
-          },
-          {
-            title: '处理细节',
-            key: 'handlingDetails'
-          },
-          {
-            title: '基础方案',
-            key: 'basicProgramme'
-          },
-          {
-            title: '最优方案',
-            key: 'optimalScheme'
+            key: 'symptomType',
+            render: (h, params) => {
+              return h('span', params.row.symptomType == '1' ? '身体类': '面护类')
+            }
           },
           {
             title: '操作',
@@ -133,9 +114,11 @@
           enable: '',
           handlingDetails : '',
           basicProgramme: '',
-          basicProgrammeIds: [],
+          basicProgrammeIds: '',
           optimalScheme: '',
-          optimalSchemeIds: [],
+          optimalSchemeIds: '',
+          schemeName:'',
+          enable: true,
         };
 
       },
@@ -166,7 +149,7 @@
           headers: {
             "authToken": sessionStorage.getItem('authToken')
           },
-          url: findproblemList() + '?page=' + page + '&pageSize=100',
+          url: findproblemList() + '?id='+this.$route.params.id+'&page=' + page + '&pageSize=100',
         }).then((res) => {
           this.data = res.data;
         }).catch((error) => {
@@ -180,7 +163,7 @@
           headers: {
             "authToken": sessionStorage.getItem('authToken')
           },
-          url: findProjectList(),
+          url: findProjectList()+'?id='+this.$route.params.id,
         }).then((res) => {
           this.prds = res.data.results;
         }).catch((error) => {
@@ -191,8 +174,12 @@
         if( this.store == '修改') {
           URL = editproblem();
         };
-        this.pis.basicProgrammeIds = this.pis.basicProgrammeIds.toString();
-        this.pis.optimalSchemeIds = this.pis.optimalSchemeIds.toString();
+
+        if(this.pis.problem == ''||this.pis.symptomType=='' ){
+          this.$Message.warning('请填写完整信息');
+          return;
+        }
+        console.log(this.pis);
         this.$ajax({
           method: 'POST',
           dataType: 'JSON',
@@ -206,17 +193,16 @@
           this.$Message.success('操作成功');
           this.getList(1);
         }).catch((error) => {
+          this.$Message.error('操作失败');
         });
       },
       mannger(data) {
-        this.pis = data;
-        if (typeof data.basicProgrammeIds == 'string') {
-          this.pis.basicProgrammeIds = data.basicProgrammeIds.split(',').map( (it, i) => {return +it});
-          this.pis.optimalSchemeIds = data.optimalSchemeIds.split(',').map( (it, i) => {return +it});
-        }
+        this.pis = JSON.parse(JSON.stringify(data));
         this.storeFlag = true;
         this.store = '修改';
+        console.log(this.pis);
       },
+
     }
   };
 </script>

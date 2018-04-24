@@ -1,10 +1,10 @@
 <template>
-  <div style="margin-left:15px;">
+  <div style="margin-left:5px;">
     <div class="content">
       <h3>投诉罚金 <span class="notice">{{data.complaintFines==true ? '已启用':'未启用'}}</span>
       </h3>
       <span v-if="data.complaintFines==true">
-        金额:<Input v-model="data.complaintFinesAmount" placeholder="投诉罚金" size="small" class="Input"/>
+        金额:<Input v-model="data.complaintFinesAmount" @on-keyup="data.complaintFinesAmount=check2(data.complaintFinesAmount)" placeholder="投诉罚金  元" size="small" class="Input"/>
       <Button class="btn" size="small" type="success" @click="savecomplaint">保存</Button>
       </span>
 
@@ -15,8 +15,8 @@
         <span v-if="data.leaveEarlyFines==true"><Button class="hy_btn btn" style="margin-left: 10px;" size="small" @click="AddleaveEarlyFines">新增</Button></span>
       </h3>
       <div v-for="item in leaveEarlyFiness" style="margin: 10px 0;">
-        时间：<Input v-model="item.leaveEarlyTime" placeholder="迟到早退时间" size="small"  class="Input"/>
-        金额:<Input v-model="item.totalBonus" placeholder="迟到早退罚金" size="small"  class="Input"/>
+        时间(min)：<Input v-model="item.leaveEarlyTime" @on-keyup="item.leaveEarlyTime=check(item.leaveEarlyTime)" placeholder="迟到早退时间 min" size="small"  class="Input"/>
+        金额:<Input v-model="item.totalBonus" @on-keyup="item.totalBonus=check2(item.totalBonus)" placeholder="迟到早退罚金" size="small"  class="Input"/>
         <Button class="btn" size="small" type="success" @click="update(2,item)">保存</Button>
         <Button class="btn" size="small" type="warning" @click="Delete(2,item)">删除</Button>
       </div>
@@ -24,23 +24,20 @@
 
     <div class="content">
       <h3>事假罚金<span class="notice">{{data.leaveAfine==true ? '已启用':'未启用'}}</span>
-        <span v-if="data.leaveAfine==true">
-          <Button class="hy_btn btn" style="margin-left: 10px;" size="small" @click="AddleaveAfine">新增</Button>
-        </span>
       </h3>
-     <div v-for="item in leaveAfines" style="margin: 10px 0;">
-       天数：<Input v-model="item.personalLeave" placeholder="事假天数" size="small" class="Input"/>
-       金额:<Input v-model="item.totalBonus" placeholder="事假罚金" size="small" class="Input"/>
-       <Button class="btn" size="small" type="success" @click="update(3,item)">保存</Button>
-       <Button class="btn" size="small" type="warning" @click="Delete(3,item)">删除</Button>
-     </div>
+      <div v-if="data.typeOfLeave=='1'">
+        按固定罚金：<Input v-model="data.leaveThePenaltyRules" @on-keyup="data.leaveThePenaltyRules=check(data.leaveThePenaltyRules)"  size="small" class="Input"/>元/天<Button class="btn" size="small" type="success" @click="savecomplaint" style="margin-left: 10px;">保存</Button>
+      </div>
+      <div v-else>
+        按计算规则：月收入／实际出勤天数*请假天数
+      </div>
     </div>
 
     <div class="content">
       <h3>旷工罚金<span class="notice">{{data.absenteeismFine==true ? '已启用':'未启用'}}</span>
       </h3>
       <span v-if="data.absenteeismFine==true">
-        金额:<Input v-model="data.absenteeismFineAmount" placeholder="旷工罚金" size="small" class="Input"/>
+        金额:<Input v-model="data.absenteeismFineAmount"  @on-keyup="data.absenteeismFineAmount=check2(data.absenteeismFineAmount)" placeholder="旷工罚金" size="small" class="Input"/>
       <Button class="btn" size="small" type="success" @click="ok(4)">保存</Button>
       </span>
 
@@ -80,35 +77,32 @@
     </div>
 
     <Modal  v-model="salaryFlag2" title="新增" @on-ok="ok(2)">
-      <span class="text">迟到早退时间：</span><Input v-model="add2.leaveEarlyTime" placeholder="迟到早退时间" style="width: 300px"/>
+      <span class="text">迟到早退时间：</span><Input v-model="add2.leaveEarlyTime" @on-keyup="add2.leaveEarlyTime=check(add2.leaveEarlyTime)" placeholder="迟到早退时间 分钟" style="width: 300px"/>
       <br/>
       <br/>
-      <span class="text">金额：</span><Input v-model="add2.totalBonus" placeholder="金额" style="width: 300px"/>
+      <span class="text">金额：</span><Input v-model="add2.totalBonus" @on-keyup="add2.totalBonus=check2(add2.totalBonus)" placeholder="金额" style="width: 300px"/>
       <br/>
       <br/>
     </Modal>
     <Modal  v-model="salaryFlag3" title="新增" @on-ok="ok(3)">
-      <span class="text">天数：</span><Input v-model="add3.personalLeave" placeholder="天数" style="width: 300px"/>
+      <span class="text">天数：</span><Input v-model="add3.personalLeave" @on-keyup="add3.personalLeave=check(add3.personalLeave)" placeholder="天数" style="width: 300px"/>
       <br/>
       <br/>
-      <span class="text">金额：</span><Input v-model="add3.totalBonus" placeholder="金额" style="width: 300px"/>
+      <span class="text">金额：</span><Input v-model="add3.totalBonus" @on-keyup="add3.totalBonus=check2(add3.totalBonus)" placeholder="金额" style="width: 300px"/>
       <br/>
       <br/>
     </Modal>
     <Modal  v-model="salaryFlag5" title="新增" @on-ok="ok(add5.type)">
-      <span class="text">低限：</span><Input v-model="add5.lowLimit" placeholder="低限" style="width: 300px"/>
+      <span class="text">低限：</span><Input v-model="add5.lowLimit" @on-keyup="add5.lowLimit=check(add5.lowLimit)" placeholder="低限" style="width: 300px"/>
       <br/>
       <br/>
-      <span class="text">高限：</span><Input v-model="add5.highLimit" placeholder="高限" style="width: 300px"/>
+      <span class="text">高限：</span><Input v-model="add5.highLimit" @on-keyup="add5.highLimit=check(add5.highLimit)" placeholder="高限" style="width: 300px"/>
       <br/>
       <br/>
-      <span class="text">金额：</span><Input v-model="add5.totalBonus" placeholder="金额" style="width: 300px"/>
+      <span class="text">金额：</span><Input v-model="add5.totalBonus" @on-keyup="add5.totalBonus=check2(add5.totalBonus)" placeholder="金额" style="width: 300px"/>
       <br/>
       <br/>
     </Modal>
-
-
-
 
   </div>
 </template>
@@ -179,6 +173,8 @@
         consumptionPenaltyesType:'consumptionPenaltyes',
         s: true,
         model1:'',
+        model2:'',
+        vertical:'1',
         cityList:[
           {
             value: '0',
@@ -325,7 +321,6 @@
           this.getData();
         }).catch( (error) =>{
           this.$Message.error('保存失败');
-
         })
       },
       deletecomplaint(){},
@@ -430,6 +425,12 @@
       },
       takeMonitor(){
         this.getData();
+      },
+      check(value){
+        return value.replace(/[^\d]/g,'');
+      },
+      check2(value){
+        return value.replace(/[^\d\.]/g,'');
       }
 
     },
@@ -455,12 +456,19 @@
 
   }
   .content{
+    width: 95%;
     border: 1px solid #e3e3e3;
-    padding: 1rem;
+    padding: .2rem 1rem 1rem 1rem;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     margin: 10px 0;
   }
   .text{
     display: inline-block;
     width: 100px;
+  }
+  h3{
+    margin: 0 0 10px 0;
   }
 </style>

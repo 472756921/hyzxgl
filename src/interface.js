@@ -3,10 +3,14 @@
  */
 const host = 'http://116.62.201.135:8080';
 
-
 //门店列表
 export const findStoreList = function () {
   const URL = '/app/api/store/findStoreList';
+  const API = host + URL;
+  return API;
+};
+export const findStoreListById = function () {
+  const URL = '/app/api/store/findStoreById';
   const API = host + URL;
   return API;
 };
@@ -20,6 +24,77 @@ export const editStore = function () {
   const API = host + URL;
   return API;
 };
+export const deleteStore = function () {
+  const URL = '/app/api/store/delete';
+  const API = host + URL;
+  return API;
+};
+
+export const userLogin = function () {
+  const URL = '/app/api/user/login';
+  const API = host + URL;
+  return API;
+};
+export const userRegister = function () {
+  const URL = '/app/api/store/register';
+  const API = host + URL;
+  return API;
+};
+export const findAuditOfFailure = function () {
+  const URL = '/app/api/store/findAuditOfFailure';
+  const API = host + URL;
+  return API;
+};
+export const findStoreRegister = function () {
+  const URL = '/app/api/store/findStoreRegister';
+  const API = host + URL;
+  return API;
+};
+export const auditStoreCustomer = function () {
+  const URL = '/app/api/store/auditStoreCustomer';
+  const API = host + URL;
+  return API;
+};
+export const getProvinces  = function () {
+  const URL = '/app/api/store/provinces';
+  const API = host + URL;
+  return API;
+};
+export const getCities  = function () {
+  const URL = '/app/api/store/cities/province/';
+  const API = host + URL;
+  return API;
+};
+export const findStoreByPhone  = function () {
+  const URL = '/app/api/store/findStoreByPhone';
+  const API = host + URL;
+  return API;
+};
+export const checkStorePhone  = function () {
+  const URL = '/app/api/store/checkStorePhone';
+  const API = host + URL;
+  return API;
+};
+export const editPassword  = function () {
+  const URL = '/app/api/user/editPassword';
+  const API = host + URL;
+  return API;
+};
+export const getVerification  = function () {
+  const URL = '/app/api/store/getVerification';
+  const API = host + URL;
+  return API;
+};
+export const updataByPhone  = function () {
+  const URL = '/app/api/store/updataByPhone';
+  const API = host + URL;
+  return API;
+};
+export const logout  = function () {
+  const URL = '/app/api/user/logout';
+  const API = host + URL;
+  return API;
+};
 
 //项目管理
 export const projectsave = function () {
@@ -29,6 +104,11 @@ export const projectsave = function () {
 };
 export const projectedit = function () {
   const URL = '/app/api/project/edit';
+  const API = host + URL;
+  return API;
+};
+export const projectdelete = function () {
+  const URL = '/app/api/project/delete';
   const API = host + URL;
   return API;
 };
@@ -59,6 +139,27 @@ export const deleteproblem = function () {
   return API;
 };
 
+export const saveSolution = function () {
+  const URL = '/app/api/problem/solution/save';
+  const API = host + URL;
+  return API;
+};
+export const editSolution = function () {
+  const URL = '/app/api/problem/solution/edit';
+  const API = host + URL;
+  return API;
+};
+export const findSolutionList = function () {
+  const URL = '/app/api/problem/solution/findSolutionList';
+  const API = host + URL;
+  return API;
+};
+export const deleteSolution = function () {
+  const URL = '/app/api/problem/Solution/delete';
+  const API = host + URL;
+  return API;
+};
+
 //员工管理
 export const findPostList = function () {
   const URL = '/app/api/post/findPostList';
@@ -75,6 +176,12 @@ export const findPostedit = function () {
   const API = host + URL;
   return API;
 };
+export const deletePost = function () {
+  const URL = '/app/api/post/delete';
+  const API = host + URL;
+  return API;
+};
+
 //客户管理
 export const findStoreById = function () {
   const URL = '/app/api/store/findStoreById';
@@ -556,3 +663,4 @@ export const findAllProject = function () {
   const API = host + URL;
   return API;
 };
+

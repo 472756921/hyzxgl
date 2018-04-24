@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sa4">
     <h3>{{this.manualFee == true ? '已启用':'未启用'}}</h3>
   </div>
 </template>
@@ -28,6 +28,12 @@
 </script>
 <style scoped>
   .btn{
-    margin: 20px 0;
+    margin: 10px 0 20px 0;
+  }
+  .sa3{
+    padding-left: .6rem;
+  }
+  h3{
+    margin: 0 0 10px 0;
   }
 </style>

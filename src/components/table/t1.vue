@@ -1,40 +1,51 @@
 <template>
   <div>
-    <Row :gutter="10">
-      <Col span="3" style="margin-left:5px;">
+    <Row>
+      <Col span="2" style="margin-left:5px;">
       <h3>会员储值</h3>
       <Checkbox v-model="data.preSale">售前</Checkbox>
       <Checkbox v-model="data.aftermarket">售后</Checkbox>
       </Col>
-      <Col span="3">
+      <Col span="2">
       <h3>美容</h3>
       <Checkbox v-model="data.beautyCash">现金</Checkbox>
       <Checkbox v-model="data.beautyPractice">实操</Checkbox>
       </Col>
-      <Col span="3">
+      <Col span="2">
       <h3>美发</h3>
       <Checkbox v-model="data.hairdressingCash">现金</Checkbox>
       <Checkbox v-model="data.hairdressingSnap">卡扣</Checkbox>
       </Col>
-      <Col span="3">
+      <Col span="2">
       <h3>瑜伽</h3>
       <Checkbox v-model="data.yogaCash">现金</Checkbox>
       <Checkbox v-model="data.yogaSnap">卡扣</Checkbox>
       </Col>
-      <Col span="3">
+      <Col span="2">
       <h3>产品</h3>
       <Checkbox v-model="data.productCash">现金</Checkbox>
       <Checkbox v-model="data.productSnap">卡扣</Checkbox>
       </Col>
-      <Col span="3">
+      <Col span="2">
       <h3>高端项目</h3>
       <Checkbox v-model="data.projectCash">现金</Checkbox>
       <Checkbox v-model="data.projectSnap">卡扣</Checkbox>
       </Col>
-      <Col span="3">
+      <Col span="5">
+      <h3>客流</h3>
+      <Checkbox v-model="data.passenger">客流</Checkbox>
+      <Checkbox v-model="data.storeNumber">到店人数</Checkbox>
+      <Checkbox v-model="data.firstStoreNumber">首次进店人数</Checkbox>
+      <Checkbox v-model="data.firstTransactionNumber">首次成交人数</Checkbox>
+      <Checkbox v-model="data.twoTurnover">二次成交人数</Checkbox>
+      </Col>
+      <Col span="4">
       <h3>其他</h3>
+      <Checkbox v-model="data.totalActualExercise">实操总额</Checkbox>
+      <Checkbox v-model="data.unitPrice">客单价</Checkbox>
       <Checkbox v-model="data.arrears">欠款</Checkbox>
       </Col>
+
       <Col span="2">
       <Button class="hy_btn btn" @click="saveData()">保存</Button>
       </Col>
@@ -49,33 +60,41 @@
       data () {
         return {
           data: {
-            aftermarket: true,
-            arrears: true,
-            beauty: true,
-            beautyCash: true,
-            beautyPractice: true,
-            dateTime: true,
-            enable: true,
-            hairdressing: true,
-            hairdressingCash: true,
-            hairdressingSnap: true,
-            highEndProjects: true,
+            aftermarket: false,
+            arrears: false,
+            beauty: false,
+            beautyCash: false,
+            beautyPractice: false,
+            dateTime: false,
+            enable: false,
+            hairdressing: false,
+            hairdressingCash: false,
+            hairdressingSnap: false,
+            highEndProjects: false,
             id: 0,
-            memberStorageValue: true,
-            passenger: true,
-            personalPerformance: true,
-            preSale: true,
-            product: true,
-            productCash: true,
-            productSnap: true,
-            projectCash: true,
-            projectSnap: true,
+            memberStorageValue: false,
+            passenger: false,
+            personalPerformance: false,
+            preSale: false,
+            product: false,
+            productCash: false,
+            productSnap: false,
+            projectCash: false,
+            projectSnap: false,
             storeId: 0,
             storeName: '',
-            yoga: true,
-            yogaCash: true,
-            yogaSnap: true
-          }
+            yoga: false,
+            yogaCash: false,
+            yogaSnap: false,
+            unitPrice:false,
+            totalActualExercise: false,
+            twoTurnover:false,
+            firstTransactionNumber: false,
+            firstStoreNumber: false,
+            storeNumber: false,
+            passenger: false,
+          },
+          model1:''
         }
       },
       created() {
