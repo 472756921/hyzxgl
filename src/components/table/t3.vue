@@ -2,36 +2,30 @@
   <div>
     <Row :gutter="10">
       <Col span="9" style="padding-top: 40px;">
-      <Checkbox v-model="data.passenger">客流</Checkbox>
-      <Checkbox v-model="data.totalPerformance">总业绩</Checkbox>
-      <Checkbox v-model="data.theTotalOperation">总实操</Checkbox>
-      <Checkbox v-model="data.cashPerformance">现金业绩（不含产品）</Checkbox>
+        <Checkbox v-model="data.passenger">客流</Checkbox>
+        <Checkbox v-model="data.totalPerformance">总业绩</Checkbox>
+        <Checkbox v-model="data.theTotalOperation">总实操</Checkbox>
+        <Checkbox v-model="data.cashPerformance">现金业绩（不含产品）</Checkbox>
       </Col>
       <Col span="4">
       <h3>实操</h3>
-      <Checkbox v-model="data.practicalOperationAppoint">指定</Checkbox>
-      <Checkbox v-model="data.practicalOperationNonSpecifiedt">非指定</Checkbox>
+        <Checkbox v-model="data.practicalOperationAppoint">指定</Checkbox>
+        <Checkbox v-model="data.practicalOperationNonSpecifiedt">非指定</Checkbox>
       </Col>
       <Col span="4">
-      <h3>产品</h3>
-      <Checkbox v-model="data.productCash">现金</Checkbox>
-      <Checkbox v-model="data.productSnap">卡扣</Checkbox>
+        <h3>产品</h3>
+        <Checkbox v-model="data.productCash">现金</Checkbox>
+        <Checkbox v-model="data.productSnap">卡扣</Checkbox>
       </Col>
       <Col span="5">
-      <h3>其他</h3>
-      <Checkbox v-model="data.giveHandToHand">赠送手工</Checkbox>
-      <Checkbox v-model="data.introducePerformance">转介绍业绩</Checkbox>
+        <h3>其他</h3>
+        <Checkbox v-model="data.giveHandToHand">赠送手工</Checkbox>
+        <Checkbox v-model="data.introducePerformance">转介绍业绩</Checkbox>
       </Col>
       <Col span="2">
-      <Button class="hy_btn btn" @click="saveData()">保存</Button>
+       <Button class="hy_btn btn" @click="saveData()">保存</Button>
       </Col>
     </Row>
-
-
-
-
-
-
   </div>
 </template>
 
@@ -43,19 +37,19 @@
     data () {
       return {
         data: {
-          cashPerformance: true,
-          giveHandToHand: true,
-          introducePerformance: true,
-          passenger: true,
-          practicalOperation: true,
-          practicalOperationAppoint: true,
-          practicalOperationNonSpecifiedt: true,
-          product: true,
-          productCash: true,
-          productSnap: true,
+          cashPerformance: false,
+          giveHandToHand: false,
+          introducePerformance: false,
+          passenger: false,
+          practicalOperation: false,
+          practicalOperationAppoint: false,
+          practicalOperationNonSpecifiedt: false,
+          product: false,
+          productCash: false,
+          productSnap: false,
           storeId: '',
-          theTotalOperation: true,
-          totalPerformance: true
+          theTotalOperation: false,
+          totalPerformance: false
         },
       }
     },

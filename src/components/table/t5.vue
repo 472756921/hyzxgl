@@ -4,25 +4,25 @@
       <Col span="3" class="col" style="margin-left: 5px;"><Checkbox v-model="data.cashPerformance">现金业绩</Checkbox></Col>
       <Col span="2" class="col"><Checkbox v-model="data.passengerFlow">客流</Checkbox></Col>
       <Col span="2" class="col">
-      <Checkbox v-model="data.practicalOperation">实操</Checkbox>
+       <Checkbox v-model="data.practicalOperation">实操</Checkbox>
       </Col>
       <Col span="3" class="col">
-      <Checkbox v-model="data.cashProducts">现金产品</Checkbox>
+        <Checkbox v-model="data.cashProducts">现金产品</Checkbox>
       </Col>
       <Col span="3" class="col">
-      <Checkbox v-model="data.buckleProduct">卡扣产品</Checkbox>
+        <Checkbox v-model="data.buckleProduct">卡扣产品</Checkbox>
       </Col>
       <Col span="2" class="col">
-      <Checkbox v-model="data.realConsumption">实耗</Checkbox>
+        <Checkbox v-model="data.realConsumption">实耗</Checkbox>
       </Col>
       <Col span="3" class="col">
-      <Checkbox v-model="data.highEndProjectCash">高端项目现金</Checkbox>
+        <Checkbox v-model="data.highEndProjectCash">高端项目现金</Checkbox>
       </Col>
       <Col span="2" class="col">
-      <Checkbox v-model="data.remarks">备注</Checkbox>
+       <Checkbox v-model="data.remarks">备注</Checkbox>
       </Col>
       <Col span="3">
-      <Button class="hy_btn btn" @click="saveData()">保存</Button>
+        <Button class="hy_btn btn" @click="saveData()">保存</Button>
       </Col>
     </Row>
 
@@ -37,16 +37,15 @@
     data() {
       return {
         data: {
-          buckleProduct: true,
-          cashPerformance: true,
-          cashProducts: true,
-          highEndProjectCash: true,
-          passengerFlow: true,
-          practicalOperation: true,
-          realConsumption: true,
-          remarks: true,
+          buckleProduct: false,
+          cashPerformance: false,
+          cashProducts: false,
+          highEndProjectCash: false,
+          passengerFlow: false,
+          practicalOperation: false,
+          realConsumption: false,
+          remarks: false,
           storeId: '',
-
         }
       }
     },

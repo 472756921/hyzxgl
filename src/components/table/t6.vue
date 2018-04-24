@@ -2,31 +2,31 @@
   <div>
     <Row :gutter="10">
       <Col span="3" class="col" style="margin-left: 5px;">
-      <Checkbox v-model="data.customerName">顾客姓名</Checkbox>
+        <Checkbox v-model="data.customerName">顾客姓名</Checkbox>
       </Col>
       <Col span="3" class="col">
-      <Checkbox v-model="data.serviceItems">服务项目或产品</Checkbox>
+        <Checkbox v-model="data.serviceItems">服务项目或产品</Checkbox>
       </Col>
       <Col span="2" class="col">
-      <Checkbox v-model="data.cash">现金</Checkbox>
+        <Checkbox v-model="data.cash">现金</Checkbox>
       </Col>
       <Col span="2" class="col">
-      <Checkbox v-model="data.practicalOperation">实操</Checkbox>
+        <Checkbox v-model="data.practicalOperation">实操</Checkbox>
       </Col>
       <Col span="2" class="col">
-      <Checkbox v-model="data.buckle">卡扣</Checkbox>
+        <Checkbox v-model="data.buckle">卡扣</Checkbox>
       </Col>
       <Col span="2" class="col">
-      <Checkbox v-model="data.adviser">顾问</Checkbox>
+        <Checkbox v-model="data.adviser">顾问</Checkbox>
       </Col>
       <Col span="3" class="col">
-      <Checkbox v-model="data.serviceDepartment">服务部门</Checkbox>
+       <Checkbox v-model="data.serviceDepartment">服务部门</Checkbox>
       </Col>
       <Col span="3" class="col">
-      <Checkbox v-model="data.servicePersonal">服务人员</Checkbox>
+        <Checkbox v-model="data.servicePersonal">服务人员</Checkbox>
       </Col>
       <Col span="3">
-      <Button class="hy_btn btn" @click="saveData()">保存</Button>
+       <Button class="hy_btn btn" @click="saveData()">保存</Button>
       </Col>
 
     </Row>
@@ -41,15 +41,15 @@
     data () {
       return {
         data: {
-          adviser: true,
-          buckle: true,
-          cash: true,
-          customerName: true,
-          practicalOperation: true,
-          serialNumber: true,
-          serviceDepartment: true,
-          serviceItems: true,
-          servicePersonal: true,
+          adviser: false,
+          buckle: false,
+          cash: false,
+          customerName: false,
+          practicalOperation: false,
+          serialNumber: false,
+          serviceDepartment: false,
+          serviceItems: false,
+          servicePersonal: false,
           storeId: '',
         }
       }

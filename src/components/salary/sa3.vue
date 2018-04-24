@@ -1,17 +1,42 @@
 <template>
-  <div style="margin-left: 5px;">
+  <div class="sa3">
     <h3>{{performanceDrawinges == true ? '已启用':'未启用'}}</h3>
     <div v-if="performanceDrawinges == true">
       <Button class="hy_btn btn" @click="add">新增</Button>
       <Table :columns="columns" :data="data"></Table>
-      <Modal  v-model="salaryFlag" :title="title" @on-ok="ok">
-        <span class="text">低限：</span><Input v-model="ut.lowLimit" placeholder="低限" style="width: 300px"/>
+      <Modal  v-model="salaryFlag" :mask-closable="false" :title="title" @on-ok="ok">
+        <span class="text">低限：</span><Input v-model="ut.lowLimit" @on-keyup="ut.lowLimit=check(ut.lowLimit)" placeholder="低限" style="width: 300px"/>
         <br/>
         <br/>
-        <span class="text">高限：</span><Input v-model="ut.highLimit" placeholder="高限" style="width: 300px"/>
+        <span class="text">高限：</span><Input v-model="ut.highLimit" @on-keyup="ut.highLimit=check(ut.highLimit)" placeholder="高限" style="width: 300px"/>
         <br/>
         <br/>
-        <span class="text">卡项销售：</span><Input v-model="ut.cardSales" placeholder="卡项销售" style="width: 300px"/>
+        <span class="text">储值：</span><Input v-model="ut.storedValue" placeholder="储值" style="width: 150px"/>%
+        <br/>
+        <br/>
+        <span class="text">现金疗程：</span><Input v-model="ut.cashCourse" placeholder="现金疗程" style="width: 150px"/>%
+        <br/>
+        <br/>
+        <span class="text">现金产品：</span><Input v-model="ut.cashProduct" placeholder="现金产品" style="width: 150px"/>%
+        <br/>
+        <br/>
+        <span class="text">卡扣疗程：</span><Input v-model="ut.buckleCourse" placeholder="卡扣疗程" style="width: 150px"/>%
+        <br/>
+        <br/>
+        <span class="text">卡扣产品：</span><Input v-model="ut.buckleProduct" placeholder="卡扣产品" style="width: 150px"/>%
+        <br/>
+        <br/>
+        <span class="text">超折产品：</span><Input v-model="ut.superProduct" placeholder="超折产品" style="width: 150px"/>%
+        <br/>
+        <br/>
+        <span class="text">高端项目：</span><Input v-model="ut.highEndProject" placeholder="高端项目" style="width: 150px"/>%
+        <br/>
+        <br/>
+        <span class="text">其他：</span><Input v-model="ut.otherProduct" placeholder="其他" style="width: 150px"/>%
+        <br/>
+        <br/>
+        <!---->
+       <!-- <span class="text">卡项销售：</span><Input v-model="ut.cardSales" placeholder="卡项销售" style="width: 300px"/>
         <br/>
         <br/>
         <span class="text">卡扣项目：</span><Input v-model="ut.buckleProject" placeholder="卡扣项目" style="width: 300px"/>
@@ -22,7 +47,7 @@
         <br/>
         <span class="text">高端项目：</span><Input v-model="ut.highEndProject" placeholder="高端项目" style="width: 300px"/>
         <br/>
-        <br/>
+        <br/>-->
       </Modal>
     </div>
   </div>
@@ -44,6 +69,48 @@
             key: 'highLimit'
           },
           {
+            title: '储值',
+            key: 'storedValue',
+            render: (h, params) => {
+              return h('span', params.row.storedValue*100+'%')
+            }
+          },
+          {
+            title: '现金疗程',
+            key: 'cashCourse',
+            render: (h, params) => {
+              return h('span', params.row.cashCourse*100+'%')
+            }
+          },
+          {
+            title: '现金产品',
+            key: 'cashProduct',
+            render: (h, params) => {
+              return h('span', params.row.cashProduct*100+'%')
+            }
+          },
+          {
+            title: '卡扣疗程',
+            key: 'buckleCourse',
+            render: (h, params) => {
+              return h('span', params.row.buckleCourse*100+'%')
+            }
+          },
+          {
+            title: '卡扣产品',
+            key: 'buckleProduct',
+            render: (h, params) => {
+              return h('span', params.row.buckleProduct*100+'%')
+            }
+          },
+          {
+            title: '超折产品',
+            key: 'superProduct',
+            render: (h, params) => {
+              return h('span', params.row.superProduct*100+'%')
+            }
+          },
+         /* {
             title: '卡项销售',
             key: 'cardSales'
           },
@@ -54,10 +121,20 @@
           {
             title: '卡扣产品',
             key: 'buckleProduct'
-          },
+          },*/
           {
             title: '高端项目',
-            key: 'highEndProject'
+            key: 'highEndProject',
+            render: (h, params) => {
+              return h('span', params.row.highEndProject*100+'%')
+            }
+          },
+          {
+            title: '其他',
+            key: 'otherProduct',
+            render: (h, params) => {
+              return h('span', params.row.otherProduct*100+'%')
+            }
           },
           {
             title: '操作',
@@ -67,7 +144,7 @@
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'success',
+                    type: 'primary',
                     size: 'small'
                   },
                   style: {
@@ -93,43 +170,26 @@
                     }
                   }
                 }, '删除'),
-                h('Button', {
-                  props: {
-                    type: 'primary',
-                    size: 'small',
-                  },
-                  style: {
-                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      this.manerge(params.row);
-                    }
-                  }
-                }, '失效'),
               ]);
             }
           }
         ],
-        data:[
-          {
-            low: '1000',
-            high: '1500',
-            faceon: '0.1',
-            unfaceon: '0.2',
-            bodyon: '0.1',
-            unbodyon: '0.1'
-          },
-          {
-            low: '1000',
-            high: '1500',
-            faceon: '0.1',
-            unfaceon: '0.2',
-            bodyon: '0.1',
-            unbodyon: '0.1'
-          }
-        ],
-        ut:{},
+        data:[],
+        ut:{
+          lowLimit:'',
+          highLimit:'',
+          id: '',
+          storeId: this.$route.params.id,
+          type: '',
+          storedValue:'',
+          cashCourse:'',
+          cashProduct:'',
+          buckleCourse:'',
+          buckleProduct:'',
+          superProduct:'',
+          highEndProject:'',
+          otherProduct:'',
+        },
         title: '',
         salaryFlag: false,
       }
@@ -148,22 +208,49 @@
       add(){
         this.title = '新增';
         this.salaryFlag = true;
-        this.ut.lowLimit = '';
-        this.ut.highLimit ='';
-        this.ut.cardSales = '';
-        this.ut.buckleProject = '';
-        this.ut.buckleProduct = '';
-        this.ut.highEndProject  = '';
-        this.ut.id = '';
-        this.ut.storeId = this.$route.params.id;
+        this.ut={
+          lowLimit:'',
+          highLimit:'',
+          id: '',
+          storeId: this.$route.params.id,
+          type: '',
+          storedValue:'',
+          cashCourse:'',
+          cashProduct:'',
+          buckleCourse:'',
+          buckleProduct:'',
+          superProduct:'',
+          highEndProject:'',
+          otherProduct:'',
+        };
         this.ut.type = '1';
       },
       update(row){
         this.title = '修改';
         this.salaryFlag = true;
-        this.ut = row;
+        this.ut =JSON.parse(JSON.stringify(row));
+        this.ut.storedValue = this.ut.storedValue*100;
+        this.ut.cashCourse = this.ut.cashCourse*100;
+        this.ut.cashProduct = this.ut.cashProduct*100;
+        this.ut.buckleCourse = this.ut.buckleCourse*100;
+        this.ut.buckleProduct = this.ut.buckleProduct*100;
+        this.ut.superProduct = this.ut.superProduct*100;
+        this.ut.otherProduct = this.ut.otherProduct*100;
+        this.ut.highEndProject = this.ut.highEndProject*100;
       },
       ok(){
+        if(this.ut =='' ){
+          this.$Message.warning('不能全部为空');
+          return;
+        }
+        this.ut.storedValue = this.ut.storedValue/100;
+        this.ut.cashCourse = this.ut.cashCourse/100;
+        this.ut.cashProduct = this.ut.cashProduct/100;
+        this.ut.buckleCourse = this.ut.buckleCourse/100;
+        this.ut.buckleProduct = this.ut.buckleProduct/100;
+        this.ut.superProduct = this.ut.superProduct/100;
+        this.ut.otherProduct = this.ut.otherProduct/100;
+        this.ut.highEndProject = this.ut.highEndProject/100;
         this.$ajax({
           method: 'post',
           url: editPerformanceDrawing(),
@@ -185,6 +272,12 @@
         }).catch( (error) =>{
           this.$Message.error('删除失败');
         })
+      },
+      check(value){
+        return value.replace(/[^\d]/g,'');
+      },
+      check2(value){
+        return value.replace(/[^\d\.]/g,'');
       }
     },
     created(){
@@ -194,16 +287,18 @@
 
 </script>
 <style scoped>
-  h3{
-    margin: 10px 0;
-  }
   .text{
     display: inline-block;
     width: 75px;
     margin-right: 5px;
   }
   .btn{
-    margin: 20px 0;
+    margin: 10px 0 20px 0;
   }
-
+  .sa3{
+    padding: 0 .6rem;
+  }
+  h3{
+    margin: 0 0 10px 0;
+  }
 </style>

@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import HelloWorld from '@/components/HelloWorld';
+import main from '@/components/main';
 
 import m_index_info_gl from '@/components/store/m_index_info_gl';
 import s_index from '@/components/store/s_index';
+import s_check from '@/components/store/s_check';
 import s_datile from '@/components/store/s_datile';
 import m_index_set from '@/components/member/m_index_set';
 import m_index_info from '@/components/member/m_index_info';
@@ -21,16 +23,20 @@ import tk_m from '@/components/card/tk_m';
 import hd_m from '@/components/card/hd_m';
 import lc_m from '@/components/card/lc_m';
 import cp_m from '@/components/card/cp_m';
+import login from '@/components/user/login'
+import register from '@/components/user/register'
+import registerResult from '@/components/user/registerResult'
+import forget from '@/components/user/forget'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/main',
       redirect: '/s_index',
-      name: 'Hello',
-      component: HelloWorld,
+      name: 'main',
+      component: main,
       children: [
         {
           path: 'm_index_info_gl',
@@ -127,6 +133,31 @@ export default new Router({
           ],
         },
       ],
+    },
+    {
+      path:'/',
+      name: 'login',
+      component: login,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login,
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: register,
+    },
+    {
+      path: '/registerResult',
+      name: 'registerResult',
+      component: registerResult,
+    },
+    {
+      path: '/forget',
+      name: 'forget',
+      component: forget,
     },
   ]
 })

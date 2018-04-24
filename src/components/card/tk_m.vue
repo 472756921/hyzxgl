@@ -1,127 +1,173 @@
 <template>
   <div class="list">
-    <h2 style="padding: .6rem;">拓客卡管理</h2>
+    <h2 style="margin: .6rem 0;">拓客卡管理</h2>
     <Button class="hy_btn" @click="Add">添加</Button>
     <br/>
     <br/>
     <Table :columns="columns" :data="data"></Table>
 
-    <Modal v-model="addF" title="添加" @on-ok="ok" class="mod">
+    <Modal v-model="addF" title="添加" :mask-closable="false" @on-ok="ok" class="mod">
       <div class='com'>名称：<Input v-model="addData.extensionName" style="width: 300px"></Input></div>
-      <div class='com'>价格：<Input v-model="addData.extensionMoney" style="width: 300px"></Input></div>
-      <div class='com'>是否计算业绩：<Input v-model="addData.performance" style="width: 300px"></Input></div>
-      <div class='com'>是否计算实操：<Input v-model="addData.actualOperation" style="width: 300px"></Input></div>
-      <div class='com'>是否计算手工：<Input v-model="addData.manualFee" style="width: 275px"></Input></div>
-      <div class='com'>有效期：<Input v-model="addData.extensionValidity" placeholder="单位月" style="width: 288px"></Input></div>
-      <div class='com'>项目：
-        <Select v-model="addData.project.projectName" style="width:275px" :transfer=true>
-          <Option>A</Option>
-          <Option>B</Option>
-        </Select>
+      <div class='com'>卡扣价格：<Input v-model="addData.bucklePrice" style="width: 276px" @on-keyup="addData.bucklePrice =check2(addData.bucklePrice)" ></Input></div>
+      <div class="com">现金价格：<Input v-model="addData.cashPrice" style="width: 276px" @on-keyup="addData.cashPrice=check2(addData.cashPrice)"></Input></div>
+      <div class='com'>有效期：<Input v-model="addData.extensionValidity" placeholder="单位天" style="width: 288px" @on-keyup="addData.extensionValidity=check(addData.extensionValidity)"></Input></div>
+      <div class='com'>是否计算业绩：<Select v-model="addData.performance" style="width:252px" :transfer=true>
+        <Option value="1"> 是</Option>
+        <Option value="2"> 否</Option>
+      </Select>
+        </div>
+      <div class='com'>是否计算实操：<Select v-model="addData.actualOperation" style="width:252px" :transfer=true>
+        <Option value="1"> 是</Option>
+        <Option value="2"> 否</Option>
+      </Select>
+       </div>
+      <div class='com'>是否计算手工：<Select v-model="addData.manualFee" style="width:252px" :transfer=true>
+        <Option value="1"> 是</Option>
+        <Option value="2"> 否</Option>
+      </Select>
+        </div>
+
+      <div class="project">
+        <h3>拓客项目<Button class="hy_btn" size="small" @click="Addproject">添加</Button></h3>
+        <div v-for="item in addData.project" class="projectone">
+          <div class='com'>项目：
+            <Select v-model="item.projectId" style="width:150px" :transfer=true>
+              <Option :value="items.id" :key="items.id" v-for="items in projectList">{{items.projectName}}</Option>
+            </Select>
+            &nbsp;&nbsp;次数：<Input v-model="item.extensionNumber" style="width: 100px" @on-keyup="item.extensionNumber=check(item.extensionNumber)"></Input>
+          </div>
+        </div>
       </div>
-      <div class='com'>次数：<Input v-model="addData.project.extensionNumber" style="width: 300px"></Input></div>
       <div class='group'>
         <h3>奖励政策</h3>
-        <div class='com'> 每周销售 <Input v-model="addData.quantity" style="width: 30px"/> 张，奖励 <Input v-model="addData.reward" style="width: 30px"/> 元</div>
+        <div class='com'> 每周销售 <Input v-model="addData.quantity" style="width: 30px"/> 张，每张奖励<Input v-model="addData.reward" style="width: 50px" @on-keyup="addData.reward=check2(addData.reward)"/> 元，超过每张奖励<Input v-model="addData.exceedReward" @on-keyup="addData.exceedReward=check(addData.exceedReward)" style="width: 50px"/> 元</div>
       </div>
     </Modal>
   </div>
 </template>
 
 <script>
-  import {findExtension,saveExtension,editExtension,deleteExtension} from '../../interface'
-  export default {
-    name: "tk_m",
-    data() {
-      return {
-        columns: [
-          { title: '名称', key: 'extensionName',},
-          { title: '价格', key: 'extensionMoney',},
-          { title: '有效期', key: 'extensionValidity',},
-          { title: '是否计算业绩', key: 'performance',},
-          { title: '是否计算实操', key: 'actualOperation',},
-          { title: '是否计算手工', key: 'manualFee',},
-          { title: '项目', key: 'x',},
-          { title: '次数', key: 'c',},
-          {
-            title: '操作',
-            key: 'action',
-            render: (h, params) => {
-              return h('div', [
-                h('Button', {
-                  props: {
-                    type: 'primary',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      this.mannger(params.row)
-                    }
-                  }
-                }, '修改'),
-                h('Button', {
-                  props: {
-                    type: 'warning',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      this.del(params.row, params.index)
-                    }
-                  }
-                }, '删除'),
-              ]);
-            }
-          }
-        ],
-        data: [
-          {p: '300', d: "24", yj: '是', sc: '是', sg: '是', x: '足浴，美肤', c: '2'},
-          {p: '300', d: "24", yj: '是', sc: '是', sg: '是', x: '足浴，美肤，嫩白', c: '8'},
-        ],
-        addF: false,
-        addData:{
-          actualOperation: "",
-          extensionMoney: "",
-          extensionName: '',
-          extensionValidity: '',
-          id: '',
-          manualFee: "",
-          performance: "",
-          project: [
+import {findExtension,saveExtension,editExtension,deleteExtension,findAllProject} from '../../interface'
+    export default {
+      name: "tk_m",
+      data() {
+        return {
+          columns: [
+            { title: '名称', key: 'extensionName',},
+            { title: '卡扣价格', key: 'bucklePrice',},
+            { title: '现金价格', key: 'cashPrice',},
+            { title: '有效期(天)', key: 'extensionValidity',},
+            { title: '是否计算业绩', key: 'performance',
+              render: (h, params) => {
+                return h('div',params.row.performance==1? '是':'否')
+              }
+
+            },
+            { title: '是否计算实操', key: 'actualOperation',
+              render: (h, params) => {
+                return h('div',params.row.actualOperation==1? '是':'否')
+              }
+            },
+            { title: '是否计算手工', key: 'manualFee',
+              render: (h, params) => {
+                return h('div',params.row.manualFee==1? '是':'否')
+              }
+            },
             {
-              extensionNumber: '',
-              extensionValidity:'',
-              projectId: '',
-              projectName: ""
+              title: '操作',
+              key: 'action',
+              render: (h, params) => {
+                return h('div', [
+                  h('Button', {
+                    props: {
+                      type: 'primary',
+                      size: 'small'
+                    },
+                    style: {
+                      marginRight: '5px'
+                    },
+                    on: {
+                      click: () => {
+                        this.mannger(params.row)
+                      }
+                    }
+                  }, '修改'),
+                  h('Button', {
+                    props: {
+                      type: 'warning',
+                      size: 'small'
+                    },
+                    style: {
+                      marginRight: '5px'
+                    },
+                    on: {
+                      click: () => {
+                        this.del(params.row, params.index)
+                      }
+                    }
+                  }, '删除'),
+                ]);
+              }
             }
           ],
-          quantity: '',
-          reward: "",
-          storeName: "",
-          storeId: this.$route.params.id,
-        },
-        type: '',
-      }
-    },
-    methods: {
-      getData(){
-        this.$ajax({
-          method:'get',
-          url: findExtension()+'?storeId='+this.$route.params.id,
-        }).then( (res) =>{
-          this.data = res.data;
-        }).catch( (error) =>{
-
-        })
+          data: [],
+          addF: false,
+          addData:{
+            actualOperation: "",
+            extensionMoney: "",
+            extensionName: '',
+            extensionValidity: "",
+            id: "",
+            manualFee: "",
+            performance: "",
+            project: [
+              {
+                extensionNumber: '',
+                extensionValidity:'',
+                projectId: '',
+                projectName: ""
+              }
+            ],
+            quantity: '',
+            reward: "",
+            storeName: "",
+            storeId: this.$route.params.id,
+            bucklePrice:"",
+            cashPrice:"",
+            exceedReward:"",
+          },
+          type: '',
+          projectList:[],
+        }
       },
-      ok() {
-        var Surl;
+      methods: {
+        getProject(){
+          this.$ajax({
+            method:'get',
+            url: findAllProject()+'?id='+this.$route.params.id,
+          }).then( (res) =>{
+            this.projectList = res.data;
+          }).catch( (error) =>{
+
+          });
+        },
+        getData(){
+          this.$ajax({
+            method:'get',
+            url: findExtension()+'?storeId='+this.$route.params.id,
+          }).then( (res) =>{
+            this.data = res.data;
+          }).catch( (error) =>{
+
+          })
+        },
+        ok() {
+          var Surl;
+
+          if(this.addData.extensionName == ''){
+            this.$Message.warning('名称不能为空');
+            return;
+          }
         if(this.type == 1){
           Surl = saveExtension();
         }else{
@@ -137,52 +183,75 @@
         }).catch( (error) =>{
           this.$Message.error('保存失败');
         })
-      },
-      Add(){
-        this.type = 1;
+        },
+        Add(){
+          this.type = 1;
         this.addF = true;
         this.addData={
-          actualOperation: "",
-          extensionMoney: "",
-          extensionName: '',
-          extensionValidity: '',
-          id: '',
-          manualFee: "",
-          performance: "",
-          project: [
-            {
-              extensionNumber: '',
-              extensionValidity:'',
-              projectId: '',
-              projectName: ""
-            }
-          ],
-          quantity: '',
-          reward: "",
-          storeName: "",
-          storeId: this.$route.params.id,
-        };
-      },
-      mannger(data, i) {
-        this.type = 0;
-        this.addF =true;
-        this.addData = data;
-      },
-      del(data, i) {
-        this.$ajax({
+              actualOperation: "",
+              extensionMoney: "",
+              extensionName: '',
+              extensionValidity: '',
+              id: '',
+              manualFee: "",
+              performance: "",
+              project: [
+              {
+                extensionNumber: '',
+                extensionValidity:'',
+                projectId: '',
+                projectName: ""
+              }
+            ],
+              quantity: '',
+              reward: "",
+              storeName: "",
+              storeId: this.$route.params.id,
+              bucklePrice:'',
+              cashPrice:''
+          };
+        },
+        Addproject(){
+          this.addData.project.push({
+            extensionNumber: '',
+            extensionValidity:'',
+            projectId: '',
+            projectName: ""
+          });
+
+        },
+        mannger(data, i) {
+          this.type = 0;
+          this.addF =true;
+          this.addData = JSON.parse(JSON.stringify(data));
+          this.addData.performance=this.addData.performance == 1 ? '1': '2';
+          this.addData.actualOperation=this.addData.actualOperation== 1 ? '1': '2';
+          this.addData.manualFee=this.addData.manualFee== 1 ? '1': '2';
+
+        },
+        del(data, i) {
+          this.$ajax({
           method: 'get',
           url: deleteExtension()+'?id='+data.id,
         }).then( (res) =>{
           this.$Message.success('删除成功');
+          this.getData();
         }).catch( (res) =>{
           this.$Message.error('删除失败');
         })
+        },
+        check(value){
+          return value.replace(/[^\d]/g,'');
+        },
+        check2(value){
+          return value.replace(/[^\d\.]/g,'');
+        }
       },
-    },
-    created(){
-      this.getData();
+      created(){
+        this.getProject();
+        this.getData();
+      }
     }
-  }
 </script>
 
 <style scoped>

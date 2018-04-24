@@ -3,34 +3,42 @@
     <h2 style="padding: .6rem;">解决方案管理</h2>
     <Row :gutter="24" class="option">
       <Col span="2">
-      <Button class="hy_btn" @click="newEm">新建{{card}}</Button>
+      <Button class="hy_btn" @click="newEm">新建</Button>
       </Col>
     </Row>
-    <h3 style="text-align: center;padding: .6rem;">{{card}}</h3>
     <Table :columns="columns" :data="data"></Table>
 
-    <Modal  v-model="storeFlag" :title="store" @on-ok="ok">
-      方案名称：<Input v-model="pis.projectName" placeholder="方案名称" style="width: 300px"/>
+    <Modal  v-model="storeFlag" :mask-closable="false" :title="store" @on-ok="ok">
+      症状：<Select v-model="pis.problemId" placeholder="症状" style="width:323px" :transfer=true>
+      <Option v-for="item in prds" :value="item.id" :key="item.id">{{ item.problem }}</Option>
+    </Select>
+      <br><br>
+      方案名称：<Input v-model="pis.schemeName" placeholder="方案名称" style="width: 300px"/>
       <br/>
       <br/>
-      基础解决方案：<Input v-model="pis.frequency" placeholder="基础解决方案" style="width: 300px"/>
+      基础解决方案：<Select v-model="pis.basicProgrammeIds" placeholder="基础解决方案" :multiple=true style="width:275px" :transfer=true>
+      <Option v-for="item in projectList" :value="item.id" :key="item.id">{{ item.projectName }}</Option>
+    </Select>
       <br/>
       <br/>
-      最优解决方案：<Input v-model="pis.intervalTime" placeholder="最优解决方案" style="width: 300px"/>
+      最优解决方案：<Select v-model="pis.optimalSchemeIds" placeholder="最优解决方案" :multiple=true style="width:275px" :transfer=true>
+      <Option v-for="item in projectList" :value="item.id" :key="item.id">{{ item.projectName }}</Option>
+    </Select>
       <br/>
       <br/>
-      症状：<Input v-model="pis.courseMoney" placeholder="症状" style="width: 300px"/>
     </Modal>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {findProjectList, projectedit, projectsave} from '../../interface';
+  import {saveSolution,editSolution,findSolutionList,deleteSolution,findproblemList,findAllProject,} from '../../interface';
 
   export default {
     name: 'p_program',
     created() {
-      this.getList();
+      this.getProject();
+      this.getProblem();
+      this.getData();
     },
     data(){
       return {
@@ -38,50 +46,78 @@
         store: '',
         card: '',
         pis: {
-          projectName : '',
-          courseMoney: '',
-          intervalTime : '',
-          frequency : '',
+          storeId: this.$route.params.id,
+          basicProgramme: "",
+          basicProgrammeIds: [],
+          enable: true,
+          handlingDetails: "",
+          id: "",
+          optimalScheme: "",
+          optimalSchemeIds: [],
+          problemId:'' ,
+          problemName: "",
+          schemeName: "",
+          storeName: "",
+          symptomType: ""
         },
         columns: [
           {
+            title: '症状',
+            key: 'problemName'
+
+          },
+          {
             title: '方案名称',
-            key: 'projectName'
+            key: 'schemeName'
           },
           {
             title: '基础解决方案',
-            key: 'frequency'
+            key: 'basicProgramme'
           },
           {
             title: '最优解决方案',
-            key: 'intervalTime'
-          },
-          {
-            title: '症状',
-            key: 'courseMoney'
+            key: 'optimalScheme'
           },
           {
             title: '操作',
             key: 'action',
             render: (h, params) => {
-              return h('Button', {
-                props: {
-                  type: 'primary',
-                  size: 'small'
-                },
-                style: {
-                  marginRight: '5px'
-                },
-                on: {
-                  click: () => {
-                    this.mannger(params.row)
+              return h('div', [
+                h('Button', {
+                  props: {
+                    type: 'primary',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: () => {
+                      this.mannger(params.row)
+                    }
                   }
-                }
-              }, '修改');
+                }, '修改'),
+                h('Button', {
+                  props: {
+                    type: 'warning',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: () => {
+                      this.del(params.row, params.index)
+                    }
+                  }
+                }, '删除'),
+              ]);
             }
           }
         ],
         data: [],
+        projectList:[],
+        prds:[],
       };
     },
     methods: {
@@ -89,19 +125,33 @@
         this.storeFlag = true;
         this.store = '新建';
         this.pis = {
-          projectName:'',
-          intervalTime : '',
-          frequency : '',
-          cashMoney : '',
-          buckleMoney : '',
-          p_zsxm : '',
-          p_pzzx : '',
-          p_xjq : '',
-          p_jsfl : '',
-          p_xffl : '',
+          storeId: this.$route.params.id,
+          basicProgramme: "",
+          basicProgrammeIds: [],
+          enable: true,
+          handlingDetails: "",
+          id: "",
+          optimalScheme: "",
+          optimalSchemeIds: [],
+          problemId:'' ,
+          problemName: "",
+          schemeName: "",
+          storeName: "",
+          symptomType: ""
+
         };
       },
-      getList() {
+      getProject(){
+        this.$ajax({
+          method:'get',
+          url: findAllProject()+'?id='+this.$route.params.id,
+        }).then( (res) =>{
+          this.projectList = res.data;
+        }).catch( (error) =>{
+
+        });
+      },
+      getProblem(){
         this.$ajax({
           method: 'GET',
           dataType: 'JSON',
@@ -109,17 +159,39 @@
           headers: {
             "authToken": sessionStorage.getItem('authToken')
           },
-          url: findProjectList(),
+          url: findproblemList()+'?id='+this.$route.params.id,
         }).then((res) => {
-          this.data = res.data.results;
+          this.prds = res.data;
         }).catch((error) => {
         });
       },
+      getData(){
+        this.$ajax({
+          method: 'GET',
+          dataType: 'JSON',
+          contentType: 'application/json;charset=UTF-8',
+          headers: {
+            "authToken": sessionStorage.getItem('authToken')
+          },
+          url: findSolutionList()+'?id='+this.$route.params.id,
+        }).then((res) => {
+          this.data = res.data;
+        }).catch((error) => {
+        });
+
+      },
       ok() {
-        let URL = projectsave();
+        let URL = saveSolution();
         if( this.store == '修改') {
-          URL = projectedit();
+          URL = editSolution();
         };
+        if(this.pis.schemeName == ''){
+          this.$Message.warning('名称不能为空');
+          return;
+        }
+        this.pis.basicProgrammeIds = this.pis.basicProgrammeIds.toString();
+        this.pis.optimalSchemeIds = this.pis.optimalSchemeIds.toString();
+        console.log(this.pis);
         this.$ajax({
           method: 'POST',
           dataType: 'JSON',
@@ -131,13 +203,40 @@
           url: URL,
         }).then((res) => {
           this.$Message.success('操作成功');
+          this.getData();
         }).catch((error) => {
+          this.$Message.error('操作失败');
         });
       },
       mannger(data) {
-        this.pis = data;
+        this.pis = JSON.parse(JSON.stringify(data));
+        if (typeof data.basicProgramme == 'string') {
+          this.pis.basicProgrammeIds = data.basicProgrammeIds.split(',').map( (it, i) => {return +it});
+        }
+        if (typeof data.optimalScheme == 'string') {
+          this.pis.optimalSchemeIds = data.optimalSchemeIds.split(',').map( (it, i) => {return +it});
+        }
         this.storeFlag = true;
         this.store = '修改';
+      },
+      del(data, i) {
+        let mess = confirm('确认删除？');
+        if (mess) {
+          this.$ajax({
+            method: 'GET',
+            url:deleteSolution()+"?id=" + data.id,
+            dataType: 'JSON',
+            contentType: 'application/json;charset=UTF-8',
+            headers: {
+              "authToken": sessionStorage.getItem('authToken')
+            },
+          }).then((res) => {
+            this.data.splice(i, 1);
+            this.$Message.success('删除成功');
+          }).catch((error) => {
+            this.$Message.error('删除失败');
+          });
+        }
       },
     }
   };
