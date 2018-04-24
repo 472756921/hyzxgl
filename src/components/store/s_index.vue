@@ -296,7 +296,7 @@
                       if(params.row.status ==3 ){
                         this.$Message.error('该门店已经放弃了管理');
                       }
-                      this.manerge(params.row.id);
+                      this.manerge(params.row.id, params.row.storeName );
                     }
                   }
                 }, '管理'),
@@ -506,8 +506,8 @@
         this.store = '编辑门店';
         this.storeVal = JSON.parse(JSON.stringify(data));
       },
-      manerge(id) {
-        this.$router.push({path:'s_datile/'+id+'/c_index'});
+      manerge(id, storeName) {
+        this.$router.push({path:'s_datile/'+id+'/c_index', query:{storeName: storeName}});
       },
       Delete(id){
         this.$ajax({

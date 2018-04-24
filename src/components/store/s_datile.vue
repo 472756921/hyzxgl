@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div style="margin: 10px;font-size: 16px">门店 - {{name}}</div>
     <Row :gutter="24" class="option">
       <!--<Col span="3">-->
         <!--<Button class="hy_btn" @click="got('m_index_set')">会员权益设置</Button>-->
@@ -53,10 +54,13 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {findManagerOfTheMonthlyReport} from '../../interface';
+
   export default {
     name: 's_datile',
     data(){
       return{
+        name: '',
         isActive1: false,
         isActive2: false,
         isActive3: false,
@@ -69,6 +73,7 @@
     created() {
       const m_id = this.$route.params.id;
       this.getUrl();
+      this.name = this.$route.query.storeName;
     },
     methods: {
       got(path) {

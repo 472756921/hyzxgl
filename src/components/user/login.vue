@@ -19,8 +19,8 @@
     data(){
       return{
         data:{
-          account:'',
-          password:''
+          account:'123456789',
+          password:'123456'
         }
       }
     },

@@ -39,6 +39,11 @@ export default new Router({
       component: main,
       children: [
         {
+          path: '/s_check',
+          name: 's_check',
+          component: s_check,
+        },
+        {
           path: 'm_index_info_gl',
           name: 'm_index_info_gl',
           component: m_index_info_gl,

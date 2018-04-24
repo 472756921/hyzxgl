@@ -7,7 +7,6 @@
           <MenuItem name="s_index"><i class="iconfont icon-homepage"></i>门店信息</MenuItem>
           <MenuItem name="s_check" v-if="isSystem == 'true'">
             <Icon type="clipboard"></Icon>审核门店
-            <!--<i class="iconfont icon-homepage"></i>审核门店-->
           </MenuItem>
         </Menu>
       </Col>
@@ -25,7 +24,7 @@
               </DropdownMenu>
             </Dropdown>
             <span> &nbsp;&nbsp;|&nbsp;&nbsp; </span>
-            <span class="user" @click="out">退出&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span class="user" @click="out">退出</span>
           </div>
         </div>
         <div class="layout-content">

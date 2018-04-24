@@ -141,7 +141,6 @@ import { findStoreRegister,getProvinces,getCities,auditStoreCustomer } from '../
         }).catch((error)=>{
 
         })
-
       },
       getProvinces(){
         this.$ajax({
