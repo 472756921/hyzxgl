@@ -77,7 +77,7 @@
       <br/>
       年房租：<Input v-model="question.annualRent" @on-keyup="question.annualRent=check2(question.annualRent)"  placeholder="年房租" style="width: 300px"/>
       &nbsp;
-      几家店：<Input v-model="question.severalStores" @on-keyup="question.severalStores=check1(question.severalStores)" placeholder="几家店" style="width: 300px"/>
+      门店总数：<Input v-model="question.severalStores" @on-keyup="question.severalStores=check1(question.severalStores)" placeholder="几家店" style="width: 300px"/>
       <br/>
       <br/>
       房间数量：<Input v-model="question.numberOfRooms" @on-keyup="question.numberOfRooms=check1(question.numberOfRooms)" placeholder="房间数量" style="width:288px"/>
@@ -86,7 +86,11 @@
       <br/>
       <br/>
       员工数量：<Input v-model="question.numberOfEmployees" @on-keyup="question.numberOfEmployees=check1(question.numberOfEmployees)"  placeholder="员工数量" style="width:288px"/>
-      有无销售顾问：<Input v-model="question.areThereAnySales" placeholder="有无销售顾问" style="width: 264px"/>
+      有无销售顾问：
+      <Select v-model="question.areThereAnySales" style="width:264px">
+        <Option :value="有" :key="1">有</Option>
+        <Option :value="无" :key="2">无</Option>
+      </Select>
       <br/>
       <br/>
       有无店长：<Input v-model="question.areThereAnyShop" placeholder="有无店长" style="width: 288px"/>

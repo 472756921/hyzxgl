@@ -4,7 +4,7 @@
     <h2> <Button class="hy_btn btn"  @click="save">保存规则</Button><Button class="hy_btn btn"  @click="more">具体规则</Button></h2>
     <br>
     <h3>底薪
-      <Checkbox v-model="s1" disabled>启用</Checkbox>
+      <Checkbox v-model="s1">启用</Checkbox>
     </h3>
     底薪方式：
     <Select v-model="data.typeOfBaseSalary" size="small" style="width:150px;margin-right: 10px;">
