@@ -276,7 +276,11 @@
                   },
                   on: {
                     click: () => {
-                      this.check(params.row)
+                      if(sessionStorage.getItem('isSystem')) {
+                        this.check(params.row)
+                      } else {
+                        this.$Message.warning('权限不足');
+                      }
                     }
                   }
                 }, '店务诊断表'),
@@ -290,7 +294,11 @@
                   },
                   on: {
                     click: () => {
-                      this.change(params.row)
+                      if(sessionStorage.getItem('isSystem')) {
+                        this.change(params.row)
+                      }else {
+                        this.$Message.warning('权限不足');
+                      }
                     }
                   }
                 }, '修改'),
