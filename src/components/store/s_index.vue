@@ -279,7 +279,7 @@
                       this.check(params.row)
                     }
                   }
-                }, '诊断'),
+                }, '店务诊断表'),
                 h('Button', {
                   props: {
                     type: 'warning',
