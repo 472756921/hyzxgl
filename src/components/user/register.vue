@@ -25,9 +25,9 @@
       门店电话：<Input v-model="storeVal.telephone" @on-keyup="storeVal.telephone=check1(storeVal.telephone)"  placeholder="门店电话" style="width: 300px"/>
       <br/>
       <br/>
-      管理周期：<Input v-model="storeVal.managementCycle" @on-keyup="storeVal.managementCycle=check1(storeVal.managementCycle)" placeholder="管理周期" style="width: 300px"/>
-      <br/>
-      <br/>
+      <!--管理周期：<Input v-model="storeVal.managementCycle" @on-keyup="storeVal.managementCycle=check1(storeVal.managementCycle)" placeholder="管理周期" style="width: 300px"/>-->
+      <!--<br/>-->
+      <!--<br/>-->
       门店类型：<Select v-model="storeVal.storeType" style="width:300px" placeholder="门店类型">
         <Option value="1">美容院</Option>
         <Option value="2">皮肤管理</Option>
@@ -63,7 +63,7 @@
           phoneNumber: '',
           operationMode: '',
           storeType: '',
-          managementCycle: '',
+          managementCycle: '1',
           address: '',
           storeStatus: '',
           provinceId:'',
