@@ -19,7 +19,7 @@
     </div>
 
 
-    <Modal  v-model="storeFlag" :title="store" :mask-closable="false" @on-ok="newStore">
+    <Modal  v-model="storeFlag" :title="store" :mask-closable="false" @on-ok="newStore" >
       联系人：<Input v-model="storeVal.staffName" placeholder="联系人" style="width: 310px"/>
       <br/>
       <br/>
@@ -63,6 +63,10 @@
         <Radio label="2">经营不善</Radio>
         <Radio label="3">不再管理</Radio>
       </RadioGroup>
+
+      <div slot="footer">
+        <Button type="error" size="large" long @click="newStore">提交</Button>
+      </div>
     </Modal>
 
     <Modal  v-model="questionFlag" :mask-closable="false" title="门店问题分析" @on-ok="ok" width="80%">
@@ -232,8 +236,12 @@
             key: 'address'
           },
           {
-            title: '联系电话',
+            title: '联系人电话',
             key: 'phoneNumber'
+          },
+          {
+            title: '门店电话',
+            key: 'telephone'
           },
           {
             title: '管理周期',
@@ -347,7 +355,7 @@
       newStore() {
         if(this.storeVal.staffName ==''|| this.storeVal.phoneNumber ==''|| this.storeVal.storeName ==''|| this.storeVal.address ==''|| this.storeVal.telephone ==''|| this.storeVal.managementCycle ==''|| this.storeVal.storeType ==''|| this.storeVal.operationMode ==''|| this.storeVal.provinceId=='' || this.storeVal.cityId==''){
           this.$Message.warning('请填写完整信息');
-          return;
+          return false;
         }
         let URL;
         if(this.store == '编辑门店') {
@@ -361,7 +369,7 @@
             this.successTag = res.success;
           }).catch( (err)=>{
           })
-          if(this.successTag == false){
+          if(this.successTag){
             this.$Message.error('联系人电话已被注册！');
             return;
           }

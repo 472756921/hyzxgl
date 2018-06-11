@@ -109,7 +109,7 @@
           this.successTag = res.success;
         }).catch( (err)=>{
         })
-        if(this.successTag == false){
+        if(this.successTag){
           this.$Message.error('联系人电话已被注册！');
           return;
         }
