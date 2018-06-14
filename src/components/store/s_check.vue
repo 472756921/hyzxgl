@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div style="width: 300px;margin: 10px 0">
+      <Input v-model="serch" placeholder="门店名称" style="margin-top: -1px"><span slot="append" class="serc" @click="serc">查找</span></Input>
+    </div>
     <Table :columns="columns1" :data="data1"></Table>
     <Modal  v-model="storeFlag" title="详情"  :mask-closable="false"  @on-ok="ok">
       <div style="padding-left: 20px;">
@@ -51,6 +54,7 @@ import { findStoreRegister,getProvinces,getCities,auditStoreCustomer } from '../
     name: 's_check',
     data(){
       return{
+        serch: '',
         storeVal: {
           id: '',
           storeName: '',
@@ -72,7 +76,7 @@ import { findStoreRegister,getProvinces,getCities,auditStoreCustomer } from '../
             key: 'code'
           },
           {
-            title: '门店',
+            title: '门店名称',
             key: 'storeName'
           },
           {
@@ -120,24 +124,32 @@ import { findStoreRegister,getProvinces,getCities,auditStoreCustomer } from '../
         provincesData:[],
         citiesData:[],
         data1:[],
+        orData:[],
         isSystem: sessionStorage.getItem('isSystem'),
         storeId: sessionStorage.getItem('storeId'),
         auditStatus:'',
         causeOfFailure:'',
         isShow:false,
-
       }
     },
     created(){
       this.getList();
     },
     methods:{
+      serc() {
+        if(this.serch == '') {
+          this.data1 = this.orData;
+        }else{
+          this.data1 = this.orData.filter((it)=>it.storeName == this.serch);
+        }
+      },
       getList(){
         this.$ajax({
           method:'GET',
           url:findStoreRegister(),
         }).then( (res)=>{
           this.data1 = res.data.results;
+          this.orData = res.data.results;
         }).catch((error)=>{
 
         })
@@ -199,5 +211,7 @@ import { findStoreRegister,getProvinces,getCities,auditStoreCustomer } from '../
 
 </script>
 <style scoped>
-
+.serc{
+  cursor: pointer;
+}
 </style>

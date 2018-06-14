@@ -19,7 +19,7 @@
     </div>
 
 
-    <Modal  v-model="storeFlag" :title="store" :mask-closable="false" @on-ok="newStore" >
+    <Modal  v-model="storeFlag" :title="store" :mask-closable="false">
       联系人：<Input v-model="storeVal.staffName" placeholder="联系人" style="width: 310px"/>
       <br/>
       <br/>
@@ -65,11 +65,11 @@
       </RadioGroup>
 
       <div slot="footer">
-        <Button type="error" size="large" long @click="newStore">提交</Button>
+        <Button type="error" size="large" long @click="newStoret">提交</Button>
       </div>
     </Modal>
 
-    <Modal  v-model="questionFlag" :mask-closable="false" title="门店问题分析" @on-ok="ok" width="80%">
+    <Modal  v-model="questionFlag" :mask-closable="false" title="店务诊断表" @on-ok="ok" width="80%">
       联系人：<Input v-model="question.staffName" placeholder="联系人" style="width: 300px"/>
       &nbsp;
       联系人电话：<Input v-model="question.phoneNumber" @on-keyup="question.phoneNumber=check1(question.phoneNumber)" placeholder="联系人电话" style="width: 275px"/>
@@ -92,8 +92,8 @@
       员工数量：<Input v-model="question.numberOfEmployees" @on-keyup="question.numberOfEmployees=check1(question.numberOfEmployees)"  placeholder="员工数量" style="width:288px"/>
       有无销售顾问：
       <Select v-model="question.areThereAnySales" style="width:264px">
-        <Option :value="有" :key="1">有</Option>
-        <Option :value="无" :key="2">无</Option>
+        <Option value="有" :key="1">有</Option>
+        <Option value="无" :key="2">无</Option>
       </Select>
       <br/>
       <br/>
@@ -228,7 +228,7 @@
             key: 'code'
           },
           {
-            title: '门店',
+            title: '门店名称',
             key: 'storeName'
           },
           {
@@ -262,7 +262,7 @@
           },
           {
             title: '操作',
-            width: 200,
+            width: 300,
             key: 'action',
             render: (h, params) => {
               return h('div', [
@@ -313,9 +313,6 @@
                   },
                   on: {
                     click: () => {
-                      if(params.row.status ==3 ){
-                        this.$Message.error('该门店已经放弃了管理');
-                      }
                       this.manerge(params.row.id, params.row.storeName );
                     }
                   }
@@ -351,6 +348,7 @@
         citiesData:[],
         successTag:'',
         tag:1,
+        tempPhone: '',
         isSystem: sessionStorage.getItem('isSystem'),
         storeId: sessionStorage.getItem('storeId'),
       }
@@ -360,7 +358,7 @@
       this.getProvinces();
     },
     methods: {
-      newStore() {
+      newStoret() {
         if(this.storeVal.staffName ==''|| this.storeVal.phoneNumber ==''|| this.storeVal.storeName ==''|| this.storeVal.address ==''|| this.storeVal.telephone ==''|| this.storeVal.managementCycle ==''|| this.storeVal.storeType ==''|| this.storeVal.operationMode ==''|| this.storeVal.provinceId=='' || this.storeVal.cityId==''){
           this.$Message.warning('请填写完整信息');
           return false;
@@ -368,34 +366,79 @@
         let URL;
         if(this.store == '编辑门店') {
           URL = editStore();
+          if(this.tempPhone != this.storeVal.phoneNumber){
+            this.$ajax({
+              method:'GET',
+              url:checkStorePhone()+'?phoneNumber='+this.storeVal.phoneNumber
+            }).then( (res)=>{
+              if(res.data.success){
+                this.$Message.error('联系人电话已被注册！');
+                return false;
+              } else {
+                this.$ajax({
+                  method: 'POST',
+                  dataType: 'JSON',
+                  contentType: 'application/json;charset=UTF-8',
+                  headers: {
+                    "authToken": sessionStorage.getItem('authToken')
+                  },
+                  data: this.storeVal,
+                  url: URL,
+                }).then((res) => {
+                  this.$Message.success('操作成功');
+                  this.getData();
+                  this.storeFlag = false;
+                }).catch((error) => {
+                });
+              }
+            }).catch((error) => {
+            });
+          } else {
+            this.$ajax({
+              method: 'POST',
+              dataType: 'JSON',
+              contentType: 'application/json;charset=UTF-8',
+              headers: {
+                "authToken": sessionStorage.getItem('authToken')
+              },
+              data: this.storeVal,
+              url: URL,
+            }).then((res) => {
+              this.$Message.success('操作成功');
+              this.getData();
+              this.storeFlag = false;
+            }).catch((error) => {
+            });
+          }
         }else{
           URL = newStore();
           this.$ajax({
             method:'GET',
             url:checkStorePhone()+'?phoneNumber='+this.storeVal.phoneNumber
           }).then( (res)=>{
-            this.successTag = res.success;
+            if(res.data.success){
+              this.$Message.error('联系人电话已被注册！');
+              return false;
+            } else {
+              this.$ajax({
+                method: 'POST',
+                dataType: 'JSON',
+                contentType: 'application/json;charset=UTF-8',
+                headers: {
+                  "authToken": sessionStorage.getItem('authToken')
+                },
+                data: this.storeVal,
+                url: URL,
+              }).then((res) => {
+                this.$Message.success('操作成功');
+                this.getData();
+                this.storeFlag = false;
+              }).catch((error) => {
+              });
+            }
           }).catch( (err)=>{
           })
-          if(this.successTag){
-            this.$Message.error('联系人电话已被注册！');
-            return;
-          }
         }
-        this.$ajax({
-          method: 'POST',
-          dataType: 'JSON',
-          contentType: 'application/json;charset=UTF-8',
-          headers: {
-            "authToken": sessionStorage.getItem('authToken')
-          },
-          data: this.storeVal,
-          url: URL,
-        }).then((res) => {
-          this.$Message.success('操作成功');
-          this.getData();
-        }).catch((error) => {
-        });
       },
       getData(){
         this.tag = 1;
@@ -524,6 +567,7 @@
       change(data) {
         this.storeFlag = true;
         this.store = '编辑门店';
+        this.tempPhone = data.phoneNumber;
         this.storeVal = JSON.parse(JSON.stringify(data));
       },
       manerge(id, storeName) {

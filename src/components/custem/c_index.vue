@@ -9,7 +9,7 @@
             <h4 class="titleB">指定条件</h4>
              <Checkbox label="1" v-model="data.exclusivePointList">排他性点单</Checkbox>
              <Checkbox label="2" v-model="data.continuousService">某技师连续服务 <input type="text" class="inputext" placeholder="填写" v-model="data.serviceTimes"/> 次</Checkbox>
-             <Checkbox label="3" v-model="data.customerIntroduction">有联系的顾客介绍</Checkbox>
+             <Checkbox label="3" v-model="data.customerIntroduction">有指定的顾客介绍</Checkbox>
              <Checkbox label="4" v-model="data.technician">技师直接拓客</Checkbox>
           </Col>
           <Col span="12">
@@ -63,9 +63,9 @@
         </h3>
         <Col span="8">
           <h4 class="titleB">客户分级 <Checkbox label="12" v-model="data.classA">启用</Checkbox></h4>
-          <div>A类（高信任度）</div>
-          <div>B类（中信任度）</div>
-          <div>C类（不熟悉）</div>
+          <div>A类</div>
+          <div>B类</div>
+          <div>C类</div>
         </Col>
         <Col span="8">
           <h4 class="titleB">消费实力</h4>
@@ -112,7 +112,7 @@
       </Row>
     </div>
 
-    <!--<m_index_info_gl/>-->
+    <Button class="hy_btn" @click="save">保存规则</Button>
 
   </div>
 </template>
@@ -249,7 +249,7 @@
     margin: 10px 0;
   }
   .inputext{
-    width: 30px;
+    width: 80px;
     margin: 0 3px;
     border: 1px solid #ccc;
   }
