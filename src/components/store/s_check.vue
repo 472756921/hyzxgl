@@ -84,8 +84,19 @@ import { findStoreRegister,getProvinces,getCities,auditStoreCustomer } from '../
             key: 'address'
           },
           {
-            title: '联系电话',
+            title: '联系人电话',
             key: 'phoneNumber'
+          },
+          {
+            title: '门店电话',
+            key: 'telephone'
+          },
+          {
+            title: '门店类型',
+            key: 'storeType',
+            render:(h,params)=>{
+              return h('div',params.row.storeType == 1 ?'美容院':'皮肤管理')
+            }
           },
           {
             title: '管理周期',
