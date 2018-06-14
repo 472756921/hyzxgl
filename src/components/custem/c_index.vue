@@ -69,13 +69,13 @@
         </Col>
         <Col span="8">
           <h4 class="titleB">消费实力</h4>
-           <Checkbox label="13" v-model="data.bigCustomer">大客户（消费达 <input type="text" class="inputext" placeholder="填写" v-model="data.bigCustomerN"/> 元）</Checkbox>
-           <Checkbox label="14" v-model="data.ordinaryCustomer">普通客户（消费不足 <input type="text" class="inputext" placeholder="填写" v-model="data.ordinaryCustomerN"/> 元）</Checkbox>
+           <Checkbox label="13" v-model="data.bigCustomer">大客户（连续<input type="text" class="inputext" placeholder="填写" v-model="data.bigCustomerMonth"/>个月，消费达 <input type="text" class="inputext" placeholder="填写" v-model="data.bigCustomerN"/> 元）</Checkbox>
+           <!--<Checkbox label="14" v-model="data.ordinaryCustomer">普通客户（消费不足 <input type="text" class="inputext" placeholder="填写" v-model="data.ordinaryCustomerN"/> 元）</Checkbox>-->
         </Col>
         <Col span="8">
           <h4 class="titleB">客户活跃度</h4>
-           <Checkbox label="15" v-model="data.regularCustomers">常到店客户 （连续 <input type="text" class="inputext" placeholder="填写" v-model="data.regularCustomersN"/> 月至少到店一次）</Checkbox>
-           <Checkbox label="15" v-model="data.sleepCustomer">睡眠客户 （连续 <input type="text" class="inputext" placeholder="填写" v-model="data.sleepCustomerN"/> 月以上未到店）</Checkbox>
+           <Checkbox label="15" v-model="data.regularCustomers">常到店客户 （连续 <input type="text" class="inputext" placeholder="填写" v-model="data.regularCustomersN"/> 月至少到店<input type="text" class="inputext" placeholder="填写" v-model="data.regularMinCount"/>次）</Checkbox><br/>
+           <Checkbox label="15" v-model="data.sleepCustomer">睡眠客户 （连续 <input type="text" class="inputext" placeholder="填写" v-model="data.sleepCustomerN"/> 月以上未到店）</Checkbox><br/>
            <Checkbox label="15" v-model="data.frozenCustomers">冻结客户 （连续 <input type="text" class="inputext" placeholder="填写" v-model="data.frozenCustomersN"/> 月以上未到店）</Checkbox>
         </Col>
       </Row>
@@ -134,6 +134,8 @@
         data: {
           xxxx: '',
           id: '',
+          regularMinCount: '',
+          bigCustomerMonth: '',
           exclusivePointList: false,
           continuousService: false,
           serviceTimes: '',

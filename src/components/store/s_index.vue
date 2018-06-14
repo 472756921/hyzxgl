@@ -19,7 +19,7 @@
     </div>
 
 
-    <Modal  v-model="storeFlag" :title="store" :mask-closable="false">
+    <Modal  v-model="storeFlag" :title="store" :mask-closable="false" >
       联系人：<Input v-model="storeVal.staffName" placeholder="联系人" style="width: 310px"/>
       <br/>
       <br/>
@@ -69,7 +69,7 @@
       </div>
     </Modal>
 
-    <Modal  v-model="questionFlag" :mask-closable="false" title="店务诊断表" @on-ok="ok" width="80%">
+    <Modal  v-model="questionFlag" :mask-closable="false" title="店务诊断表" width="60%" >
       联系人：<Input v-model="question.staffName" placeholder="联系人" style="width: 300px"/>
       &nbsp;
       联系人电话：<Input v-model="question.phoneNumber" @on-keyup="question.phoneNumber=check1(question.phoneNumber)" placeholder="联系人电话" style="width: 275px"/>
@@ -91,7 +91,7 @@
       <br/>
       员工数量：<Input v-model="question.numberOfEmployees" @on-keyup="question.numberOfEmployees=check1(question.numberOfEmployees)"  placeholder="员工数量" style="width:288px"/>
       有无销售顾问：
-      <Select v-model="question.areThereAnySales" style="width:264px">
+      <Select v-model="question.areThereAnySales" style="width:264px" :transfer=true>
         <Option value="有" :key="1">有</Option>
         <Option value="无" :key="2">无</Option>
       </Select>
@@ -154,6 +154,9 @@
       目前自己认为经营的最大问题是什么？：<Input v-model="question.theBiggestProblem" type="textarea" :autosize="true" placeholder="目前自己认为经营的最大问题是什么？" style="width: 265px"/>
       <br/>
       <br/>
+      <div slot="footer">
+        <Button type="error" size="large"  @click="ok">提交</Button>
+      </div>
     </Modal>
   </div>
 </template>
@@ -543,10 +546,6 @@
         this.clearNew();
       },
       ok() {
-        if(this.storeVal.staffName ==''|| this.storeVal.telephone ==''|| this.storeVal.storeName ==''|| this.storeVal.address ==''|| this.storeVal.phoneNumber ==''|| this.storeVal.managementCycle ==''|| this.storeVal.storeType ==''|| this.storeVal.operationMode ==''|| this.storeVal.provinceId=='' || this.storeVal.cityId==''){
-          this.$Message.warning('请填写完整信息');
-          return;
-        }
         this.$ajax({
           method: 'POST',
           dataType: 'JSON',
@@ -559,6 +558,7 @@
         }).then((res) => {
           this.$Message.success('操作成功');
           this.searchActive = false;
+          this.questionFlag = false;
           this.serch = '';
           this.getData();
         }).catch((error) => {
