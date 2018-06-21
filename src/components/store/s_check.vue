@@ -21,6 +21,9 @@
         门店所在市：{{storeVal.cityName}}
         <br/>
         <br/>
+        门店所在区/县：{{storeVal.area}}
+        <br/>
+        <br/>
         门店地址：{{storeVal.address}}
         <br/>
         <br/>
@@ -59,6 +62,7 @@ import { findStoreRegister,getProvinces,getCities,auditStoreCustomer } from '../
           id: '',
           storeName: '',
           cityName:'',
+          provinceName: '',
           telephone: '',
           staffName: '',
           phoneNumber: '',
@@ -69,6 +73,7 @@ import { findStoreRegister,getProvinces,getCities,auditStoreCustomer } from '../
           storeStatus: '',
           provinceId:'',
           cityId:'',
+          area: '',
         },
         columns1: [
           {
@@ -78,6 +83,18 @@ import { findStoreRegister,getProvinces,getCities,auditStoreCustomer } from '../
           {
             title: '门店名称',
             key: 'storeName'
+          },
+          {
+            title: '省',
+            key: 'provinceName'
+          },
+          {
+            title: '市',
+            key: 'cityName'
+          },
+          {
+            title: '区',
+            key: 'cityName'
           },
           {
             title: '地址',

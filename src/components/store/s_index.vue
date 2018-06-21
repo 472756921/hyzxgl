@@ -29,12 +29,9 @@
       门店名称：<Input v-model="storeVal.storeName" placeholder="门店名称" style="width: 300px"/>
       <br/>
       <br/>
-      门店省市：<Select v-model="storeVal.provinceId" style="width:150px" :transfer=true  placeholder="门店所在省" @on-change="getCities(storeVal.provinceId)">
-        <Option :value="item.id" :key="item.id" v-for="item in provincesData">{{item.name}}</Option>
-      </Select>
-      <Select v-model="storeVal.cityId" style="width:150px" :transfer=true  placeholder="门店所在市">
-        <Option :value="item.id" :key="item.id" v-for="item in citiesData">{{item.name}}</Option>
-      </Select>
+      门店省市：<select id="s_province" name="province" class="sus" v-model="storeVal.provinceName" placeholder="门店所在省" ></select>&nbsp;&nbsp;
+      <select id="s_city" name="city" v-model="storeVal.cityName" class="sus" ></select>&nbsp;&nbsp;
+      <select id="s_county" name="area"  v-model="storeVal.area" class="sus"></select>
       <br/>
       <br/>
       门店地址：<Input v-model="storeVal.address" placeholder="门店地址" style="width: 300px"/>
@@ -163,6 +160,7 @@
 
 <script type="text/ecmascript-6">
   import { findStoreList,findStoreListById, newStore, editStore,deleteStore,getProvinces,getCities,checkStorePhone } from '../../interface';
+
   export default {
     name: 's_index',
     data () {
@@ -176,7 +174,6 @@
         storeVal: {
           id: '',
           storeName: '',
-          cityName:'',
           telephone: '',
           staffName: '',
           phoneNumber: '',
@@ -185,8 +182,9 @@
           managementCycle: '',
           address: '',
           storeStatus: '',
-          provinceId:'',
-          cityId:'',
+          provinceName:'',
+          cityName:'',
+          area:'',
         },
         question: {
           id: '',
@@ -235,6 +233,18 @@
             key: 'storeName'
           },
           {
+            title: '省',
+            key: 'provinceName'
+          },
+          {
+            title: '市',
+            key: 'cityName'
+          },
+          {
+            title: '区',
+            key: 'area'
+          },
+          {
             title: '地址',
             key: 'address'
           },
@@ -265,7 +275,7 @@
           },
           {
             title: '操作',
-            width: 300,
+            width: 210,
             key: 'action',
             render: (h, params) => {
               return h('div', [
@@ -358,11 +368,14 @@
     },
     created() {
       this.getData();
-      this.getProvinces();
+      // this.getProvinces();
+    },
+    mounted() {
+      new PCAS("province","city","area");
     },
     methods: {
       newStoret() {
-        if(this.storeVal.staffName ==''|| this.storeVal.phoneNumber ==''|| this.storeVal.storeName ==''|| this.storeVal.address ==''|| this.storeVal.telephone ==''|| this.storeVal.managementCycle ==''|| this.storeVal.storeType ==''|| this.storeVal.operationMode ==''|| this.storeVal.provinceId=='' || this.storeVal.cityId==''){
+        if(this.storeVal.staffName ==''|| this.storeVal.phoneNumber ==''|| this.storeVal.storeName ==''|| this.storeVal.address ==''|| this.storeVal.telephone ==''|| this.storeVal.managementCycle ==''|| this.storeVal.storeType ==''|| this.storeVal.operationMode ==''|| this.storeVal.provinceName=='请选择' || this.storeVal.provinceName==''|| this.storeVal.cityName=='' || this.storeVal.area==''){
           this.$Message.warning('请填写完整信息');
           return false;
         }
@@ -372,7 +385,7 @@
           if(this.tempPhone != this.storeVal.phoneNumber){
             this.$ajax({
               method:'GET',
-              url:checkStorePhone()+'?phoneNumber='+this.storeVal.phoneNumber
+              url:checkStorePhone()+'?phoneNumber='+this.storeVal.phoneNumber + '&provinceName='+this.provinceName+'&cityName=' + this.cityName + '&area=' +this.area + '&address=' + this.address
             }).then( (res)=>{
               if(res.data.success){
                 this.$Message.error('联系人电话已被注册！');
@@ -417,10 +430,10 @@
           URL = newStore();
           this.$ajax({
             method:'GET',
-            url:checkStorePhone()+'?phoneNumber='+this.storeVal.phoneNumber
+            url:checkStorePhone()+'?phoneNumber='+this.storeVal.phoneNumber + '&provinceName='+this.storeVal.provinceName+'&cityName=' + this.storeVal.cityName + '&area=' +this.storeVal.area + '&address=' + this.storeVal.address
           }).then( (res)=>{
             if(res.data.success){
-              this.$Message.error('联系人电话已被注册！');
+              this.$Message.error(res.data.message);
               return false;
             } else {
               this.$ajax({
@@ -569,6 +582,7 @@
         this.store = '编辑门店';
         this.tempPhone = data.phoneNumber;
         this.storeVal = JSON.parse(JSON.stringify(data));
+        PCAS("province","city","area", data.provinceName,data.cityName,data.area);
       },
       manerge(id, storeName) {
         this.$router.push({path:'s_datile/'+id+'/c_index', query:{storeName: storeName}});
@@ -628,5 +642,11 @@
     margin-top:20px;
     padding-right: 20px;
     background: #fff;
+  }
+  .sus{
+    width: 92px;
+    height: 28px;
+    border-radius: 4px;
+    border-color: #ccc;
   }
 </style>

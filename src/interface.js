@@ -1,7 +1,8 @@
 /**
  * Created by Benson on 2017/12/27.
  */
-const host = 'http://116.62.201.135:8080';
+// const host = 'http://116.62.201.135:8080';
+const host = 'http://192.168.1.3:8080';
 
 //门店列表
 export const findStoreList = function () {

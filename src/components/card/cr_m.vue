@@ -63,19 +63,19 @@
           <div class='com'> 第 <Input v-model="addData.memberReturnNtoStore" style="width: 30px"/> 次到店第 <Input v-model="addData.memberReturnNProject" style="width: 30px"/> 个项目，返现 <Input v-model="addData.returnAmount" @on-keyup="addData.returnAmount=check2(addData.returnAmount)" style="width: 80px"/>元，有效期 <Input v-model="addData.returnValidity" @on-keyup="addData.returnValidity=check(addData.returnValidity)" style="width: 30px"/> 个月</div>
         </div>
         <div class='com' style="margin-bottom:100px;"><span style="float: left;">注意事项：</span><Select v-model="addData.precautions" placeholder="注意事项" :multiple=true style="width:400px;margin-bottom:50px;" :transfer=true >
-          <Option :value="1" style="word-wrap: break-word"> 1.会员尊享必须每月到店护理两次以上（每次最少两个项目），<br>第三次到店方可尊享免费项目。</Option>
-          <Option :value="2" > 2.会员尊享是从会员充值之日起连续十二个月内有效。</Option>
-          <Option :value="3" > 3.会员充值三个月内可补差额升卡，消费超过三个月升卡需全额。</Option>
-          <Option :value="4" > 4.会员充值三个月内可补差额升卡，消费超过三个月升卡需全额。</Option>
-          <Option :value="5" > 5.会员尊享本月不做不累计，逾期无效。</Option>
-          <Option :value="6" > 6.会员尊享须会员本人使用。</Option>
-          <Option :value="7" > 7.会员日项目折扣为单次折扣价。</Option>
-          <Option :value="8" > 8.会员日为储值会员服务，项目折扣金额为会员卡扣金额，<br>不接受现金支付。</Option>
-          <Option :value="9" > 9.会员日权利时限与会员尊享同步。</Option>
-          <Option :value="10" > 10.会员当月第五次到店即享受返现日返现。</Option>
-          <Option :value="11" > 11.返现现金可购买项目，如购买产品无折扣。</Option>
-          <Option :value="12" > 12.返现现金必须当月使用，不得累计，逾期无效。</Option>
-          <Option :value="13" > 13.返现日时限与会员尊享同步。</Option>
+          <Option :value="1" style="word-wrap: break-word"> ● 会员尊享必须每月到店护理两次以上（每次最少两个项目），<br>第三次到店方可尊享免费项目。</Option>
+          <Option :value="2" > ● 会员尊享是从会员充值之日起连续十二个月内有效。</Option>
+          <Option :value="3" > ● 会员充值三个月内可补差额升卡，消费超过三个月升卡需全额。</Option>
+          <Option :value="4" > ● 会员充值三个月内可补差额升卡，消费超过三个月升卡需全额。</Option>
+          <Option :value="5" > ● 会员尊享本月不做不累计，逾期无效。</Option>
+          <Option :value="6" > ● 会员尊享须会员本人使用。</Option>
+          <Option :value="7" > ● 会员日项目折扣为单次折扣价。</Option>
+          <Option :value="8" > ● 会员日为储值会员服务，项目折扣金额为会员卡扣金额，<br>不接受现金支付。</Option>
+          <Option :value="9" > ● 会员日权利时限与会员尊享同步。</Option>
+          <Option :value="10" > ● 会员当月第五次到店即享受返现日返现。</Option>
+          <Option :value="11" > ● 返现现金可购买项目，如购买产品无折扣。</Option>
+          <Option :value="12" > ● 返现现金必须当月使用，不得累计，逾期无效。</Option>
+          <Option :value="13" > ● 返现日时限与会员尊享同步。</Option>
 
         </Select>
         </div>
@@ -105,6 +105,10 @@ import {findMembership,saveMembership,editMembership,deleteMembership,findAllPro
             {
               title: '产品折扣',
               key: 'productDiscount',
+            },
+            {
+              title: '升卡原则',
+              key: 'liftCardType',
             },
             {
               title: '有效期(月)',
