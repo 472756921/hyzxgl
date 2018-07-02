@@ -62,7 +62,9 @@
           <h3>会员返现</h3>
           <div class='com'> 第 <Input v-model="addData.memberReturnNtoStore" style="width: 30px"/> 次到店第 <Input v-model="addData.memberReturnNProject" style="width: 30px"/> 个项目，返现 <Input v-model="addData.returnAmount" @on-keyup="addData.returnAmount=check2(addData.returnAmount)" style="width: 80px"/>元，有效期 <Input v-model="addData.returnValidity" @on-keyup="addData.returnValidity=check(addData.returnValidity)" style="width: 30px"/> 个月</div>
         </div>
-        <div class='com' style="margin-bottom:100px;"><span style="float: left;">注意事项：</span><Select v-model="addData.precautions" placeholder="注意事项" :multiple=true style="width:400px;margin-bottom:50px;" :transfer=true >
+        <div class='com' style="margin-bottom:100px;">
+          <span style="float: left;">注意事项：</span>
+          <Select v-model="addData.precautions" placeholder="注意事项" :multiple=true style="width:400px;margin-bottom:50px;" :transfer=true >
           <Option :value="1" style="word-wrap: break-word"> ● 会员尊享必须每月到店护理两次以上（每次最少两个项目），<br>第三次到店方可尊享免费项目。</Option>
           <Option :value="2" > ● 会员尊享是从会员充值之日起连续十二个月内有效。</Option>
           <Option :value="3" > ● 会员充值三个月内可补差额升卡，消费超过三个月升卡需全额。</Option>
@@ -76,7 +78,6 @@
           <Option :value="11" > ● 返现现金可购买项目，如购买产品无折扣。</Option>
           <Option :value="12" > ● 返现现金必须当月使用，不得累计，逾期无效。</Option>
           <Option :value="13" > ● 返现日时限与会员尊享同步。</Option>
-
         </Select>
         </div>
       </Modal>
@@ -313,15 +314,19 @@ import {findMembership,saveMembership,editMembership,deleteMembership,findAllPro
 
         },
         del(data, i) {
+          var c = confirm('确认删除？');
+          if(!c) {
+            return false;
+          }
           this.$ajax({
-          method: 'get',
-          url: deleteMembership()+'?id='+data.id,
-        }).then( (res) =>{
-          this.$Message.success('删除成功');
-          this.getData();
-        }).catch( (res) =>{
-          this.$Message.error('删除失败');
-        })
+            method: 'get',
+            url: deleteMembership()+'?id='+data.id,
+          }).then( (res) =>{
+            this.$Message.success('删除成功');
+            this.getData();
+          }).catch( (res) =>{
+            this.$Message.error('删除失败');
+          })
         },
         check(value){
           return value.replace(/[^\d]/g,'');
